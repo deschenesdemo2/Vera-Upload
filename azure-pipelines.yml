@@ -3,9 +3,15 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-jobs:
-- job: FeatureX_Branch_Job
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - bash: echo "Hello world"
+variables:
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+
+stages:
+- stage: PipelineScan
+  jobs:
+  - job: featureX_Branch_Job
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - bash: echo $(isMain)
+
