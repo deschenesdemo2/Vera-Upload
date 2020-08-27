@@ -16,19 +16,19 @@ stages:
     - bash: echo $(myBranch)
 
 - stage: PipelineScan
-  condition: eq(variables['myBranch'], 'refs/heads/featureX')
   jobs:
   - job: featureX_Branch_Job
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - bash: echo $(myBranch)
+    - bash: echo 'Entro a Pipeline Scan'
+    condition: eq(variables['myBranch'], 'refs/heads/featureX')
 
 - stage: PolicyScan
-  condition: eq(variables['myBranch'], 'refs/heads/master')
   jobs:
   - job: master_Branch_Job
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - bash: echo $(myBranch)
+    - bash: echo 'Entro a Policy Scan'
+    condition: eq(variables['myBranch'], 'refs/heads/master')
