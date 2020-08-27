@@ -14,7 +14,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - bash: echo $(myBranch)
-    condition: eq(variables['myBranch'], 'refs/heads/featureX')
+    condition: eq(variables['myBranch'], 'refs/heads/master')
 
 #- stage: PipelineScan
 #  jobs:
