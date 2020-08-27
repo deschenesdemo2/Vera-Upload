@@ -26,14 +26,14 @@ stages:
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
-        goals: 'clean'
+        goals: 'package'
         publishJUnitResults: false
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-
+    - script: ls
 
 
   - job: PipelineScan
