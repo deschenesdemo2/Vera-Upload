@@ -21,6 +21,18 @@ stages:
 #  - job: GeneralJob
 #    steps:
 #    - bash: echo $(Build.SourceBranch)
+  - job: Build
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean package'
+        publishJUnitResults: false
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
   - job: PipelineScan
     steps:
     - script: echo 'Veracode SAST - Pipeline Scan'
