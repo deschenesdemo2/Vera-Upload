@@ -9,9 +9,9 @@ pool:
 stages:
 - stage: Veracode
   jobs:
-  - job: GeneralJob
-    steps:
-    - bash: echo $(Build.SourceBranch)
+#  - job: GeneralJob
+#    steps:
+#    - bash: echo $(Build.SourceBranch)
   - job: PipelineScan
     steps:
     - script: echo 'Pipeline Scan'
