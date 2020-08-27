@@ -14,7 +14,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - bash: echo $(Build.SourceBranch) ' - ' $(myBranch)
-    condition: eq('refs/heads/master', 'refs/heads/master')
+    condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
 
 #- stage: PipelineScan
 #  jobs:
