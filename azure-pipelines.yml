@@ -8,6 +8,7 @@ variables:
 
 stages:
 - stage: PipelineScan
+  condition: eq(variables['myBranch'], 'refs/heads/featureX')
   jobs:
   - job: featureX_Branch_Job
     pool:
@@ -15,3 +16,11 @@ stages:
     steps:
     - bash: echo $(myBranch)
 
+- stage: PolicyScan
+  condition: eq(variables['myBranch'], 'refs/heads/master')
+  jobs:
+  - job: master_Branch_Job
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - bash: echo $(myBranch)
