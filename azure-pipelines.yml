@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 variables:
-  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  myBranch: variables['Build.SourceBranch']
 
 stages:
 - stage: PipelineScan
@@ -13,5 +13,5 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - bash: echo $(isMain)
+    - bash: echo $(myBranch)
 
