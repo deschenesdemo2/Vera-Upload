@@ -14,21 +14,22 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - bash: echo $(myBranch)
-
-- stage: PipelineScan
-  jobs:
-  - job: featureX_Branch_Job
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - bash: echo 'Entro a Pipeline Scan'
     condition: eq(variables['myBranch'], 'refs/heads/featureX')
 
-- stage: PolicyScan
-  jobs:
-  - job: master_Branch_Job
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - bash: echo 'Entro a Policy Scan'
-    condition: eq(variables['myBranch'], 'refs/heads/master')
+#- stage: PipelineScan
+#  jobs:
+#  - job: featureX_Branch_Job
+#    pool:
+#      vmImage: 'ubuntu-latest'
+#    steps:
+#    - bash: echo 'Entro a Pipeline Scan'
+#    condition: eq(variables['myBranch'], 'refs/heads/featureX')
+
+#- stage: PolicyScan
+#  jobs:
+#  - job: master_Branch_Job
+#    pool:
+#      vmImage: 'ubuntu-latest'
+#    steps:
+#    - bash: echo 'Entro a Policy Scan'
+#    condition: eq(variables['myBranch'], 'refs/heads/master')
