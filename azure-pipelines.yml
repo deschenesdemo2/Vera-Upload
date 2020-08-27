@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 variables:
-  myBranch: $(variables['Build.SourceBranch'])
+  myBranch: $('Build.SourceBranch')
 
 stages:
 - stage: PipelineScan
