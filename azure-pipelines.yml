@@ -3,17 +3,22 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-variables:
-  myBranch: $(Build.SourceBranch)
+pool:
+  vmImage: 'ubuntu-latest'
 
 stages:
-- stage: General
+- stage: Veracode
   jobs:
   - job: GeneralJob
-    pool:
-      vmImage: 'ubuntu-latest'
     steps:
-    - bash: echo $(Build.SourceBranch) ' - ' $(myBranch)
+    - bash: echo $(Build.SourceBranch)
+  - job: PipelineScan
+    steps:
+    - script: echo 'Pipeline Scan'
+    condition: eq(variables['build.sourceBranch'], 'refs/heads/featureX')
+  - job: PolicyScan
+    steps:
+    - script: echo 'Policy Scan'
     condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
 
 #- stage: PipelineScan
@@ -23,7 +28,7 @@ stages:
 #      vmImage: 'ubuntu-latest'
 #    steps:
 #    - bash: echo 'Entro a Pipeline Scan'
-#    condition: eq(variables['myBranch'], 'refs/heads/featureX')
+#    condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
 
 #- stage: PolicyScan
 #  jobs:
