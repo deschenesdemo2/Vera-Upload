@@ -13,8 +13,8 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - bash: echo $(myBranch)
-    condition: eq('${{ variables.myBranch }}', 'refs/heads/master')
+    - bash: echo $(Build.SourceBranch) ' - ' $(myBranch)
+    #condition: eq($(Build.SourceBranch), 'refs/heads/master')
 
 #- stage: PipelineScan
 #  jobs:
