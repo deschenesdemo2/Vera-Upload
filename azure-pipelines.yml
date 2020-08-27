@@ -26,13 +26,16 @@ stages:
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
-        goals: 'clean package'
+        goals: 'clean'
         publishJUnitResults: false
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+
+
+
   - job: PipelineScan
     steps:
     - script: echo 'Veracode SAST - Pipeline Scan'
