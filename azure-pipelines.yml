@@ -7,6 +7,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 stages:
+# In Veracode Stage it will execute Pipeline Scan or Sandbox Scan or Policy Scan depending on the branch under execution, which could be
+# 'featureX' or 'dev' or 'master' respectively.
 - stage: Veracode
   jobs:
 #  - job: GeneralJob
@@ -14,27 +16,14 @@ stages:
 #    - bash: echo $(Build.SourceBranch)
   - job: PipelineScan
     steps:
-    - script: echo 'Pipeline Scan'
+    - script: echo 'Veracode SAST - Pipeline Scan'
     condition: eq(variables['build.sourceBranch'], 'refs/heads/featureX')
+  - job: SandboxScan
+    steps:
+    - script: echo 'Veracode SAST - Sandbox Scan'
+    condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
   - job: PolicyScan
     steps:
-    - script: echo 'Policy Scan'
+    - script: echo 'Veracode SAST - Policy Scan'
     condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
 
-#- stage: PipelineScan
-#  jobs:
-#  - job: featureX_Branch_Job
-#    pool:
-#      vmImage: 'ubuntu-latest'
-#    steps:
-#    - bash: echo 'Entro a Pipeline Scan'
-#    condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
-
-#- stage: PolicyScan
-#  jobs:
-#  - job: master_Branch_Job
-#    pool:
-#      vmImage: 'ubuntu-latest'
-#    steps:
-#    - bash: echo 'Entro a Policy Scan'
-#    condition: eq(variables['myBranch'], 'refs/heads/master')
