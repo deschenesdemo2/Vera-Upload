@@ -7,6 +7,14 @@ variables:
   myBranch: $(Build.SourceBranch)
 
 stages:
+- stage: General
+  jobs:
+  - job: GeneralJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - bash: echo $(myBranch)
+
 - stage: PipelineScan
   condition: eq(variables['myBranch'], 'refs/heads/featureX')
   jobs:
