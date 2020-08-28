@@ -51,7 +51,7 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-    - script: ls
+    - script: ls target/
 
 
   - job: PipelineScan
