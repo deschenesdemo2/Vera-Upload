@@ -53,8 +53,8 @@ stages:
         findBugsRunAnalysis: false # Optional
     - script: ls -sh target/verademo.war
 
-
   - job: PipelineScan
+    dependsOn: Build
     steps:
     - script: echo 'Veracode SAST - Pipeline Scan'
     condition: eq(variables['build.sourceBranch'], 'refs/heads/featureX')
