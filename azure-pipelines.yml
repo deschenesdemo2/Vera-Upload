@@ -57,7 +57,7 @@ stages:
     dependsOn: Build
     steps:
     - script: echo 'Veracode SAST - Pipeline Scan'
-    condition: eq(variables['build.sourceBranch'], 'refs/heads/featureX')
+    condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
   - job: SandboxScan
     steps:
     - script: echo 'Veracode SAST - Sandbox Scan'
