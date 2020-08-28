@@ -51,7 +51,7 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-    - script: ls -sh target/verademo.war
+#    - script: ls -sh target/verademo.war
 
   - job: PipelineScan
     dependsOn: Build
@@ -59,11 +59,13 @@ stages:
     - script: echo 'Veracode SAST - Pipeline Scan'
     condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
   - job: SandboxScan
+    dependsOn: Build
     steps:
     - script: echo 'Veracode SAST - Sandbox Scan'
-    condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
+    condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
   - job: PolicyScan
+    dependsOn: Build
     steps:
     - script: echo 'Veracode SAST - Policy Scan'
-    condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
+    condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/master'))
 
