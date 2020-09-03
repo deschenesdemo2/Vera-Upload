@@ -55,9 +55,14 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-    - bash: if [ls -l target/verademo.war | cut -d " " -f5 -le 100000000]
-              packageSizeAllowedPS=True
+    - bash: |
+            SIZE_PACKAGE=$(ls -l target/verademo.war | cut -d " " -f5)
+            if [ true]
+              echo "##vso[task.setvariable variable=packageSizeAllowedPS]true"
             fi
+#              packageSizeAllowedPS=True
+#            SIZE_ALLOWED=$(ls -l target/verademo.war | cut -d " " -f5 -le 100000000)
+#            fi
 #    - script: $packageSizeBytes='ls -l target/verademo.war'
 #    - script: $packageSizeBytes='ls -l target/verademo.war | cut -d " " -f5'
     - script: echo $(packageSizeAllowedPS)
