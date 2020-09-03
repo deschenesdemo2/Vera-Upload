@@ -55,7 +55,7 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-    - script: $(packageSizeMB)=ls -l --b=M target/verademo.war | cut -d " " -f5
+    - script: $packageSizeMB='ls -l --b=M target/verademo.war | cut -d " " -f5'
     - script: echo $(packageSizeMB)
 
   - job: PipelineScan
