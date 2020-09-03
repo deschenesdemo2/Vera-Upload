@@ -17,6 +17,10 @@ stages:
 # In Veracode Stage it will execute Pipeline Scan or Sandbox Scan or Policy Scan depending on the branch under execution, which could be
 # 'featureX' or 'dev' or 'master' respectively.
 - stage: Veracode
+
+  variables:
+    packageSizeMB: 0
+
   jobs:
 #  - job: GeneralJob
 #    steps:
@@ -51,18 +55,21 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-#    - script: ls -sh target/verademo.war
+    - script: $(packageSizeMB) = ls -l --b=M target/verademo.war | cut -d " " -f5
+    - script: echo $(packageSizeMB)
 
   - job: PipelineScan
     dependsOn: Build
     steps:
     - script: echo 'Veracode SAST - Pipeline Scan'
     condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+
   - job: SandboxScan
     dependsOn: Build
     steps:
     - script: echo 'Veracode SAST - Sandbox Scan'
     condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
+
   - job: PolicyScan
     dependsOn: Build
     steps:
