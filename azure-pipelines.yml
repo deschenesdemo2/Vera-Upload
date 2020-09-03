@@ -55,7 +55,7 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-    - bash: if ['ls -l target/verademo.war | cut -d " " -f5' -le 100000000]
+    - bash: if [ls -l target/verademo.war | cut -d " " -f5 -le 100000000]
               packageSizeAllowedPS=True
             fi
 #    - script: $packageSizeBytes='ls -l target/verademo.war'
