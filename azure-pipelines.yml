@@ -55,7 +55,7 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-    - script: ls -l --b=M target/verademo.war | cut -d " " -f5
+    - script: ls -l target/verademo.war | cut -d " " -f8
 #    - script: $packageSizeMB='ls -l --b=M target/verademo.war | cut -d " " -f5'
 #    - script: $packageSizeMB='ls -l --b=M target/verademo.war'
 #    - script: echo $(packageSizeMB)
