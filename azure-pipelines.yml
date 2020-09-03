@@ -57,7 +57,7 @@ stages:
         findBugsRunAnalysis: false # Optional
     - bash: |
             SIZE_PACKAGE=$(ls -l target/verademo.war | cut -d " " -f5)
-            if [ true]
+            if [ $SIZE_PACKAGE -le 100000000 ]
               echo "##vso[task.setvariable variable=packageSizeAllowedPS]true"
             fi
 #              packageSizeAllowedPS=True
