@@ -19,7 +19,7 @@ stages:
 - stage: Veracode
 
   variables:
-    packageSizeBytes: 0
+    packageSizeAllowedPS: False
 
   jobs:
 #  - job: GeneralJob
@@ -55,9 +55,12 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-    - script: $packageSizeBytes='ls -l target/verademo.war'
+    - bash: if ['ls -l target/verademo.war | cut -d " " -f5' -le 100000000]
+              packageSizeAllowedPS=True
+            fi
+#    - script: $packageSizeBytes='ls -l target/verademo.war'
 #    - script: $packageSizeBytes='ls -l target/verademo.war | cut -d " " -f5'
-    - script: echo $(packageSizeMB)
+    - script: echo $(packageSizeAllowedPS)
 
   - job: PipelineScan
     dependsOn: Build
