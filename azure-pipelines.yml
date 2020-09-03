@@ -19,7 +19,7 @@ stages:
 - stage: Veracode
 
   variables:
-    packageSizeMB: 0
+    packageSizeBytes: 0
 
   jobs:
 #  - job: GeneralJob
@@ -55,9 +55,8 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
-    - script: ls -l target/verademo.war | cut -d " " -f5
-#    - script: $packageSizeMB='ls -l --b=M target/verademo.war'
-#    - script: echo $(packageSizeMB)
+    - script: $packageSizeBytes='ls -l target/verademo.war | cut -d " " -f5'
+    - script: echo $(packageSizeMB)
 
   - job: PipelineScan
     dependsOn: Build
