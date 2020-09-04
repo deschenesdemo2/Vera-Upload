@@ -62,7 +62,7 @@ stages:
         script: |
           echo 'Veracode SAST - Pipeline Scan'
           SIZE_PACKAGE=$(ls -l target/verademo.war | cut -d " " -f5)
-          echo $(SIZE_PACKAGE)
+          echo $SIZE_PACKAGE
           if [ $SIZE_PACKAGE <= 100000000 ]
           then
             echo 'Size Package is less than or equal to 100MB....Pipeline Scan can be executed'
