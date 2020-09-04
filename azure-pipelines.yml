@@ -60,7 +60,7 @@ stages:
       inputs:
         script: |
           echo 'Hello world'
-      condition: succedded('Maven@3')
+          ls
 
     - script: ls
 
