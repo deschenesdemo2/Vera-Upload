@@ -84,36 +84,3 @@ stages:
         script: |
           echo 'Veracode SAST - Policy Scan'
 
-#  - job: PipelineScan
-#    dependsOn: Build
-#    steps:
-#    - script: echo 'Veracode SAST - Pipeline Scan'
-#    - bash: |
-#            ls /home/vsts/work/1/s/
-#            SIZE_PACKAGE=$(ls -l target/verademo.war | cut -d " " -f5)
-#            if [ expr $SIZE_PACKAGE <= 100000000 ]
-#            then
-#              echo 'Size Package is less than or equal to 100MB....Pipeline Scan can be executed'
-#            else
-#              echo 'Size Package is greater than 100MB....Pipeline Scan cannot be executed'
-#            fi
-#              packageSizeAllowedPS=True
-#            SIZE_ALLOWED=$(ls -l target/verademo.war | cut -d " " -f5 -le 100000000)
-#            fi
-#    - script: $packageSizeBytes='ls -l target/verademo.war'
-#    - script: $packageSizeBytes='ls -l target/verademo.war | cut -d " " -f5'
-#    - script: echo $(packageSizeAllowedPS)
-#    condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
-
-#  - job: SandboxScan
-#    dependsOn: Build
-#    steps:
-#    - script: echo 'Veracode SAST - Sandbox Scan'
-#    condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
-
-#  - job: PolicyScan
-#    dependsOn: Build
-#    steps:
-#    - script: echo 'Veracode SAST - Policy Scan'
-#    condition: and(succeeded('Build'), eq(variables['build.sourceBranch'], 'refs/heads/master'))
-
