@@ -55,6 +55,7 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
+    - script: ls
 
   - job: PipelineScan
     dependsOn: Build
