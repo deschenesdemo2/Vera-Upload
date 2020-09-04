@@ -57,7 +57,7 @@ stages:
 
     - task: CmdLine@2
       displayName: Pipeline Scan
-      condition: succeeded('Maven@3')
+      condition: succeeded()
       inputs:
         script: |
           echo 'Hello world'
