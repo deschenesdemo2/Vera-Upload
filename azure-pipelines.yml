@@ -18,9 +18,6 @@ stages:
 # 'featureX' or 'dev' or 'master' respectively.
 - stage: Veracode
 
-  variables:
-    packageSizeAllowedPS: False
-
   jobs:
   - job: Build
 
@@ -69,7 +66,7 @@ stages:
             curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
             unzip pipeline-scan-LATEST.zip
             echo '[INFO] --- Starting Pipeline Scan execution...'
-            java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) -f /target/verademo.war
+            java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war --project_name $(System.TeamProject) --project_url $(Build.BuildUri) -so true --issue_details true
           else
             echo '[INFO] --- Size Package is greater than 100MB....Pipeline Scan cannot be executed'
           fi
