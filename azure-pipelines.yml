@@ -61,7 +61,7 @@ stages:
       inputs:
         script: |
           echo 'Veracode SAST - Pipeline Scan'
-          ls /home/vsts/work/1/s/
+          ls -l target/verademo.war | cut -d " " -f5
           SIZE_PACKAGE=$(ls -l target/verademo.war | cut -d " " -f5)
           if [ $SIZE_PACKAGE <= 100000000 ]
           then
