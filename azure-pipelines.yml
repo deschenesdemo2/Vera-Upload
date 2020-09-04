@@ -22,11 +22,10 @@ stages:
     packageSizeAllowedPS: False
 
   jobs:
-#  - job: GeneralJob
-#    steps:
-#    - bash: echo $(Build.SourceBranch)
   - job: Build
+
     steps:
+    
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
@@ -57,11 +56,11 @@ stages:
         findBugsRunAnalysis: false # Optional
 
     - task: CmdLine@2
+      displayName: Pipeline Scan
+      condition: succeeded('Maven@3')
       inputs:
         script: |
           echo 'Hello world'
-
-    - script: ls /home/vsts/work/1/s/
 
   - job: PipelineScan
     dependsOn: Build
