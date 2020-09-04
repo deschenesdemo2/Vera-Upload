@@ -60,7 +60,7 @@ stages:
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
       inputs:
         script: |
-          echo 'Veracode SAST - Pipeline Scan'
+          echo '[INFO] --- Veracode SAST - Pipeline Scan'
           SIZE_PACKAGE=$(ls -l target/verademo.war | cut -d " " -f5)
           echo $SIZE_PACKAGE
           if [ $SIZE_PACKAGE -le 100000000 ];
@@ -75,12 +75,12 @@ stages:
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
       inputs:
         script: |
-          echo 'Veracode SAST - Sandbox Scan'
+          echo '[INFO] --- Veracode SAST - Sandbox Scan'
 
     - task: CmdLine@2
       displayName: Policy Scan
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
       inputs:
         script: |
-          echo 'Veracode SAST - Policy Scan'
+          echo '[INFO] --- Veracode SAST - Policy Scan'
 
