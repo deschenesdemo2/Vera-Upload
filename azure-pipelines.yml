@@ -55,6 +55,13 @@ stages:
         checkStyleRunAnalysis: false # Optional
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
+
+    - task: CmdLine@2
+      inputs:
+        script: |
+          echo 'Hello world'
+      condition: succedded('Maven@3')
+
     - script: ls
 
   - job: PipelineScan
