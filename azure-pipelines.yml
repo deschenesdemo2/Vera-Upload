@@ -67,7 +67,7 @@ stages:
             unzip pipeline-scan-LATEST.zip
             echo '[INFO] --- Starting Pipeline Scan execution...'
             PS_RESPONSE=$(java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war --project_name $(System.TeamProject) --project_url $(Build.BuildUri) -so true --issue_details true)
-            echo '[INFO] --- $(PS_RESPONSE)'
+            echo '[INFO] --- '$PS_RESPONSE
           else
             echo '[INFO] --- Size Package is greater than 100MB....Pipeline Scan cannot be executed'
           fi
