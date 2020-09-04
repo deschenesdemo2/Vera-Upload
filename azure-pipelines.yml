@@ -60,16 +60,15 @@ stages:
       inputs:
         script: |
           echo 'Hello world'
-          ls
 
-    - script: ls
+    - script: ls /home/vsts/work/1/s/
 
   - job: PipelineScan
     dependsOn: Build
     steps:
     - script: echo 'Veracode SAST - Pipeline Scan'
     - bash: |
-            ls
+            ls /home/vsts/work/1/s/
             SIZE_PACKAGE=$(ls -l target/verademo.war | cut -d " " -f5)
             if [ $SIZE_PACKAGE <= 100000000 ]
             then
