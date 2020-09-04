@@ -66,7 +66,17 @@ stages:
             curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
             unzip pipeline-scan-LATEST.zip
             echo '[INFO] --- Starting Pipeline Scan execution...'
-            java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war --project_name $(System.TeamProject) --project_url $(Build.BuildUri) -so true --issue_details true
+            PS_RESPONSE=$(java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war --project_name $(System.TeamProject) --project_url $(Build.BuildUri) -so true --issue_details true)
+            if [ $PS_RESPONSE -gt 0 ];
+            then
+              echo '[INFO] --- Pipeline Scan has finished.'
+              echo '[INFO] --- $PS_RESPONSE flaws were found!'
+              exit 1
+            elif [ $PS_RESPONSE -lt 0 ];
+            then
+              echo '[INFO] --- Pipeline Scan couldn't be executed...There are some errors!!'
+              exit 1
+            fi
           else
             echo '[INFO] --- Size Package is greater than 100MB....Pipeline Scan cannot be executed'
           fi
