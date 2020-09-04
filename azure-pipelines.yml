@@ -73,10 +73,11 @@ stages:
               echo '[INFO] --- Pipeline Scan has finished.'
               echo '[INFO] --- ' $STATUS ' flaws were found.'
               exit 1
-            elif [ $STATUS -lt 0 ];
-            then
-              echo '[INFO] --- Pipeline Scan couldn't be executed...There are some errors...'
-              exit 1
+            else
+              if [ $STATUS -lt 0 ];
+              then
+                echo '[INFO] --- Pipeline Scan couldn't be executed...There are some errors...'
+                exit 1
             fi
           else
             echo '[INFO] --- Size Package is greater than 100MB....Pipeline Scan cannot be executed'
