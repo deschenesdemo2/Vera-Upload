@@ -57,10 +57,10 @@ stages:
 
     - task: CmdLine@2
       displayName: Pipeline Scan
-      condition: succeeded()
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
       inputs:
         script: |
-          echo 'Hello world'
+          echo 'Veracode SAST - Pipeline Scan'
 
   - job: PipelineScan
     dependsOn: Build
