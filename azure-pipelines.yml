@@ -53,7 +53,7 @@ stages:
         findBugsRunAnalysis: false # Optional
 
     - task: CmdLine@2
-      displayName: Pipeline Scan
+      displayName: SAST - Pipeline Scan
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
       inputs:
         script: |
@@ -83,15 +83,8 @@ stages:
             echo '[INFO] --- Size Package is greater than 100MB - ' $STATUS 'bytes....Pipeline Scan cannot be executed'
           fi
 
-#    - task: CmdLine@2
-#      displayName: Sandbox Scan
-#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
-#      inputs:
-#        script: |
-#          echo '[INFO] --- Veracode SAST - Sandbox Scan'
-
     - task: Veracode@3
-      displayName: Sandbox Scan
+      displayName: SAST - Sandbox Scan
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
       inputs:
         ConnectionDetailsSelection: 'Credentials'
@@ -103,15 +96,24 @@ stages:
         sandboxName: 'featureXSandbox_Azure'
         createSandBox: true
         createProfile: false
+        failTheBuildIfVeracodeScanDidNotInitiate: true #This variable could be set to false if you don't want that a problem in Veracode scan breaks the pipeline
+        scanStatusCheckInterval: '60'
+        importResults: false
+        failBuildOnPolicyFail: true  #This variable could be set to false if you don't want that Veracode breaks the pipeline if scan does not pass the policy evaluation
+
+    - task: Veracode@3
+      displayName: SAST Policy Scan
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+      inputs:
+        ConnectionDetailsSelection: 'Credentials'
+        apiId: '$(VID)'
+        apiKey: '$(VKEY)'
+        veracodeAppProfile: 'verademo'
+        version: '$(build.buildNumber)'
+        filepath: 'target/verademo.war'
+        createSandBox: false
+        createProfile: false
         failTheBuildIfVeracodeScanDidNotInitiate: true
         scanStatusCheckInterval: '60'
         importResults: false
         failBuildOnPolicyFail: true
-
-    - task: CmdLine@2
-      displayName: Policy Scan
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
-      inputs:
-        script: |
-          echo '[INFO] --- Veracode SAST - Policy Scan'
-
