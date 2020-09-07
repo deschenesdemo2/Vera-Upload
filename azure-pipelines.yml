@@ -80,7 +80,7 @@ stages:
               exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
             fi
           else
-            echo '[INFO] --- Size Package is greater than 100MB....Pipeline Scan cannot be executed'
+            echo '[INFO] --- Size Package is greater than 100MB - ' $STATUS 'bytes....Pipeline Scan cannot be executed'
           fi
 
     - task: CmdLine@2
