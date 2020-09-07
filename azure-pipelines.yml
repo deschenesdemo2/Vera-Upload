@@ -90,7 +90,7 @@ stages:
         ConnectionDetailsSelection: 'Credentials'
         apiId: '$(VID)'
         apiKey: '$(VKEY)'
-        veracodeAppProfile: 'verademo'
+        veracodeAppProfile: 'verademo_azure'
         version: '$(build.buildNumber)'
         filepath: 'target/verademo.war'
         sandboxName: 'featureXSandbox_Azure'
@@ -102,13 +102,13 @@ stages:
         failBuildOnPolicyFail: true  #This variable could be set to false if you don't want that Veracode breaks the pipeline if scan does not pass the policy evaluation
 
     - task: Veracode@3
-      displayName: SAST Policy Scan
+      displayName: SAST - Policy Scan
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
       inputs:
         ConnectionDetailsSelection: 'Credentials'
         apiId: '$(VID)'
         apiKey: '$(VKEY)'
-        veracodeAppProfile: 'verademo'
+        veracodeAppProfile: 'verademo_azure'
         version: '$(build.buildNumber)'
         filepath: 'target/verademo.war'
         createSandBox: false
