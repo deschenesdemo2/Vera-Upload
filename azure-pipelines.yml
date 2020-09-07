@@ -72,7 +72,6 @@ stages:
             then
               echo '[INFO] --- Pipeline Scan has finished.'
               echo '[INFO] --- ' $STATUS ' flaws were found.'
-              exit 1
             elif [ $STATUS -lt 0 ];
             then
               echo '[INFO] --- Pipeline Scan could not be executed...There are some errors...'
