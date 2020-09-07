@@ -83,12 +83,30 @@ stages:
             echo '[INFO] --- Size Package is greater than 100MB - ' $STATUS 'bytes....Pipeline Scan cannot be executed'
           fi
 
-    - task: CmdLine@2
+#    - task: CmdLine@2
+#      displayName: Sandbox Scan
+#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
+#      inputs:
+#        script: |
+#          echo '[INFO] --- Veracode SAST - Sandbox Scan'
+
+    - task: Veracode@3
       displayName: Sandbox Scan
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
       inputs:
-        script: |
-          echo '[INFO] --- Veracode SAST - Sandbox Scan'
+        ConnectionDetailsSelection: 'Credentials'
+        apiId: '$(VID)'
+        apiKey: '$(VKEY)'
+        veracodeAppProfile: 'verademo'
+        version: '$(build.buildNumber)'
+        filepath: 'target/verademo.war'
+        sandboxName: 'featureXSandbox_Azure'
+        createSandBox: true
+        createProfile: false
+        failTheBuildIfVeracodeScanDidNotInitiate: true
+        scanStatusCheckInterval: '60'
+        importResults: false
+        failBuildOnPolicyFail: true
 
     - task: CmdLine@2
       displayName: Policy Scan
