@@ -72,6 +72,7 @@ stages:
             then
               echo '[INFO] --- Pipeline Scan has finished.'
               echo '[INFO] --- ' $STATUS ' flaws were found.'
+              exit 1 #This exit code makes the pipeline break. Remove this line if you need the pipeline continues its execution
             elif [ $STATUS -lt 0 ];
             then
               echo '[INFO] --- Pipeline Scan could not be executed...There are some errors...'
