@@ -72,7 +72,7 @@ stages:
             then
               echo '[INFO] --- Pipeline Scan has finished.'
               echo '[INFO] --- ' $STATUS ' flaws were found.'
-              ls
+              curl -X POST POST https://dev.azure.com/oscarrodriguezarias/verademo/_apis/test/Runs/$(Build.BuildId)/results?api-version=5.0
               exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
             elif [ $STATUS -lt 0 ];
             then
