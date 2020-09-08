@@ -72,7 +72,6 @@ stages:
             then
               echo '[INFO] --- Pipeline Scan has finished.'
               echo '[INFO] --- ' $STATUS ' flaws were found.'
-              echo $(Rev:r)
               exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
             elif [ $STATUS -lt 0 ];
             then
@@ -83,12 +82,6 @@ stages:
           else
             echo '[INFO] --- Size Package is greater than 100MB - ' $STATUS 'bytes....Pipeline Scan cannot be executed'
           fi
-
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: 'results.txt'
-        testRunTitle: 'PipelineScanResults'
 
     - task: Veracode@3
       displayName: SAST - Sandbox Scan
