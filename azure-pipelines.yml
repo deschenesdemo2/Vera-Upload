@@ -84,6 +84,12 @@ stages:
             echo '[INFO] --- Size Package is greater than 100MB - ' $STATUS 'bytes....Pipeline Scan cannot be executed'
           fi
 
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'results.txt'
+        testRunTitle: 'PipelineScanResults'
+
     - task: Veracode@3
       displayName: SAST - Sandbox Scan
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
