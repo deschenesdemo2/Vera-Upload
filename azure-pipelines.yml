@@ -70,6 +70,7 @@ stages:
             STATUS=${?}            
             if [ $STATUS -gt 0 ];
             then
+              echo 'Prueba 23 Certicamara'
               echo '[INFO] --- Pipeline Scan has finished.'
               echo '[INFO] --- ' $STATUS ' flaws were found.'
               exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
