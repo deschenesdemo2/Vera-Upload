@@ -54,7 +54,6 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- CREATING JSON FILE...'
           echo '[INFO] ------------------------------------------------------------------------'
-          echo { >> da_scan.json
           echo  '{' >> da_scan.json
           echo  '  "name": "DVWA DAST Scan",' >> da_scan.json
           echo  '  "scans": [' >> da_scan.json
