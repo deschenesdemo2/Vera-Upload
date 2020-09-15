@@ -81,6 +81,7 @@ stages:
         scriptSource: 'inline'
         script: |
           import sys
+          import os
           import json
           import requests
           from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
@@ -88,6 +89,8 @@ stages:
           api_base = "https://api.veracode.com/was/configservice/v1"
           headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
       
+          os.listdir(./.veracode/)
+
           if __name__ == "__main__":
               try:
                   contents = open('da_scan.json', 'rb').read()
