@@ -60,7 +60,7 @@ stages:
           echo  '    {' >> da_scan.json
           echo  '      "scan_config_request": {' >> da_scan.json
           echo  '        "target_url": {' >> da_scan.json
-          echo  '          "url": "http://www.example.com"' >> da_scan.json
+          echo  '          "url": "http://lisbon.cloudloop.veracodelabs.com/dvwa"' >> da_scan.json
           echo  '        }' >> da_scan.json
           echo  '      }' >> da_scan.json
           echo  '    }' >> da_scan.json
