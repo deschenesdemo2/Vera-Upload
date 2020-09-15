@@ -74,7 +74,6 @@ stages:
           echo  '    "now": true' >> da_scan.json
           echo  '  }' >> da_scan.json
           echo  '}' >> da_scan.json
-          cat ./.veracode/credentials
 
     - task: PythonScript@0
       displayName: Kick Off DAST Scan
@@ -85,6 +84,9 @@ stages:
           import json
           import requests
           from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
+
+          with open('./.veracode/credentials', 'r') as fin:
+            print(fin.read())
       
           api_base = "https://api.veracode.com/was/configservice/v1"
           headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
