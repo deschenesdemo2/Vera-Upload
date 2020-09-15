@@ -47,8 +47,7 @@ stages:
           echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
           mkdir .veracode/
           cp -f credentials.txt .veracode/credentials
-          ls -all
-          ls ./.veracode
+          cat ./.veracode/credentials
 
     - task: CmdLine@2
       displayName: Create JSON File
