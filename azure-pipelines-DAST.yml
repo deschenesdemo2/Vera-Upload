@@ -30,7 +30,7 @@ stages:
       inputs:
         script: |
           echo '[INFO ] --- Installing Veracode Python Authentication Library...'
-          python --version
+          pip install veracode-api-signing
 
     - task: CmdLine@2
       displayName: Create Credentials File
