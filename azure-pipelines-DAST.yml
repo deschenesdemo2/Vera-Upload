@@ -3,17 +3,43 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+#This a pipeline for testing Veracode DAST using APIs
+
 trigger:
-- master
+ branches:
+   include:
+#   - refs/heads/master
+#   - refs/heads/dev
+   - refs/heads/featureX
 
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+# In Veracode Stage it will execute Pipeline Scan or Sandbox Scan or Policy Scan depending on the branch under execution, which could be
+# 'featureX' or 'dev' or 'master' respectively.
+- stage: Veracode
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  jobs:
+  - job: Veracode
+
+    steps:
+    
+    - task: CmdLine@2
+      displayName: Install Veracode Auth
+      inputs:
+        script: |
+          echo '[INFO ] --- Installing Veracode Python Authentication Library...'
+          python --version
+
+    - task: CmdLine@2
+      displayName: Create Credentials File
+      inputs:
+        script: |
+          echo '[INFO] --- Creating Credentials File...'
+
+    - task: CmdLine@2
+      displayName: Create JSON File
+      inputs:
+        script: |
+          echo '[INFO] --- Creating JSON File...'
