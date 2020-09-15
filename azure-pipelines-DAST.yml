@@ -47,6 +47,8 @@ stages:
           mkdir .veracode/
           cp -f credentials.txt .veracode/credentials
           chmod 755 .veracode/credentials
+          cat credentials.txt
+          echo '======================='
           cat .veracode/credentials
     - task: CmdLine@2
       displayName: Create JSON File
@@ -82,7 +84,6 @@ stages:
         scriptSource: 'inline'
         script: |
           import sys
-          import os
           import json
           import requests
           from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
@@ -90,20 +91,20 @@ stages:
           api_base = "https://api.veracode.com/was/configservice/v1"
           headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
       
-          if __name__ == "__main__":
-              try:
-                  contents = open('da_scan.json', 'rb').read()
-                  print(contents)
-                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
-              except requests.RequestException as e:
-                  print("Failed...")
-                  print(e)
-                  sys.exit(1)
+#          if __name__ == "__main__":
+#              try:
+#                  contents = open('da_scan.json', 'rb').read()
+#                  print(contents)
+#                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
+#              except requests.RequestException as e:
+#                  print("Failed...")
+#                  print(e)
+#                  sys.exit(1)
       
-              if response.ok:
-                  print(response.status_code)
-                  print(response.content)
+#              if response.ok:
+#                  print(response.status_code)
+#                  print(response.content)
       
-              else:
-                  print(response.status_code)
-                  print(response.content)
+#              else:
+#                  print(response.status_code)
+#                  print(response.content)
