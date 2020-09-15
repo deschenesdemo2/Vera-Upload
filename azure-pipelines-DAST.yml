@@ -46,6 +46,7 @@ stages:
           echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
           mkdir .veracode/
           cp -f credentials.txt .veracode/credentials
+          chmod 755 .veracode/credentials
 
     - task: CmdLine@2
       displayName: Create JSON File
@@ -89,10 +90,6 @@ stages:
           api_base = "https://api.veracode.com/was/configservice/v1"
           headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
       
-          dirs = os.listdir( "./.veracode/" )
-          for file in dirs:
-              print file
-
 #          if __name__ == "__main__":
 #              try:
 #                  contents = open('da_scan.json', 'rb').read()
