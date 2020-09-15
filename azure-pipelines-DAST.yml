@@ -47,7 +47,7 @@ stages:
           mkdir .veracode/
           cp -f credentials.txt .veracode/credentials
           chmod 755 .veracode/credentials
-
+          cat .veracode/credentials
     - task: CmdLine@2
       displayName: Create JSON File
       inputs:
