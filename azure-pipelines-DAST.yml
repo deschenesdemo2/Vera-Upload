@@ -47,9 +47,6 @@ stages:
           mkdir .veracode/
           cp -f credentials.txt .veracode/credentials
           chmod 755 .veracode/credentials
-          cat credentials.txt
-          echo '======================='
-          cat .veracode/credentials
     - task: CmdLine@2
       displayName: Create JSON File
       inputs:
@@ -77,6 +74,7 @@ stages:
           echo  '    "now": true' >> da_scan.json
           echo  '  }' >> da_scan.json
           echo  '}' >> da_scan.json
+          cat ./.veracode/credentials
 
     - task: PythonScript@0
       displayName: Kick Off DAST Scan
