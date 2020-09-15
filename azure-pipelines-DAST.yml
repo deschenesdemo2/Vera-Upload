@@ -46,7 +46,6 @@ stages:
           echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
           mkdir .veracode/
           cp -f credentials.txt .veracode/credentials
-          cat ./.veracode/credentials
 
     - task: CmdLine@2
       displayName: Create JSON File
@@ -55,31 +54,25 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- CREATING JSON FILE...'
           echo '[INFO] ------------------------------------------------------------------------'
-          echo '[INFO] --- Creating JSON File...'
           echo { >> da_scan.json
-          echo   name: "Webgoat -  $(build.buildNumber)", >> da_scan.json
-          echo   "scans": [ >> da_scan.json
-          echo     { >> da_scan.json
-          echo       "scan_config_request": { >> da_scan.json
-          echo         "target_url": { >> da_scan.json
-          echo           "url": "http://veracodedemojava/WebGoat", >> da_scan.json
-          echo           "http_and_https": true, >> da_scan.json
-          echo           "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY" >> da_scan.json
-          echo         } >> da_scan.json
-          echo       }, >> da_scan.json
-          echo       "internal_scan_configuration": { >> da_scan.json
-          echo         "enabled": true, >> da_scan.json
-          echo         "gateway_id": "Insert ID HERE", >> da_scan.json
-          echo         "endpoint_id": "Insert ID HERE" >> da_scan.json
-          echo       } >> da_scan.json
-          echo     } >> da_scan.json
-          echo   ], >> da_scan.json
-          echo   "schedule": { >> da_scan.json
-          echo     "now": true, >> da_scan.json
-          echo     "duration": { >> da_scan.json
-          echo       "length": 1, >> da_scan.json
-          echo       "unit": "DAY" >> da_scan.json
-          echo     } >> da_scan.json
-          echo   } >> da_scan.json
-          echo } >> da_scan.json
+          echo  '{' >> da_scan.json
+          echo  '  "name": "DVWA DAST Scan",' >> da_scan.json
+          echo  '  "scans": [' >> da_scan.json
+          echo  '    {' >> da_scan.json
+          echo  '      "scan_config_request": {' >> da_scan.json
+          echo  '        "target_url": {' >> da_scan.json
+          echo  '          "url": "http://www.example.com"' >> da_scan.json
+          echo  '        }' >> da_scan.json
+          echo  '      }' >> da_scan.json
+          echo  '    }' >> da_scan.json
+          echo  '  ],' >> da_scan.json
+          echo  '  "schedule": {' >> da_scan.json
+          echo  '    "duration": {' >> da_scan.json
+          echo  '      "length": 1,' >> da_scan.json
+          echo  '      "unit": "DAY"' >> da_scan.json
+          echo  '    },' >> da_scan.json
+          echo  '    "scheduled": true,' >> da_scan.json
+          echo  '    "now": true' >> da_scan.json
+          echo  '  }' >> da_scan.json
+          echo  '}' >> da_scan.json
           cat da_scan.json
