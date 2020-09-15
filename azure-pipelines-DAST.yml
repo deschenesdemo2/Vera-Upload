@@ -89,7 +89,9 @@ stages:
           api_base = "https://api.veracode.com/was/configservice/v1"
           headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
       
-          os.listdir(./.veracode/)
+          dirs = os.listdir( "./.veracode/" )
+          for file in dirs:
+              print file
 
           if __name__ == "__main__":
               try:
