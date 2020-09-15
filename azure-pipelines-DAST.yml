@@ -29,14 +29,26 @@ stages:
       displayName: Install Veracode Auth
       inputs:
         script: |
-          echo '[INFO ] --- Installing Veracode Python Authentication Library...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO ] --- INSTALLING VERACODE AUTHENTICATION LIBRARY...'
+          echo '[INFO] ------------------------------------------------------------------------'
           pip install veracode-api-signing
 
     - task: CmdLine@2
       displayName: Create Credentials File
       inputs:
         script: |
-          echo '[INFO] --- Creating Credentials File...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO] --- CONFIGURING API CREDENTIALS FILE'
+          echo '[INFO] ------------------------------------------------------------------------'
+          cat true > credentials.txt  #Cleaning Credentials file in order to use updated API Credentials
+          echo '[default]' >> credentials.txt
+          echo 'veracode_api_key_id='$(VID) >> credentials.txt
+          echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
+          mkdir .veracode/
+          cp -f credentials.txt .veracode/credentials
+          ls -all
+          ls ./.veracode
 
     - task: CmdLine@2
       displayName: Create JSON File
