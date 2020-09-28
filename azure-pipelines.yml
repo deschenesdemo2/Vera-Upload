@@ -54,7 +54,7 @@ stages:
 
     - task: CmdLine@2
       displayName: SAST - Pipeline Scan
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureY'))
       inputs:
         script: |
           echo '[INFO] --- Veracode SAST - Pipeline Scan'
@@ -82,6 +82,19 @@ stages:
           else
             echo '[INFO] --- Size Package is greater than 100MB - ' $STATUS 'bytes....Pipeline Scan cannot be executed'
           fi
+
+    - task: CmdLine@2
+      displayName: SCA - OSS Scan
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+      inputs:
+        script: |
+          export SRCCLR_SCM_NAME=verademo
+          export SRCCLR_SCM_URI=https://https://dev.azure.com/oscarrodriguezarias/verademo
+          export SRCCLR_SCM_REF=featureX
+          export SRCCLR_SCM_REF_TYPE=branch
+          export SRCCLR_SCM_REV=123456
+          export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
+          curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --skip-compile --update-advisor
 
     - task: Veracode@3
       displayName: SAST - Sandbox Scan
