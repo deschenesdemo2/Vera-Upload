@@ -54,7 +54,7 @@ stages:
 
     - task: CmdLine@2
       displayName: SAST - Pipeline Scan
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureY'))
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
       inputs:
         script: |
           echo '[INFO] --- Veracode SAST - Pipeline Scan'
