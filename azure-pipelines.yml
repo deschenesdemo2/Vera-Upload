@@ -85,7 +85,7 @@ stages:
 
     - task: CmdLine@2
       displayName: SCA - OSS Scan
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureY'))
       inputs:
         script: |
           export SRCCLR_SCM_NAME=verademo
