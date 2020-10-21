@@ -52,6 +52,7 @@ stages:
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
 
+
     - task: CmdLine@2
       displayName: SAST - Pipeline Scan
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
@@ -93,13 +94,13 @@ stages:
         veracodeAppProfile: 'verademo_azure'
         version: '$(build.buildNumber)'
         filepath: 'target/verademo.war'
-        sandboxName: 'featureXSandbox_Azure'
+        sandboxName: 'devSandbox_Azure'
         createSandBox: true
         createProfile: false
-        failTheBuildIfVeracodeScanDidNotInitiate: true #This variable could be set to false if you don't want that a problem in Veracode scan breaks the pipeline
+        failTheBuildIfVeracodeScanDidNotInitiate: true
         scanStatusCheckInterval: '60'
         importResults: false
-        failBuildOnPolicyFail: true  #This variable could be set to false if you don't want that Veracode breaks the pipeline if scan does not pass the policy evaluation
+        failBuildOnPolicyFail: true
 
     - task: CmdLine@2
       displayName: SCA - OSS Scan
