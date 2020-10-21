@@ -52,7 +52,7 @@ stages:
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
 
-
+#DEMO BANCO DELTA
     - task: CmdLine@2
       displayName: SAST - Pipeline Scan
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
