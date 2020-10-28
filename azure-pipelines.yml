@@ -112,7 +112,6 @@ stages:
           export SRCCLR_SCM_REF=featureX
           export SRCCLR_SCM_REF_TYPE=branch
           export SRCCLR_SCM_REV=123456
-          export SRCCLR_WORKSPACE_SLUG=wddUOZd
           export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
           curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --skip-compile --update-advisor
 
