@@ -55,7 +55,7 @@ stages:
 #DEMO CPNNET-BASE4SEC
     - task: CmdLine@2
       displayName: SAST - Pipeline Scan
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureY'))
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
       inputs:
         script: |
           echo '[INFO] --- Veracode SAST - Pipeline Scan'
@@ -104,7 +104,7 @@ stages:
 
     - task: CmdLine@2
       displayName: SCA - OSS Scan
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
       inputs:
         script: |
           export SRCCLR_SCM_NAME=verademo_azure_componente_1
