@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.veracode.verademo.utils.Cleansers;
-import com.veracode.verademo.utils.Constants;
 import com.veracode.verademo.utils.UserSession;
 
 
@@ -38,6 +37,7 @@ public class UserController {
 	@Autowired
 	private UserSession theUser;
 	
+	private String dbConnStr = "jdbc:mysql://localhost/blab?user=blab&password=z2^E6J4$;u;d";
 
 	
 	
@@ -85,26 +85,23 @@ public class UserController {
 			// Get the Database Connection
 			logger.info("Creating the Database connection");
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-			connect.setAutoCommit(true);
-
-			
+			connect = DriverManager.getConnection(dbConnStr);
 			
 			/* START BAD CODE */
 			// Execute the query
 			/*logger.info("Creating the Statement");
 			String sqlQuery = "select * from users where username='" + username + "' and password='" + password + "';";
 			sqlStatement = connect.createStatement();
-			logger.info("Execute the Statement: " + sqlQuery);
+			logger.info("Execute the Statement");
 			ResultSet result = sqlStatement.executeQuery(sqlQuery);*/
 			/* END BAD CODE */
-			/* START GOOD CODE */
+			/* START GOOD GODE */ 
 			String sqlQuery = "select * from users where username=? and password=?;";
 			logger.info("Preparing the PreparedStatement");
 			sqlStatement = connect.prepareStatement(sqlQuery);
 			logger.info("Setting parameters for the PreparedStatement");
-			sqlStatement.setString(1, username);
-			sqlStatement.setString(2, password);
+			((PreparedStatement) sqlStatement).setString(1, username);
+			((PreparedStatement) sqlStatement).setString(2, password);
 			logger.info("Executing the PreparedStatement");
 			ResultSet result = sqlStatement.executeQuery(sqlQuery);
 			/* END GOOD CODE */
@@ -214,8 +211,7 @@ public class UserController {
 			// Get the Database Connection
 			logger.info("Creating the Database connection");
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-			connect.setAutoCommit(true);
+			connect = DriverManager.getConnection(dbConnStr);
 
 			/* START BAD CODE 
 			// Execute the query
@@ -285,8 +281,7 @@ public class UserController {
 			logger.info("Getting Database connection");
 			// Get the Database Connection
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-			connect.setAutoCommit(true);
+			connect = DriverManager.getConnection(dbConnStr);
 			
 			// Find the Blabs that this user listens to
 			logger.info("Preparing the BlabsForMe Prepared Statement");
@@ -355,8 +350,7 @@ public class UserController {
 				logger.info("Getting Database connection");
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
-				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-				connect.setAutoCommit(true);
+				connect = DriverManager.getConnection(dbConnStr);
 				
 				// 
 				logger.info("Preparing the update Prepared Statement");
