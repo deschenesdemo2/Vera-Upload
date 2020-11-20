@@ -106,7 +106,7 @@ public class UserController {
 			sqlStatement.setString(1, username);
 			sqlStatement.setString(2, password);
 			logger.info("Executing the PreparedStatement");
-			ResultSet result = sqlStatement.executeQuery();
+			ResultSet result = sqlStatement.executeQuery(sqlQuery);
 			/* END GOOD CODE */
 			
 			// Did we find exactly 1 user that matched?
