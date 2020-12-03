@@ -87,6 +87,7 @@ public class UserController {
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection(dbConnStr);
 			
+			
 			/* START BAD CODE */
 			// Execute the query
 			/*logger.info("Creating the Statement");
