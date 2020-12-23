@@ -18,6 +18,7 @@ stages:
 # 'featureX' or 'dev' or 'master' respectively.
 - stage: Veracode
 
+#demo KPMG
   jobs:
   - job: Build
 
