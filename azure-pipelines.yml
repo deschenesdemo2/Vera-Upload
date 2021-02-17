@@ -108,7 +108,7 @@ stages:
         script: |
           export SRCCLR_SCM_NAME=verademo_azure_componente_1
           export SRCCLR_SCM_URI=https://dev.azure.com/oscarrodriguezarias/verademo
-          export SRCCLR_SCM_REF=featureX
+          export SRCCLR_SCM_REF=master
           export SRCCLR_SCM_REF_TYPE=branch
           export SRCCLR_SCM_REV=123456
           export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
