@@ -72,6 +72,8 @@ stages:
           then
             echo '[INFO] --- Pipeline Scan has finished.'
             echo '[INFO] --- ' $STATUS ' flaws were found.'
+            echo '[INFO] --- Uploading flaws to Azure Work Items...'
+            python -V
             exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
           elif [ $STATUS -lt 0 ];
           then
