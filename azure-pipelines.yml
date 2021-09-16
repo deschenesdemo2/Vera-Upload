@@ -95,11 +95,8 @@ stages:
         filepath: 'target/verademo.war'
         sandboxName: 'devSandbox_Azure'
         createSandBox: true
-        createProfile: false
-        failTheBuildIfVeracodeScanDidNotInitiate: true
-        scanStatusCheckInterval: '60'
-        importResults: false
         failBuildOnPolicyFail: true
+        maximumWaitTime: '360'
 
     - task: CmdLine@2
       displayName: SCA - OSS Scan
