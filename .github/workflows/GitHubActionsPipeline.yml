@@ -41,15 +41,16 @@ jobs:
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
         env: |
-          VID: ${{ secrets.VID }}
-          VKEY: ${{ secrets.VKEY }}
+          VID: ${{ SECRETS.VID }}
+          VKEY: ${{ SECRETS.VKEY }}
+          REPO_URL: https://github.com/${{ GITHUB.REPOSITORY }}
         run: |
           echo '[INFO] --- Veracode SAST - Pipeline Scan'
           echo '[INFO] --- Downloading Pipeline Scan (Latest Version)...'
           curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
           unzip pipeline-scan-LATEST.zip
           echo '[INFO] --- Starting Pipeline Scan execution...'
-          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $VID -vkey $VKEY --file target/verademo.war --project_name $GITHUB_REPOSITORY --project_url $GITHUB_WORKSPACE -so true
+          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $VID -vkey $VKEY --file target/verademo.war --project_name $GITHUB_REPOSITORY --project_url $REPO_URL -so true
           STATUS=${?}        
           if [ $STATUS -gt 0 ];
           then
