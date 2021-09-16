@@ -2,7 +2,6 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-# Demo - Celsia
 
 trigger:
  branches:
@@ -103,7 +102,7 @@ stages:
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
       inputs:
         script: |
-          export SRCCLR_SCM_NAME=verademo_azure_componente_1
+          export SRCCLR_SCM_NAME=verademo_azure
           export SRCCLR_SCM_URI=https://dev.azure.com/oscarrodriguezarias/verademo
           export SRCCLR_SCM_REF=master
           export SRCCLR_SCM_REF_TYPE=branch
