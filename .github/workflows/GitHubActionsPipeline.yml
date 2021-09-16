@@ -49,7 +49,7 @@ jobs:
           curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
           unzip pipeline-scan-LATEST.zip
           echo '[INFO] --- Starting Pipeline Scan execution...'
-          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid "$VID" -vkey "$VKEY" --file target/verademo.war --project_name $GITHUB_REPOSITORY --project_url $GITHUB_WORKSPACE -so true
+          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $VID -vkey $VKEY --file target/verademo.war --project_name $GITHUB_REPOSITORY --project_url $GITHUB_WORKSPACE -so true
           STATUS=${?}        
           if [ $STATUS -gt 0 ];
           then
