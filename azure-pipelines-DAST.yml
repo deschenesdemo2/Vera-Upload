@@ -24,15 +24,6 @@ stages:
   - job: Veracode
 
     steps:
-    
-    - task: CmdLine@2
-      displayName: Install Veracode Auth
-      inputs:
-        script: |
-          echo '[INFO] ------------------------------------------------------------------------'
-          echo '[INFO ] --- INSTALLING VERACODE AUTHENTICATION LIBRARY...'
-          echo '[INFO] ------------------------------------------------------------------------'
-          pip install veracode-api-signing
 
     - task: CmdLine@2
       displayName: Create Credentials File
@@ -46,7 +37,17 @@ stages:
           echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
           mkdir .veracode/
           cp -f credentials.txt .veracode/credentials
-          chmod 755 .veracode/credentials
+          chmod 777 .veracode/credentials
+          ls
+
+    - task: CmdLine@2
+      displayName: Install Veracode Auth
+      inputs:
+        script: |
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO ] --- INSTALLING VERACODE AUTHENTICATION LIBRARY...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          pip install veracode-api-signing
 
     - task: CmdLine@2
       displayName: Create JSON File
