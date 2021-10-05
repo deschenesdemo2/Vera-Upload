@@ -74,6 +74,7 @@ stages:
           echo  '    "now": true' >> da_scan.json
           echo  '  }' >> da_scan.json
           echo  '}' >> da_scan.json
+          cat da_scan.json
 
     - task: PythonScript@0
       displayName: Kick Off DAST Scan
