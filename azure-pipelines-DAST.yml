@@ -47,6 +47,7 @@ stages:
           mkdir .veracode/
           cp -f credentials.txt .veracode/credentials
           chmod 755 .veracode/credentials
+
     - task: CmdLine@2
       displayName: Create JSON File
       inputs:
@@ -55,7 +56,7 @@ stages:
           echo '[INFO] --- CREATING JSON FILE...'
           echo '[INFO] ------------------------------------------------------------------------'
           echo  '{' >> da_scan.json
-          echo  '  "name": "DVWA DAST Scan",' >> da_scan.json
+          echo  '  "name": "DVWA DAST Scan_"$(Build.BuildNumber),' >> da_scan.json
           echo  '  "scans": [' >> da_scan.json
           echo  '    {' >> da_scan.json
           echo  '      "scan_config_request": {' >> da_scan.json
