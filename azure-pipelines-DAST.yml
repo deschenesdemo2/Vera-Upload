@@ -39,7 +39,7 @@ stages:
           cp -f credentials.txt .veracode/credentials
           chmod 777 .veracode/credentials
           ls ../
-          ls
+          ls ./.veracode
 
     - task: CmdLine@2
       displayName: Install Veracode Auth
