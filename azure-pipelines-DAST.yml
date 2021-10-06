@@ -38,9 +38,6 @@ stages:
           mkdir /home/vsts/.veracode/
           cp -f credentials.txt /home/vsts/.veracode/credentials
           chmod 755 /home/vsts/.veracode/credentials
-          ls ../
-          ls /home/vsts/.veracode
-          cat /home/vsts/.veracode/credentials
 
     - task: CmdLine@2
       displayName: Install Veracode Auth
