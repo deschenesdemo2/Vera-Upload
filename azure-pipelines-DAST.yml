@@ -107,8 +107,10 @@ stages:
                   sys.exit(1)
 
               if response.ok:
+                  print('DAST Scan is running...')
                   print(response.status_code)
                   print(response.content)
               else:
+                  print('DAST Scan with problems...')
                   print(response.status_code)
                   print(response.content)
