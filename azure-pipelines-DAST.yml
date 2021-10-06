@@ -35,11 +35,11 @@ stages:
           echo '[default]' >> credentials.txt
           echo 'veracode_api_key_id='$(VID) >> credentials.txt
           echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
-          mkdir .veracode/
-          cp -f credentials.txt .veracode/credentials
-          chmod 777 .veracode/credentials
+          mkdir /home/vsts/.veracode/
+          cp -f credentials.txt /home/vsts/.veracode/credentials
+          chmod 777 /home/vsts/.veracode/credentials
           ls ../
-          ls ./.veracode
+          ls /home/vsts/.veracode
 
     - task: CmdLine@2
       displayName: Install Veracode Auth
