@@ -29,6 +29,13 @@ stages:
       displayName: Create Credentials File
       inputs:
         script: |
+          jq --version
+          exit 0
+
+    - task: CmdLine@2
+      displayName: Create Credentials File
+      inputs:
+        script: |
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- CONFIGURING API CREDENTIALS FILE...'
           echo '[INFO] ------------------------------------------------------------------------'
