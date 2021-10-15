@@ -18,10 +18,10 @@ pool:
 stages:
 # In Veracode Stage it will execute Pipeline Scan or Sandbox Scan or Policy Scan depending on the branch under execution, which could be
 # 'featureX' or 'dev' or 'master' respectively.
-- stage: Veracode
+- stage: Veracode_DAST
 
   jobs:
-  - job: Veracode
+  - job: VeracodeDASTKickOff
 
     steps:
 
@@ -77,17 +77,47 @@ stages:
           echo  '}' >> da_scan.json
           cat da_scan.json
 
-    - task: CmdLine@2
-      inputs:
-        script: |
-          echo ""
-          echo "Testing HTTPie..."
-          http --version
-          echo ""
-          exit 0
+#    - task: PythonScript@0
+#      displayName: Kick Off DAST Scan
+#      inputs:
+#        scriptSource: 'inline'
+#        script: |
+#          import sys
+#          import json
+#          import requests
+#          from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
+
+#          with open('/home/vsts/.veracode/credentials', 'r') as fin:
+#            print(fin.read())
+      
+#          api_base = "https://api.veracode.com/was/configservice/v1"
+#          headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
+
+#          if __name__ == "__main__":
+#              try:
+#                  contents = open('da_scan.json', 'rb').read()
+#                  print(contents)
+#                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
+#              except requests.RequestException as e:
+#                  print("Failed...")
+#                  print(e)
+#                  sys.exit(1)
+
+#              if response.ok:
+#                  print('DAST Scan is running...')
+#                  print(response.status_code)
+#                  print(response.content)
+#              else:
+#                  print('DAST Scan with problems...')
+#                  print(response.status_code)
+#                  print(response.content)
+
+  - job: VeracodeDASTAppLinking
+  
+    steps:
 
     - task: PythonScript@0
-      displayName: Kick Off DAST Scan
+      displayName: Getting App Profile Information
       inputs:
         scriptSource: 'inline'
         script: |
@@ -99,24 +129,25 @@ stages:
           with open('/home/vsts/.veracode/credentials', 'r') as fin:
             print(fin.read())
       
-          api_base = "https://api.veracode.com/was/configservice/v1"
-          headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
+          api_base = "https://api.veracode.com/appsec/v1"
+          params = {"name": "dvwa"}
+          headers = {"User-Agent": "Get App Profile Info", 'Content-type': 'application/json'}
 
           if __name__ == "__main__":
               try:
                   contents = open('da_scan.json', 'rb').read()
                   print(contents)
-                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
+                  response = requests.get(api_base + "/applications", auth=RequestsAuthPluginVeracodeHMAC(), params=params, data=contents, headers=headers)
               except requests.RequestException as e:
                   print("Failed...")
                   print(e)
                   sys.exit(1)
 
               if response.ok:
-                  print('DAST Scan is running...')
+                  print('App Profile Info...')
                   print(response.status_code)
                   print(response.content)
               else:
-                  print('DAST Scan with problems...')
+                  print('There were some problems getting App Profile Info...')
                   print(response.status_code)
                   print(response.content)
