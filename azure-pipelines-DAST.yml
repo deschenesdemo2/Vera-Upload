@@ -77,6 +77,15 @@ stages:
           echo  '}' >> da_scan.json
           cat da_scan.json
 
+    - task: CmdLine@2
+      inputs:
+        script: |
+          echo ""
+          echo "Testing HTTPie..."
+          http --version
+          echo ""
+          exit 0
+
     - task: PythonScript@0
       displayName: Kick Off DAST Scan
       inputs:
