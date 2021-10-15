@@ -75,7 +75,6 @@ stages:
           echo  '    "now": true' >> da_scan.json
           echo  '  }' >> da_scan.json
           echo  '}' >> da_scan.json
-          cat da_scan.json
 
 #    - task: PythonScript@0
 #      displayName: Kick Off DAST Scan
@@ -132,7 +131,6 @@ stages:
           if __name__ == "__main__":
               try:
                   contents = open('da_scan.json', 'rb').read()
-                  print(contents)
                   response = requests.get(api_base + "/applications", auth=RequestsAuthPluginVeracodeHMAC(), params=params, data=contents, headers=headers)
               except requests.RequestException as e:
                   print("Failed...")
