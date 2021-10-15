@@ -56,7 +56,7 @@ stages:
           echo '[INFO] --- CREATING JSON FILE...'
           echo '[INFO] ------------------------------------------------------------------------'
           echo  '{' >> da_scan.json
-          echo  '  "name": "DVWA DAST Scan_$(Build.BuildNumber)",' >> da_scan.json
+          echo  '  "name": "DVWA_DAST_Scan_$(Build.BuildNumber)",' >> da_scan.json
           echo  '  "scans": [' >> da_scan.json
           echo  '    {' >> da_scan.json
           echo  '      "scan_config_request": {' >> da_scan.json
