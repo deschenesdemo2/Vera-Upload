@@ -112,10 +112,6 @@ stages:
 #                  print(response.status_code)
 #                  print(response.content)
 
-  - job: VeracodeDASTAppLinking
-  
-    steps:
-
     - task: PythonScript@0
       displayName: Getting App Profile Information
       inputs:
