@@ -132,7 +132,7 @@ stages:
           if __name__ == "__main__":
               try:
                   contents = {"linked_platform_app_uuid":"c23f6d8e-da25-4292-ab44-67af8114cd27"}
-                  response = requests.get(api_base + "/scans/757a69f404384957e8623b63c1945443", auth=RequestsAuthPluginVeracodeHMAC(), params=params, data=contents, headers=headers)
+                  response = requests.post(api_base + "/scans/757a69f404384957e8623b63c1945443", auth=RequestsAuthPluginVeracodeHMAC(), params=params, data=contents, headers=headers)
               except requests.RequestException as e:
                   print("Failed...")
                   print(e)
