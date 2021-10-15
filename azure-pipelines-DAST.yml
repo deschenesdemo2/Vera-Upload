@@ -29,13 +29,6 @@ stages:
       displayName: Create Credentials File
       inputs:
         script: |
-          jq --version
-          exit 0
-
-    - task: CmdLine@2
-      displayName: Create Credentials File
-      inputs:
-        script: |
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- CONFIGURING API CREDENTIALS FILE...'
           echo '[INFO] ------------------------------------------------------------------------'
@@ -131,14 +124,15 @@ stages:
           with open('/home/vsts/.veracode/credentials', 'r') as fin:
             print(fin.read())
       
-          api_base = "https://api.veracode.com/appsec/v1"
-          params = {"name": "dvwa"}
+          #api_base = "https://api.veracode.com/appsec/v1"
+          api_base = "https://api.veracode.com/v-1-analysis-api/"
+          params = {"method": "PATCH"}
           headers = {"User-Agent": "Get App Profile Info", 'Content-type': 'application/json'}
 
           if __name__ == "__main__":
               try:
-                  contents = open('da_scan.json', 'rb').read()
-                  response = requests.get(api_base + "/applications", auth=RequestsAuthPluginVeracodeHMAC(), params=params, data=contents, headers=headers)
+                  contents = {"linked_platform_app_uuid":"c23f6d8e-da25-4292-ab44-67af8114cd27"}
+                  response = requests.get(api_base + "/scans/757a69f404384957e8623b63c1945443", auth=RequestsAuthPluginVeracodeHMAC(), params=params, data=contents, headers=headers)
               except requests.RequestException as e:
                   print("Failed...")
                   print(e)
