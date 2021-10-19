@@ -23,6 +23,10 @@ stages:
   jobs:
   - job: VeracodeDASTKickOff
 
+    variables:
+    - name: dastScanName
+      value: DVWA_DAST_Scan_$(Build.BuildNumber)
+
     steps:
 
     - task: CmdLine@2
@@ -38,7 +42,7 @@ stages:
           mkdir /home/vsts/.veracode/
           cp -f credentials.txt /home/vsts/.veracode/credentials
           chmod 755 /home/vsts/.veracode/credentials
-
+          echo $(dastScanName)
     - task: CmdLine@2
       displayName: Install Veracode Auth
       inputs:
