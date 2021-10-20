@@ -54,7 +54,6 @@ stages:
 
           http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin -d -o prueba.json
           cat prueba.json
-          exit
 #          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses?name=DVWA_DAST_Scan_20211020.14"
 #          exit
 #           ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
