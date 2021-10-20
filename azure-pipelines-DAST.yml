@@ -37,7 +37,8 @@ stages:
           echo '[INFO] --- RUNNING HMAC SIGNING...'
           echo '[INFO] ------------------------------------------------------------------------'
           ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
-          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses?name=DVWA_DAST_Scan_20211020.17"
+          http --help
+#          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses?name=DVWA_DAST_Scan_20211020.17"
           exit
 
     - task: CmdLine@2
