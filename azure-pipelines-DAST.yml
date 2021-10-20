@@ -30,6 +30,15 @@ stages:
     steps:
 
     - task: CmdLine@2
+      displayName: HMAC Signing
+      inputs:
+        script: |
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO] --- RUNNING HMAC SIGNING...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
+
+    - task: CmdLine@2
       displayName: DAST Scan KickOff
       inputs:
         script: |
