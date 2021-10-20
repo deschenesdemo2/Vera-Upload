@@ -21,9 +21,9 @@
         echo '[default]' >> credentials.txt
         echo 'veracode_api_key_id='$1 >> credentials.txt
         echo 'veracode_api_key_secret='$2 >> credentials.txt
-        mkdir ./.veracode/
-        cp -f credentials.txt ./.veracode/credentials
-        chmod 755 ./.veracode/credentials
+        mkdir /home/vsts/.veracode/
+        cp -f credentials.txt /home/vsts/.veracode/credentials
+        chmod 755 /home/vsts/.veracode/credentials
         echo ''
 
         #Install Veracode Authentication Library
