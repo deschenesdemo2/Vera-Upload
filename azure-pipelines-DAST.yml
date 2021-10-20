@@ -36,7 +36,6 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- RUNNING HMAC SIGNING...'
           echo '[INFO] ------------------------------------------------------------------------'
-          echo 'Inicio prueba'
           echo '[INFO] --- CONFIGURING API CREDENTIALS FILE...'
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[default]' >> credentials.txt
@@ -52,10 +51,11 @@ stages:
           echo '[INFO ] --- INSTALLING VERACODE AUTHENTICATION LIBRARY...'
           echo '[INFO] ------------------------------------------------------------------------'
           pip install veracode-api-signing || echo "[ERROR] There was a problem Installing Veracode Authentication Library..." | exit 1
-          echo 'Fin prueba'
 
-          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin
+          cat /home/vsts/.veracode/credentials
           exit
+#          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin
+#          exit
 #          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses?name=DVWA_DAST_Scan_20211020.14"
 #          exit
 #           ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
