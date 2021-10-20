@@ -42,8 +42,6 @@ stages:
       displayName: DAST App Linking
       inputs:
         script: |
-          cat /home/vsts/.veracode/credentials
-          exit
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- LINKING DAST SCAN WITH AN APP PROFILE...'
           echo '[INFO] ------------------------------------------------------------------------'
