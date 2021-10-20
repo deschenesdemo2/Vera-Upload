@@ -56,7 +56,7 @@ stages:
           then
             echo "Output is a terminal"
           else
-            echo "Output is NOT a terminal" >/dev/tty
+            echo "Output is NOT a terminal"
           fi
           exit
 #          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin -d -o prueba.json
