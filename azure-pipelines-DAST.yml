@@ -80,37 +80,37 @@ stages:
           echo  '  }' >> da_scan.json
           echo  '}' >> da_scan.json
 
-#    - task: PythonScript@0
-#      displayName: Kick Off DAST Scan
-#      inputs:
-#        scriptSource: 'inline'
-#        script: |
-#          import sys
-#          import json
-#          import requests
-#          from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
+    - task: PythonScript@0
+      displayName: Kick Off DAST Scan
+      inputs:
+        scriptSource: 'inline'
+        script: |
+          import sys
+          import json
+          import requests
+          from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
 
-#          with open('/home/vsts/.veracode/credentials', 'r') as fin:
-#            print(fin.read())
+          with open('/home/vsts/.veracode/credentials', 'r') as fin:
+            print(fin.read())
       
-#          api_base = "https://api.veracode.com/was/configservice/v1"
-#          headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
+          api_base = "https://api.veracode.com/was/configservice/v1"
+          headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
 
-#          if __name__ == "__main__":
-#              try:
-#                  contents = open('da_scan.json', 'rb').read()
-#                  print(contents)
-#                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
-#              except requests.RequestException as e:
-#                  print("Failed...")
-#                  print(e)
-#                  sys.exit(1)
+          if __name__ == "__main__":
+              try:
+                  contents = open('da_scan.json', 'rb').read()
+                  print(contents)
+                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
+              except requests.RequestException as e:
+                  print("Failed...")
+                  print(e)
+                  sys.exit(1)
 
-#              if response.ok:
-#                  print('DAST Scan is running...')
-#                  print(response.status_code)
-#                  print(response.content)
-#              else:
-#                  print('DAST Scan with problems...')
-#                  print(response.status_code)
-#                  print(response.content)
+              if response.ok:
+                  print('DAST Scan is running...')
+                  print(response.status_code)
+                  print(response.content)
+              else:
+                  print('DAST Scan with problems...')
+                  print(response.status_code)
+                  print(response.content)
