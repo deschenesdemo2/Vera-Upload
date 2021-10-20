@@ -37,7 +37,7 @@ stages:
           echo '[INFO] --- RUNNING HMAC SIGNING...'
           echo '[INFO] ------------------------------------------------------------------------'
           ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
-          http -v --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications"
+          http -v --auth-type=veracode_hmac GET "https://api.veracode.com/was/configservice/v1/platform_applications"
           exit
 
     - task: CmdLine@2
