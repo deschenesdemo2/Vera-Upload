@@ -30,87 +30,96 @@ stages:
     steps:
 
     - task: CmdLine@2
-      displayName: Create Credentials File
+      displayName: DAST Scan KickOff
       inputs:
         script: |
           echo '[INFO] ------------------------------------------------------------------------'
-          echo '[INFO] --- CONFIGURING API CREDENTIALS FILE...'
+          echo '[INFO] --- RUNNING DAST SCAN KICKOFF...'
           echo '[INFO] ------------------------------------------------------------------------'
-          echo '[default]' >> credentials.txt
-          echo 'veracode_api_key_id='$(VID) >> credentials.txt
-          echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
-          mkdir /home/vsts/.veracode/
-          cp -f credentials.txt /home/vsts/.veracode/credentials
-          chmod 755 /home/vsts/.veracode/credentials
+          ./veracode-DAST-Scan.sh $(VID) $(VKEY) $(dastScanName) http://lisbon.cloudloop.veracodelabs.com/dvwa
 
-    - task: CmdLine@2
-      displayName: Install Veracode Auth
-      inputs:
-        script: |
-          echo '[INFO] ------------------------------------------------------------------------'
-          echo '[INFO ] --- INSTALLING VERACODE AUTHENTICATION LIBRARY...'
-          echo '[INFO] ------------------------------------------------------------------------'
-          pip install veracode-api-signing
+#    - task: CmdLine@2
+#      displayName: Create Credentials File
+#      inputs:
+#        script: |
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo '[INFO] --- CONFIGURING API CREDENTIALS FILE...'
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo '[default]' >> credentials.txt
+#          echo 'veracode_api_key_id='$(VID) >> credentials.txt
+#          echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
+#          mkdir /home/vsts/.veracode/
+#          cp -f credentials.txt /home/vsts/.veracode/credentials
+#          chmod 755 /home/vsts/.veracode/credentials
 
-    - task: CmdLine@2
-      displayName: Create JSON File
-      inputs:
-        script: |
-          echo '[INFO] ------------------------------------------------------------------------'
-          echo '[INFO] --- CREATING JSON FILE...'
-          echo '[INFO] ------------------------------------------------------------------------'
-          echo  '{' >> da_scan.json
-          echo  '  "name": "$(dastScanName)",' >> da_scan.json
-          echo  '  "scans": [' >> da_scan.json
-          echo  '    {' >> da_scan.json
-          echo  '      "scan_config_request": {' >> da_scan.json
-          echo  '        "target_url": {' >> da_scan.json
-          echo  '          "url": "http://lisbon.cloudloop.veracodelabs.com/dvwa"' >> da_scan.json
-          echo  '        }' >> da_scan.json
-          echo  '      }' >> da_scan.json
-          echo  '    }' >> da_scan.json
-          echo  '  ],' >> da_scan.json
-          echo  '  "schedule": {' >> da_scan.json
-          echo  '    "duration": {' >> da_scan.json
-          echo  '      "length": 1,' >> da_scan.json
-          echo  '      "unit": "DAY"' >> da_scan.json
-          echo  '    },' >> da_scan.json
-          echo  '    "scheduled": true,' >> da_scan.json
-          echo  '    "now": true' >> da_scan.json
-          echo  '  }' >> da_scan.json
-          echo  '}' >> da_scan.json
+#    - task: CmdLine@2
+#      displayName: Install Veracode Auth
+#      inputs:
+#        script: |
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo '[INFO ] --- INSTALLING VERACODE AUTHENTICATION LIBRARY...'
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          pip install veracode-api-signing
 
-    - task: PythonScript@0
-      displayName: Kick Off DAST Scan
-      inputs:
-        scriptSource: 'inline'
-        script: |
-          import sys
-          import json
-          import requests
-          from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
+#    - task: CmdLine@2
+#      displayName: Create JSON File
+#      inputs:
+#        script: |
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo '[INFO] --- CREATING JSON FILE...'
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo  '{' >> da_scan.json
+#          echo  '  "name": "$(dastScanName)",' >> da_scan.json
+#          echo  '  "scans": [' >> da_scan.json
+#          echo  '    {' >> da_scan.json
+#          echo  '      "scan_config_request": {' >> da_scan.json
+#          echo  '        "target_url": {' >> da_scan.json
+#          echo  '          "url": "http://lisbon.cloudloop.veracodelabs.com/dvwa"' >> da_scan.json
+#          echo  '        }' >> da_scan.json
+#          echo  '      }' >> da_scan.json
+#          echo  '    }' >> da_scan.json
+#          echo  '  ],' >> da_scan.json
+#          echo  '  "schedule": {' >> da_scan.json
+#          echo  '    "duration": {' >> da_scan.json
+#          echo  '      "length": 1,' >> da_scan.json
+#          echo  '      "unit": "DAY"' >> da_scan.json
+#          echo  '    },' >> da_scan.json
+#          echo  '    "scheduled": true,' >> da_scan.json
+#          echo  '    "now": true' >> da_scan.json
+#          echo  '  }' >> da_scan.json
+#          echo  '}' >> da_scan.json
 
-          with open('/home/vsts/.veracode/credentials', 'r') as fin:
-            print(fin.read())
-      
-          api_base = "https://api.veracode.com/was/configservice/v1"
-          headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
+#    - task: PythonScript@0
+#      displayName: Kick Off DAST Scan
+#      inputs:
+#        scriptSource: 'inline'
+#        script: |
+#          import sys
+#          import json
+#          import requests
+#          from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
 
-          if __name__ == "__main__":
-              try:
-                  contents = open('da_scan.json', 'rb').read()
-                  print(contents)
-                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
-              except requests.RequestException as e:
-                  print("Failed...")
-                  print(e)
-                  sys.exit(1)
+#          with open('/home/vsts/.veracode/credentials', 'r') as fin:
+#            print(fin.read())
+#      
+#          api_base = "https://api.veracode.com/was/configservice/v1"
+#          headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
 
-              if response.ok:
-                  print('DAST Scan is running...')
-                  print(response.status_code)
-                  print(response.content)
-              else:
-                  print('DAST Scan with problems...')
-                  print(response.status_code)
-                  print(response.content)
+#          if __name__ == "__main__":
+#              try:
+#                  contents = open('da_scan.json', 'rb').read()
+#                  print(contents)
+#                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
+#              except requests.RequestException as e:
+#                  print("Failed...")
+#                  print(e)
+#                  sys.exit(1)
+
+#              if response.ok:
+#                  print('DAST Scan is running...')
+#                  print(response.status_code)
+#                  print(response.content)
+#              else:
+#                  print('DAST Scan with problems...')
+#                  print(response.status_code)
+#                  print(response.content)
