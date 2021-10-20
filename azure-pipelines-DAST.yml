@@ -36,21 +36,7 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- RUNNING HMAC SIGNING...'
           echo '[INFO] ------------------------------------------------------------------------'
-          echo '[INFO] --- CONFIGURING API CREDENTIALS FILE...'
-          echo '[INFO] ------------------------------------------------------------------------'
-          echo '[default]' >> credentials.txt
-          echo 'veracode_api_key_id='$(VID) >> credentials.txt
-          echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
-          mkdir /home/vsts/.veracode/
-          cp -f credentials.txt /home/vsts/.veracode/credentials
-          chmod 755 /home/vsts/.veracode/credentials
-          echo ''
-
-          #Install Veracode Authentication Library
-          echo '[INFO] ------------------------------------------------------------------------'
-          echo '[INFO ] --- INSTALLING VERACODE AUTHENTICATION LIBRARY...'
-          echo '[INFO] ------------------------------------------------------------------------'
-          pip install veracode-api-signing || echo "[ERROR] There was a problem Installing Veracode Authentication Library..." | exit 1
+          ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
 
           http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin -d -o prueba.json
           echo 'Descargando file...'
@@ -58,7 +44,6 @@ stages:
           echo ''
 #          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses?name=DVWA_DAST_Scan_20211020.14"
 #          exit
-#           ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
 
     - task: CmdLine@2
       displayName: DAST Scan KickOff
