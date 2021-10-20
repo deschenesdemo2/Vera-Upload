@@ -54,14 +54,11 @@ stages:
           pip install veracode-api-signing || echo "[ERROR] There was a problem Installing Veracode Authentication Library..." | exit 1
           echo 'Fin prueba'
 
-          python -c 'import sys; print(sys.stdin.isatty())'
-          exit
-          http --debug
+          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin
           exit
 #          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses?name=DVWA_DAST_Scan_20211020.14"
 #          exit
-#          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications"
-#          ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
+#           ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
 
     - task: CmdLine@2
       displayName: DAST Scan KickOff
@@ -70,7 +67,7 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- RUNNING DAST SCAN KICKOFF...'
           echo '[INFO] ------------------------------------------------------------------------'
-          ./veracode-DAST-Scan.sh $(VID) $(VKEY) $(dastScanName) http://lisbon.cloudloop.veracodelabs.com/dvwa
+#          ./veracode-DAST-Scan.sh $(VID) $(VKEY) $(dastScanName) http://lisbon.cloudloop.veracodelabs.com/dvwa
 
     - task: CmdLine@2
       displayName: DAST App Linking
@@ -79,7 +76,7 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- LINKING DAST SCAN WITH AN APP PROFILE...'
           echo '[INFO] ------------------------------------------------------------------------'
-          ./veracode-DAST-AppLinking.sh $(VID) $(VKEY) $(dastScanName) DVWA
+#          ./veracode-DAST-AppLinking.sh $(VID) $(VKEY) $(dastScanName) DVWA
 
 #    - task: CmdLine@2
 #      displayName: Create Credentials File
