@@ -54,8 +54,7 @@ stages:
           pip install veracode-api-signing || echo "[ERROR] There was a problem Installing Veracode Authentication Library..." | exit 1
           echo 'Fin prueba'
 
-          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" >> response.txt
-          cat response.txt
+          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --debug
           exit
 #          ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
 
