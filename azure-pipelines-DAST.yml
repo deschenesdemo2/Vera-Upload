@@ -52,8 +52,15 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           pip install veracode-api-signing || echo "[ERROR] There was a problem Installing Veracode Authentication Library..." | exit 1
 
-          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin -d -o prueba.json
-          cat prueba.json
+          if [ -t 1 ]
+          then
+            echo "Output is a terminal"
+          else
+            echo "Output is NOT a terminal" >/dev/tty
+          fi
+          exit
+#          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin -d -o prueba.json
+#          cat prueba.json
 #          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses?name=DVWA_DAST_Scan_20211020.14"
 #          exit
 #           ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
