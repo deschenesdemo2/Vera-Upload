@@ -57,6 +57,11 @@
         echo  '  }' >> da_scan.json
         echo  '}' >> da_scan.json
         echo ''
-        cat ./.veracode/credentials
-        echo ''
-        cat da_scan.json
+
+        #Launch DAST Scan by Using APIs
+        echo '[INFO] ------------------------------------------------------------------------'
+        echo '[INFO] LAUNCHIN DAST SCAN '$3
+        http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses" < da_scan.json || echo "[ERROR] There was a problem launching the DAST Scan..." | exit 1
+        strStatus=${?}
+        echo $strStatus
+        
