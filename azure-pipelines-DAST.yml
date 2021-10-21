@@ -38,13 +38,6 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
 
-          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin -d -o prueba.json
-          echo 'Descargando file...'
-          cat prueba.json
-          echo ''
-#          http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses?name=DVWA_DAST_Scan_20211020.14"
-#          exit
-
     - task: CmdLine@2
       displayName: DAST Scan KickOff
       inputs:
