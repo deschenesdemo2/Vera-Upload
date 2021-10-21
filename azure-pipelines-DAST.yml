@@ -54,6 +54,7 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- LINKING DAST SCAN WITH AN APP PROFILE...'
           echo '[INFO] ------------------------------------------------------------------------'
+          ./veracode-DAST-AppLinking.sh $(VID) $(VKEY) DVWA_DAST_Scan_20211020.14 DVWA
 #          ./veracode-DAST-AppLinking.sh $(VID) $(VKEY) $(dastScanName) DVWA
 
 #    - task: CmdLine@2
