@@ -5,10 +5,8 @@
 
         echo ''
         echo '====== DEBUG START ======'
-        echo '[INFO] API-ID: ' $1
-        echo '[INFO] API-Key: ' $2
-        echo '[INFO] DAST-Scan-Name: ' $3
-        echo '[INFO] App-URL: ' $4
+        echo '[INFO] DAST-Scan-Name: ' $1
+        echo '[INFO] App-URL: ' $2
         echo '====== DEBUG END ======'
         echo ''
 
