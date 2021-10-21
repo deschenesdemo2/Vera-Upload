@@ -17,8 +17,9 @@
         #Getting UUID of the App Profile to be linked to the DAST Scan
         echo '[INFO] ------------------------------------------------------------------------'
         echo '[INFO] GETTING APP PROFILE INFORMATION'
-#        appProfiles=$(http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" | jq '._embedded.platform_applications') || echo "[ERROR] There was a problem retrieving Application Profile Info..." | exit 1
-        appProfiles=$(http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" | jq '._embedded.platform_applications')
+        http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin -d -o platform_applications.json || echo "[ERROR] There was a problem retrieving Application Profile Info..." | exit 1
+        echo '[INFO] Downloading App Profile Information...'
+        appProfiles=$(jq '._embedded.platform_applications' platform_applications.json)
         appProfileUUID=""
         for k in $(jq '. | keys | .[]' <<< $appProfiles); do
           arrValue=$(jq -r ".[$k]" <<< $appProfiles);
