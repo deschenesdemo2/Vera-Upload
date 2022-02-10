@@ -67,7 +67,8 @@ stages:
           curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
           unzip pipeline-scan-LATEST.zip
           echo '[INFO] --- Starting Pipeline Scan execution...'
-          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war --project_name $(System.TeamProject) --project_url $(Build.BuildUri) -so true --issue_details true
+          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --request_policy="Veracode Recommended Very High + SCA - MPT"
+          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war -so true --issue_details true --policy_file="Veracode_Recommended_Very_High_+_SCA_-_MPT.json"
           STATUS=${?}            
           if [ $STATUS -gt 0 ];
           then
