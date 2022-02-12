@@ -68,7 +68,7 @@ stages:
           unzip pipeline-scan-LATEST.zip
           echo '[INFO] --- Starting Pipeline Scan execution...'
           java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --request_policy="VCDE_VH_SCA_PS"
-          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war -so true --issue_details true --policy_file="VCDE_VH_SCA_PS.json"
+          java -Dpipeline.debug=true -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war -so true --policy_file="VCDE_VH_SCA_PS.json"
           STATUS=${?}            
           if [ $STATUS -gt 0 ];
           then
