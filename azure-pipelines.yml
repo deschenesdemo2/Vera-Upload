@@ -66,8 +66,9 @@ stages:
           curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
           unzip pipeline-scan-LATEST.zip
           echo '[INFO] --- Starting Pipeline Scan execution...'
-          java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --request_policy="VCDE_VH_SCA_PS"
-          java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war -so true --policy_file="VCDE_VH_SCA_PS.json" -V true
+          #java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --request_policy="VCDE_VH_SCA_PS"
+          #java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war -so true --policy_file="VCDE_VH_SCA_PS.json" -V true
+          java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war -so true -V true
           STATUS=${?}            
           if [ $STATUS -gt 0 ];
           then
