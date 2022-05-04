@@ -1,0 +1,78 @@
+
+Scan Summary:
+PIPELINE_SCAN_VERSION: 21.12.1-0
+DEV-STAGE: DEVELOPMENT
+SCAN_ID: 2d288642-1c76-4ab0-b60a-8ac0459f1bba
+SCAN_STATUS: SUCCESS
+SCAN_MESSAGE: Scan successful. Results size: 95428 bytes
+====================
+Analysis Successful.
+====================
+
+===================
+Analyzed 2 modules.
+===================
+verademo.war
+JS files within verademo.war
+
+===================
+Analyzed 46 issues.
+===================
+-----------------------------------
+Found 28 issues of Medium severity.
+-----------------------------------
+CWE-259: Use of Hard-coded Password: com/veracode/verademo/utils/Constants.java:1
+CWE-259: Use of Hard-coded Password: com/veracode/verademo/utils/Constants.java:13
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:242
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:244
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:264
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:283
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:285
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:301
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:303
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:304
+CWE-331: Insufficient Entropy: com/veracode/verademo/controller/Utils.java:308
+CWE-117: Improper Output Neutralization for Logs: com/veracode/verademo/controller/UserController.java:120
+CWE-117: Improper Output Neutralization for Logs: com/veracode/verademo/controller/UserController.java:165
+CWE-73: External Control of File Name or Path: com/veracode/verademo/controller/UserController.java:166
+CWE-117: Improper Output Neutralization for Logs: com/veracode/verademo/controller/BlabController.java:481
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/profile.jsp:80
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/profile.jsp:84
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/profile.jsp:117
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/login.jsp:73
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/feed.jsp:54
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/feed.jsp:92
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/feed.jsp:93
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/feed.jsp:128
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/blabbers.jsp:94
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/blab.jsp:54
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/blab.jsp:58
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/blab.jsp:102
+CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS): WEB-INF/views/blab.jsp:103
+--------------------------------
+Found 17 issues of Low severity.
+--------------------------------
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/Utils.java:222
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/UserController.java:88
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/UserController.java:215
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/UserController.java:285
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/UserController.java:354
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/BlabController.java:60
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/BlabController.java:166
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/BlabController.java:236
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/BlabController.java:320
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/BlabController.java:411
+CWE-245: J2EE Bad Practices: Direct Management of Connections: com/veracode/verademo/controller/BlabController.java:492
+CWE-209: Information Exposure Through an Error Message: WEB-INF/views/register.jsp:57
+CWE-209: Information Exposure Through an Error Message: WEB-INF/views/profile.jsp:60
+CWE-209: Information Exposure Through an Error Message: WEB-INF/views/login.jsp:57
+CWE-209: Information Exposure Through an Error Message: WEB-INF/views/feed.jsp:63
+CWE-209: Information Exposure Through an Error Message: WEB-INF/views/blabbers.jsp:63
+CWE-209: Information Exposure Through an Error Message: WEB-INF/views/blab.jsp:66
+--------------------------------------------
+Skipping 1 issues of Informational severity.
+--------------------------------------------
+
+=========================
+FAILURE: Found 45 issues!
+=========================
