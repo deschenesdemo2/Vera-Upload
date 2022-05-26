@@ -77,7 +77,7 @@ stages:
           elif  [ $STATUS_SCA -gt 0 ];
           then
             echo '[INFO] --- SCA has finished.'
-            echo '[INFO] --- $STATUS_SCA violations were found considering set rules.'
+            echo '[INFO] --- ' $STATUS_SCA ' violations were found considering set rules.'
             #exit 1
           fi
 
