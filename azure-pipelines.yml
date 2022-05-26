@@ -69,7 +69,7 @@ stages:
           export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
           export SRCCLR_WORKSPACE_SLUG=wddUOZd
           curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --skip-compile --update-advisor --allow-dirty
-          STATUS_SCA={?}
+          STATUS_SCA=${?}
           echo $STATUS_SCA
           if [ $STATUS_SCA -eq 0 ];
           then
