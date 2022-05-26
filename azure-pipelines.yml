@@ -70,6 +70,7 @@ stages:
           export SRCCLR_WORKSPACE_SLUG=wddUOZd
           curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --skip-compile --update-advisor --allow-dirty
           STATUS_SCA={?}
+          echo $STATUS_SCA
           if [ $STATUS_SCA -eq 0 ];
           then
             echo '[INFO] --- SCA has finished.'
