@@ -46,7 +46,7 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- RUNNING DAST SCAN KICKOFF...'
           echo '[INFO] ------------------------------------------------------------------------'
-          ./veracode-DAST-Scan.sh $(dastScanName) http://lisbon.cloudloop.veracodelabs.com/dvwa
+#          ./veracode-DAST-Scan.sh $(dastScanName) http://lisbon.cloudloop.veracodelabs.com/dvwa
 
     - task: CmdLine@2
       displayName: DAST App Linking
@@ -55,7 +55,7 @@ stages:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- LINKING DAST SCAN WITH AN APP PROFILE...'
           echo '[INFO] ------------------------------------------------------------------------'
-          ./veracode-DAST-AppLinking.sh $(VID) $(VKEY) $(dastScanName) DVWA
+#          ./veracode-DAST-AppLinking.sh $(VID) $(VKEY) $(dastScanName) DVWA
 
 #    - task: CmdLine@2
 #      displayName: Create Credentials File

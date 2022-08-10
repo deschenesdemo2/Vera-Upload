@@ -90,21 +90,21 @@ public class UserController {
 			
 			/* START BAD CODE */
 			// Execute the query
-			/*logger.info("Creating the Statement");
+			logger.info("Creating the Statement");
 			String sqlQuery = "select * from users where username='" + username + "' and password='" + password + "';";
 			sqlStatement = connect.createStatement();
 			logger.info("Execute the Statement");
-			ResultSet result = sqlStatement.executeQuery(sqlQuery);*/
+			ResultSet result = sqlStatement.executeQuery(sqlQuery);
 			/* END BAD CODE */
 			/* START GOOD GODE */ 
-			String sqlQuery = "select * from users where username=? and password=?;";
+			/*String sqlQuery = "select * from users where username=? and password=?;";
 			logger.info("Preparing the PreparedStatement");
 			sqlStatement = connect.prepareStatement(sqlQuery);
 			logger.info("Setting parameters for the PreparedStatement");
 			((PreparedStatement) sqlStatement).setString(1, username);
 			((PreparedStatement) sqlStatement).setString(2, password);
 			logger.info("Executing the PreparedStatement");
-			ResultSet result = sqlStatement.executeQuery(sqlQuery);
+			ResultSet result = sqlStatement.executeQuery(sqlQuery);*/
 			/* END GOOD CODE */
 			
 			// Did we find exactly 1 user that matched?
