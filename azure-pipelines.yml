@@ -2,7 +2,7 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-# DEMO PRUEBA
+# DEMO
 
 trigger:
  branches:
@@ -125,19 +125,19 @@ stages:
         failBuildOnPolicyFail: true
         maximumWaitTime: '360'
 
-#    - task: CmdLine@2
-#      displayName: SCA - OSS Scan
-#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
-#      inputs:
-#        script: |
-#          export SRCCLR_SCM_NAME=verademo_azure
-#          export SRCCLR_SCM_URI=https://dev.azure.com/oscarrodriguezarias/verademo
-#          export SRCCLR_SCM_REF=master
-#          export SRCCLR_SCM_REF_TYPE=branch
-#          export SRCCLR_SCM_REV=123456
-#          export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
-#          export SRCCLR_WORKSPACE_SLUG=wddUOZd
-#          curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --skip-compile --update-advisor --allow-dirty
+    - task: CmdLine@2
+      displayName: SCA - OSS Scan
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+      inputs:
+        script: |
+          export SRCCLR_SCM_NAME=verademo_azure
+          export SRCCLR_SCM_URI=https://dev.azure.com/oscarrodriguezarias/verademo
+          export SRCCLR_SCM_REF=master
+          export SRCCLR_SCM_REF_TYPE=branch
+          export SRCCLR_SCM_REV=123456
+          export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
+          export SRCCLR_WORKSPACE_SLUG=wddUOZd
+          curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --skip-compile --update-advisor --allow-dirty
 
     - task: Veracode@3
       displayName: SAST - Policy Scan
