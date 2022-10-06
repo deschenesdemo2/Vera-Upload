@@ -2,7 +2,7 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-# DEMO
+# DEMO OSCAR OCT/2022
 
 trigger:
  branches:
@@ -81,6 +81,15 @@ stages:
 #            echo '[INFO] --- ' $STATUS_SCA ' violations were found considering set rules.'
             #exit 1
 #          fi
+
+    - task: VeracodePipelineScan@0
+      displayName: SAST - Pipeline Scan - Plugin Option
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+      inputs:
+        VeracodeAPIID: '$(VID)'
+        VeracodeAPIsecret: '$(VKEY)'
+        fileToScan: 'target/verademo.war'
+        breakPipeline: true
 
     - task: CmdLine@2
       displayName: SAST - Pipeline Scan
