@@ -82,14 +82,14 @@ stages:
             #exit 1
 #          fi
 
-    - task: VeracodePipelineScan@0
-      displayName: SAST - Pipeline Scan - Plugin Option
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
-      inputs:
-        VeracodeAPIID: '$(VID)'
-        VeracodeAPIsecret: '$(VKEY)'
-        fileToScan: 'target/verademo.war'
-        breakPipeline: true
+#    - task: VeracodePipelineScan@0
+#      displayName: SAST - Pipeline Scan - Plugin Option
+#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+#      inputs:
+#        VeracodeAPIID: '$(VID)'
+#        VeracodeAPIsecret: '$(VKEY)'
+#        fileToScan: 'target/verademo.war'
+#        breakPipeline: true
 
     - task: CmdLine@2
       displayName: SAST - Pipeline Scan
