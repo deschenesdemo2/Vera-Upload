@@ -92,7 +92,7 @@ jobs:
 
       # Runs Veracode Policy Scan
       - name: VERACODE SAST UPLOAD AND SCAN (POLICY SCAN)
-        if: ${{ success() && github.ref_name == 'dev' }}
+        if: ${{ success() && github.ref_name == 'master' }}
         uses: veracode/veracode-uploadandscan-action@0.2.4
         env:
           VID: ${{ SECRETS.VID }}
