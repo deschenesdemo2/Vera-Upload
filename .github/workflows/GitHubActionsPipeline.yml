@@ -41,7 +41,7 @@ jobs:
         run: ls ./target
 
       - name: Branch name
-        run: echo 'Nombre del branch - '${{ github.repository }}
+        run: echo 'Nombre del branch - '${{ github.ref_name }}
 
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
