@@ -42,7 +42,7 @@ jobs:
 
       - name: Branch name
         run: |
-          echo 'Nombre del branch - '${{ github.ref_name }}
+          echo 'Branch Name: '${{ github.ref_name }}
 
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
@@ -87,9 +87,22 @@ jobs:
           vkey: '$VKEY'
           createsandbox: false
           sandboxname: 'VERADEMO_GITHUB_SB'
-#          scantimeout: 0
-#          exclude: '*.js'
-#          include: '*.war'
-#          criticality: 'VeryHigh'
           scanallnonfataltoplevelmodules: true
           deleteincompletescan: 1
+
+      # Runs Veracode Policy Scan
+      - name: VERACODE SAST UPLOAD AND SCAN (POLICY SCAN)
+        if: ${{ success() && github.ref_name == 'dev' }}
+        uses: veracode/veracode-uploadandscan-action@0.2.4
+        env:
+          VID: ${{ SECRETS.VID }}
+          VKEY: ${{ SECRETS.VKEY }}
+        with:
+          appname: 'VERADEMO_GITHUB_ACTIONS'
+          createprofile: false
+          filepath: './target/verademo.war'
+          version: '${{ github.run_id }}'
+          vid: '$VID'
+          vkey: '$VKEY'
+          scanallnonfataltoplevelmodules: true
+          deleteincompletescan: 1          
