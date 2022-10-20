@@ -40,6 +40,9 @@ jobs:
       - name: Run a one-line script
         run: ls ./target
 
+      - name: Branch name
+        run: echo $GITHUB_BASE_REF
+
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
         env:
