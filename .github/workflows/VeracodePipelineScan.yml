@@ -1,14 +1,10 @@
-# This is a basic workflow to help you understan how to integrate some Veracode analysis with Actions
-
-name: Veracode_GitHub_Actions
+name: VeracodePipelineScan
 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches:
       - 'featureX'
-      - 'dev'
-      - 'master'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -47,7 +43,7 @@ jobs:
 
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
-        if: ${{ success() && github.ref_name == 'featureX' }}
+        if: ${{ success() }}
         env:
           VID: ${{ SECRETS.VID }}
           VKEY: ${{ SECRETS.VKEY }}
@@ -71,39 +67,3 @@ jobs:
             echo '[INFO] --- ' $STATUS
             exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
           fi
-
-      # Runs Veracode Sandbox Scan
-      - name: VERACODE SAST UPLOAD AND SCAN (SANDBOX SCAN)
-        if: ${{ success() && github.ref_name == 'dev' }}
-        uses: veracode/veracode-uploadandscan-action@0.2.4
-        env:
-          VID: ${{ SECRETS.VID }}
-          VKEY: ${{ SECRETS.VKEY }}
-        with:
-          appname: 'VERADEMO_GITHUB_ACTIONS'
-          createprofile: false
-          filepath: './target/verademo.war'
-          version: '${{ github.run_id }}'
-          vid: '$VID'
-          vkey: '$VKEY'
-          createsandbox: false
-          sandboxname: 'VERADEMO_GITHUB_SB'
-          scanallnonfataltoplevelmodules: true
-          deleteincompletescan: 1
-
-      # Runs Veracode Policy Scan
-      - name: VERACODE SAST UPLOAD AND SCAN (POLICY SCAN)
-        if: ${{ success() && github.ref_name == 'master' }}
-        uses: veracode/veracode-uploadandscan-action@0.2.4
-        env:
-          VID: ${{ SECRETS.VID }}
-          VKEY: ${{ SECRETS.VKEY }}
-        with:
-          appname: 'VERADEMO_GITHUB_ACTIONS'
-          createprofile: false
-          filepath: './target/verademo.war'
-          version: '${{ github.run_id }}'
-          vid: '$VID'
-          vkey: '$VKEY'
-          scanallnonfataltoplevelmodules: true
-          deleteincompletescan: 1          
