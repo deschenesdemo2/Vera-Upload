@@ -41,7 +41,7 @@ jobs:
         run: ls ./target
 
       - name: Branch name
-        run: echo $GITHUB_BASE_REF
+        run: echo "$env.GITHUB_BASE_REF"
 
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
