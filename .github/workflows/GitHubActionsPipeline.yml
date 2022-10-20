@@ -45,6 +45,7 @@ jobs:
 
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
+        if: ${{ github.ref_name }} == 'featureX'
         env:
           VID: ${{ SECRETS.VID }}
           VKEY: ${{ SECRETS.VKEY }}
