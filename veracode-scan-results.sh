@@ -21,7 +21,7 @@
         OUTPUT_FILE_NAME='VeracodeDetailedReport-APP-'$3'.xml'
         OUTPUT_TEMP_FILE=$3'_tempfile.txt'
         echo '[INFO] ------------------------------------------------------------------------'
-        wget https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar -O VeracodeJavaAPI.jar
+        curl -sSO https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar > VeracodeJavaAPI.jar
         chmod 777 VeracodeJavaAPI.jar
         ls
         echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
