@@ -44,7 +44,7 @@ jobs:
           echo 'Branch Name: '${{ github.ref_name }}
 
       # Runs Veracode Policy Scan
-      - name: VERACODE SAST UPLOAD AND SCAN (POLICY SCAN)
+      - name: VERACODE POLICY SCAN - UPLOAD AND SCAN
         if: ${{ success() }}
         uses: veracode/veracode-uploadandscan-action@0.2.4
         env:
@@ -58,4 +58,13 @@ jobs:
           vid: '$VID'
           vkey: '$VKEY'
           scanallnonfataltoplevelmodules: true
-          deleteincompletescan: 1          
+          deleteincompletescan: 1   
+
+      #Gets Veracode Policy Scan Results
+      - name: VERACODE POLICY SCAN - RESULTS
+        if: ${{ success() }}
+        run: |
+            echo '[INFO] Getting Policy Scan Results...'
+            chmod 755 veracode-scan-results.sh
+            ./veracode-scan-results.sh $(VID) $(VKEY) VERADEMO_GITHUB_ACTIONS
+       

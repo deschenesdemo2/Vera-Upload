@@ -44,7 +44,7 @@ jobs:
           echo 'Branch Name: '${{ github.ref_name }}
 
       # Runs Veracode Sandbox Scan
-      - name: VERACODE SAST UPLOAD AND SCAN (SANDBOX SCAN)
+      - name: VERACODE SANDBOX SCAN - UPLOAD AND SCAN
         if: ${{ success() }}
         uses: veracode/veracode-uploadandscan-action@0.2.4
         env:
@@ -61,3 +61,11 @@ jobs:
           sandboxname: 'VERADEMO_GITHUB_SB'
           scanallnonfataltoplevelmodules: true
           deleteincompletescan: 1
+
+      #Gets Veracode Sandbox Scan Results
+      - name: VERACODE SANDBOX SCAN - RESULTS
+        if: ${{ success() }}
+        run: |
+          echo '[INFO] Getting Sandbox Scan Results...'
+          chmod 755 veracode-scan-results.sh
+          ./veracode-scan-results.sh $(VID) $(VKEY) VERADEMO_GITHUB_ACTIONS VERADEMO_GITHUB_SB
