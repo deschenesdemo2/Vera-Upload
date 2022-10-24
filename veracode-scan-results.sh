@@ -20,13 +20,9 @@
         OUTPUT_FILE_LOCATION="."
         OUTPUT_FILE_NAME='VeracodeDetailedReport-APP-'$3'.xml'
         OUTPUT_TEMP_FILE=$3'_tempfile.txt'
-        echo '[INFO] ------------------------------------------------------------------------'
-        curl -sSO https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar > VeracodeJavaAPI.jar
-        java -jar VeracodeJavaAPI.jar --help
-        ls
+        echo '[INFO] ------------------------------------------------------------------------'        
         echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
-        if `wget https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar -O VeracodeJavaAPI.jar`; then
-                chmod 755 VeracodeJavaAPI.jar
+        if `curl -sSO https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar > VeracodeJavaAPI.jar`; then
                 echo '[INFO] SUCCESSFULLY DOWNLOADED WRAPPER'
         else
                 echo '[ERROR] DOWNLOAD FAILED'
