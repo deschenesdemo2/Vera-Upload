@@ -23,6 +23,7 @@
         echo '[INFO] ------------------------------------------------------------------------'
         echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
         if `wget https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar -O VeracodeJavaAPI.jar`; then
+                echo 'Pequna prueba de ingreso al condicional'
                 chmod 755 VeracodeJavaAPI.jar
                 echo '[INFO] SUCCESSFULLY DOWNLOADED WRAPPER'
         else
