@@ -68,4 +68,4 @@ jobs:
         run: |
           echo '[INFO] Getting Sandbox Scan Results...'
           chmod 755 veracode-scan-results.sh
-          ./veracode-scan-results.sh $(VID) $(VKEY) VERADEMO_GITHUB_ACTIONS VERADEMO_GITHUB_SB
+          ./veracode-scan-results.sh $VID $VKEY VERADEMO_GITHUB_ACTIONS VERADEMO_GITHUB_SB
