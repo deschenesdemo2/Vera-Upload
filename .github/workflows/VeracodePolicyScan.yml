@@ -66,4 +66,4 @@ jobs:
         run: |
             echo '[INFO] Getting Policy Scan Results...'
             chmod 755 veracode-scan-results.sh
-            ./veracode-scan-results.sh $(VID) $(VKEY) VERADEMO_GITHUB_ACTIONS
+            ./veracode-scan-results.sh $VID $VKEY VERADEMO_GITHUB_ACTIONS
