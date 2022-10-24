@@ -22,7 +22,7 @@
         OUTPUT_TEMP_FILE=$3'_tempfile.txt'
         echo '[INFO] ------------------------------------------------------------------------'
         echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
-        if `wget -S https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/21.4.7.5/vosp-api-wrappers-java-21.4.7.5.jar -O VeracodeJavaAPI.jar`; then
+        if `wget https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar -O VeracodeJavaAPI.jar`; then
                 chmod 755 VeracodeJavaAPI.jar
                 echo '[INFO] SUCCESSFULLY DOWNLOADED WRAPPER'
         else
