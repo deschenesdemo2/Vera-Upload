@@ -22,7 +22,7 @@
         OUTPUT_TEMP_FILE=$3'_tempfile.txt'
         echo '[INFO] ------------------------------------------------------------------------'
         curl -sSO https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar > VeracodeJavaAPI.jar
-        chmod 777 VeracodeJavaAPI.jar
+        java -jar VeracodeJavaAPI.jar --help
         ls
         echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
         if `wget https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar -O VeracodeJavaAPI.jar`; then
