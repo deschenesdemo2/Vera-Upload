@@ -15,6 +15,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -44,7 +45,7 @@ jobs:
           echo 'Branch Name: '${{ github.ref_name }}
 
       # Runs Veracode Sandbox Scan
-      - name: VERACODE SAST UPLOAD AND SCAN (SANDBOX SCAN)
+      - name: VERACODE SANDBOX SCAN - UPLOAD AND SCAN
         if: ${{ success() }}
         uses: veracode/veracode-uploadandscan-action@0.2.4
         env:
@@ -61,3 +62,15 @@ jobs:
           sandboxname: 'VERADEMO_GITHUB_SB'
           scanallnonfataltoplevelmodules: true
           deleteincompletescan: 1
+
+      #Gets Veracode Sandbox Scan Results
+      - name: VERACODE SANDBOX SCAN - RESULTS
+        if: ${{ success() }}
+        env:
+          VID: ${{ SECRETS.VID }}
+          VKEY: ${{ SECRETS.VKEY }}
+        run: |
+          echo '[INFO] Getting Sandbox Scan Results...'
+          chmod 755 ./
+          chmod 755 veracode-scan-results.sh
+          ./veracode-scan-results.sh $VID $VKEY VERADEMO_GITHUB_ACTIONS VERADEMO_GITHUB_SB
