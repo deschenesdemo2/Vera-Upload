@@ -13,7 +13,7 @@
         echo 'Sandbox-Name: ' $4
         echo '====== DEBUG END ======'
         echo ""
-        exit 1
+
         PRESCAN_SLEEP_TIME=60
         SCAN_SLEEP_TIME=120
         JAVA_WRAPPER_LOCATION="."
