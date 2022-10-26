@@ -66,10 +66,11 @@ jobs:
       #Gets Veracode Sandbox Scan Results
       - name: VERACODE SANDBOX SCAN - RESULTS
         if: ${{ success() }}
+        env:
+          VID: ${{ SECRETS.VID }}
+          VKEY: ${{ SECRETS.VKEY }}
         run: |
           echo '[INFO] Getting Sandbox Scan Results...'
           chmod 755 ./
           chmod 755 veracode-scan-results.sh
-          echo $VID
-          echo $VKEY
           ./veracode-scan-results.sh $VID $VKEY VERADEMO_GITHUB_ACTIONS VERADEMO_GITHUB_SB
