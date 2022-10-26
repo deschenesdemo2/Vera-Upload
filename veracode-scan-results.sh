@@ -22,7 +22,8 @@
         OUTPUT_TEMP_FILE=$3'_tempfile.txt'
         echo '[INFO] ------------------------------------------------------------------------'        
         echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
-        if `curl -sSO https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar > VeracodeJavaAPI.jar`; then
+        curl -sSO https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.9.10.3/vosp-api-wrappers-java-22.9.10.3.jar > VeracodeJavaAPI.jar
+        if [ -e 'VeracodeJavaAPI.jar' ]; then
                 echo '[INFO] SUCCESSFULLY DOWNLOADED WRAPPER'
         else
                 echo '[ERROR] DOWNLOAD FAILED'
