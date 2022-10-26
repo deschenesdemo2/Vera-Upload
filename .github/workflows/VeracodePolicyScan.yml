@@ -63,6 +63,9 @@ jobs:
       #Gets Veracode Policy Scan Results
       - name: VERACODE POLICY SCAN - RESULTS
         if: ${{ success() }}
+        env:
+          VID: ${{ SECRETS.VID }}
+          VKEY: ${{ SECRETS.VKEY }}
         run: |
             echo '[INFO] Getting Policy Scan Results...'
             chmod 755 veracode-scan-results.sh
