@@ -43,7 +43,7 @@
         RESPONSE=${?}
         echo $RESPONSE
         #HTTP_CODE_RESPONSE=`echo $RESPONSE | grep -Po '"httpcode":(\W+)?"\K[a-zA-Z0-9._]+(?=")'`
-        HTTP_CODE_RESPONSE='echo $RESPONSE | grep -Po '"httpcode":(\W+)?"\K[a-zA-Z0-9._]+(?=")''
+        HTTP_CODE_RESPONSE='echo $RESPONSE | grep -Po '"httpcode":(\W+)?"\K[a-zA-Z0-9._]+(?=")'
         echo $HTTP_CODE_RESPONSE
         echo '[INFO] Scan launched successfully!'
         echo '[INFO] ------------------------------------------------------------------------'
