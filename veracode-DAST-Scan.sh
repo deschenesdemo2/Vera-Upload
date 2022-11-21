@@ -39,12 +39,12 @@
         echo '[INFO] ------------------------------------------------------------------------'
         echo '[INFO] LAUNCHING DAST SCAN '$1
         echo '[INFO] ------------------------------------------------------------------------'
-        http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses" < da_scan.json || echo "[ERROR] There was a problem launching the DAST Scan..." | exit 1
-        RESPONSE=${?}
+        #http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses" < da_scan.json || echo "[ERROR] There was a problem launching the DAST Scan..." | exit 1
+        RESPONSE='http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses" < da_scan.json'
         echo $RESPONSE
         #HTTP_CODE_RESPONSE=`echo $RESPONSE | grep -Po '"httpcode":(\W+)?"\K[a-zA-Z0-9._]+(?=")'`
         #HTTP_CODE_RESPONSE='echo $RESPONSE | grep -Po '"httpcode":(\W+)?"\K[a-zA-Z0-9._]+(?=")'
-        echo $HTTP_CODE_RESPONSE
+        #echo $HTTP_CODE_RESPONSE
         echo '[INFO] Scan launched successfully!'
         echo '[INFO] ------------------------------------------------------------------------'
         
