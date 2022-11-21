@@ -18,6 +18,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - env:
+          dastScanName: ${{ github.run_id }}
+
       # HMAC Signing
       - name: HMAC Signing
         env:
@@ -27,7 +30,7 @@ jobs:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- RUNNING HMAC SIGNING...'
           echo '[INFO] ------------------------------------------------------------------------'
-          ./veracode-HMAC-Signing-GitHubActions.sh $(VID) $(VKEY)
+          ./veracode-HMAC-Signing-GitHubActions.sh $VID $VKEY
 
       # DAST Scan Kickoff
       - name: DAST Scan Kickoff
@@ -35,7 +38,7 @@ jobs:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- RUNNING DAST SCAN KICKOFF...'
           echo '[INFO] ------------------------------------------------------------------------'
-          ./veracode-DAST-Scan.sh $(dastScanName) http://lisbon.cloudloop.veracodelabs.com/dvwa
+          ./veracode-DAST-Scan.sh $dastScanName http://lisbon.cloudloop.veracodelabs.com/dvwa
 
       # Links the scan with the App Profile
       - name: DAST App Linking
@@ -46,4 +49,4 @@ jobs:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- LINKING DAST SCAN WITH AN APP PROFILE...'
           echo '[INFO] ------------------------------------------------------------------------'
-          ./veracode-DAST-AppLinking.sh $(VID) $(VKEY) $(dastScanName) VERADEMO_GITHUB_ACTIONS
+          ./veracode-DAST-AppLinking.sh $VID $VKEY $dastScanName VERADEMO_GITHUB_ACTIONS
