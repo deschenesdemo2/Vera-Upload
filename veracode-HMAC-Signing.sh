@@ -10,8 +10,6 @@
         echo '====== DEBUG END ======'
         echo ''
 
-        pwd
-
         #Create Credentials File
         echo '[INFO] ------------------------------------------------------------------------'
         echo '[INFO] --- CONFIGURING API CREDENTIALS FILE...'
