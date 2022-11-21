@@ -40,6 +40,8 @@
         echo '[INFO] LAUNCHING DAST SCAN '$1
         echo '[INFO] ------------------------------------------------------------------------'
         http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/analyses" < da_scan.json || echo "[ERROR] There was a problem launching the DAST Scan..." | exit 1
+        STATUS=${?}
+        echo $STATUS
         echo '[INFO] Scan launched successfully!'
         echo '[INFO] ------------------------------------------------------------------------'
         
