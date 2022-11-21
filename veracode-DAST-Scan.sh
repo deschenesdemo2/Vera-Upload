@@ -35,6 +35,8 @@
         echo  '}' >> da_scan.json
         echo ''
 
+        cat da_scan.json
+
         #Launch DAST Scan by Using APIs
         echo '[INFO] ------------------------------------------------------------------------'
         echo '[INFO] LAUNCHING DAST SCAN '$1
