@@ -19,7 +19,7 @@
         echo '[INFO] GETTING APP PROFILE INFORMATION'
         echo '[INFO] ------------------------------------------------------------------------'
         echo ''
-        http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications" --ignore-stdin -d -o platform_applications.json || echo "[ERROR] There was a problem retrieving Application Profile Info..." | exit 1
+        http --auth-type=veracode_hmac "https://api.veracode.com/was/configservice/v1/platform_applications?size=100" --ignore-stdin -d -o platform_applications.json || echo "[ERROR] There was a problem retrieving Application Profile Info..." | exit 1
         echo '[INFO] Downloading App Profile Information...'
         if [ ! -f "platform_applications.json" ]; then
           echo '[ERROR] There are no App Profiles for your Organization'

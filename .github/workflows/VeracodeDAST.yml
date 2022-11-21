@@ -1,0 +1,52 @@
+name: VeracodeDynamicAnalysis
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch 
+  push:
+    branches:
+      - 'master'
+
+env:
+  dastScanName: ${{ github.run_id }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # HMAC Signing
+      - name: HMAC Signing
+        env:
+          VID: ${{ SECRETS.VID }}
+          VKEY: ${{ SECRETS.VKEY }}
+        run: |
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO] --- RUNNING HMAC SIGNING...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          ./veracode-HMAC-Signing-GitHubActions.sh $VID $VKEY
+
+      # DAST Scan Kickoff
+      - name: DAST Scan Kickoff
+        run: |
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO] --- RUNNING DAST SCAN KICKOFF...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          ./veracode-DAST-Scan.sh $dastScanName http://lisbon.cloudloop.veracodelabs.com/dvwa
+
+      # Links the scan with the App Profile
+      - name: DAST App Linking
+        env:
+          VID: ${{ SECRETS.VID }}
+          VKEY: ${{ SECRETS.VKEY }}
+        run: |
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO] --- LINKING DAST SCAN WITH AN APP PROFILE...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          ./veracode-DAST-AppLinking.sh $VID $VKEY $dastScanName VERADEMO_GITHUB_ACTIONS
