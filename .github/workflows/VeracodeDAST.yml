@@ -27,7 +27,7 @@ jobs:
           echo '[INFO] ------------------------------------------------------------------------'
           echo '[INFO] --- RUNNING HMAC SIGNING...'
           echo '[INFO] ------------------------------------------------------------------------'
-          ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
+          ./veracode-HMAC-Signing-GitHubActions.sh $(VID) $(VKEY)
 
       # DAST Scan Kickoff
       - name: DAST Scan Kickoff
