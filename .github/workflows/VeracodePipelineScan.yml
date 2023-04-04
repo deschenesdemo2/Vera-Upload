@@ -20,6 +20,7 @@ jobs:
 
       # Clean output directory
       - name: Clean Output Directory
+        working-directory: ./app
         run: mvn -B clean
 
       #Setting Java
@@ -31,10 +32,12 @@ jobs:
 
       # Build the project by using Maven
       - name: Build with Maven
+        working-directory: ./app 
         run: mvn -B package --file pom.xml
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
+        working-directory: ./app
         run: ls ./target
 
       - name: Branch name
@@ -43,6 +46,7 @@ jobs:
 
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
+        working-directory: ./app
         if: ${{ success() }}
         env:
           VID: ${{ SECRETS.VID }}
