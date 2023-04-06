@@ -32,7 +32,10 @@ jobs:
             - name: Branch name
               run: |
                 echo 'Branch Name: '${{ github.ref_name }}
- 
+
+            - name: Print ls
+              run: ls
+  
     VeracodeContainerSecurity:
         needs: Build
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
