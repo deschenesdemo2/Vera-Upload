@@ -1,0 +1,16 @@
+name: Veracode Container Security (Reusable Workflow)
+
+on:
+  workflow_call:
+    secrets:
+      token:
+        required: true
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+
+        - name: Branch name
+          run: |
+            echo 'Branch Name: '${{ github.ref_name }}
