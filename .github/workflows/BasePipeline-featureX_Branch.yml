@@ -33,8 +33,8 @@ jobs:
               run: |
                 echo 'Branch Name: '${{ github.ref_name }}
 
-            - name: Print PWD
-              run: pwd
+            - name: Print ls
+              run: ls
   
     VeracodeContainerSecurity:
         needs: Build
