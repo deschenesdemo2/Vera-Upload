@@ -1,7 +1,7 @@
 name: VeracodePipelineScan
 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+  # Triggers the workflow on push or pull request events but only for the master branch.
   push:
     branches:
       - 'featureX'
@@ -20,6 +20,7 @@ jobs:
 
       # Clean output directory
       - name: Clean Output Directory
+        working-directory: ./app
         run: mvn -B clean
 
       #Setting Java
@@ -31,10 +32,12 @@ jobs:
 
       # Build the project by using Maven
       - name: Build with Maven
+        working-directory: ./app 
         run: mvn -B package --file pom.xml
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
+        working-directory: ./app
         run: ls ./target
 
       - name: Branch name
@@ -43,6 +46,7 @@ jobs:
 
       # Runs Veracode Pipeline Scan
       - name: VERACODE SAST - PIPELINE SCAN
+        working-directory: ./app
         if: ${{ success() }}
         env:
           VID: ${{ SECRETS.VID }}
@@ -54,7 +58,7 @@ jobs:
           curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
           unzip pipeline-scan-LATEST.zip
           echo '[INFO] --- Starting Pipeline Scan execution...'
-          java -jar pipeline-scan.jar -vid $VID -vkey $VKEY --file target/verademo.war --project_name $GITHUB_REPOSITORY --project_url $REPO_URL -so true
+          java -jar pipeline-scan.jar -vid $VID -vkey $VKEY --file ./target/verademo.war --project_name $GITHUB_REPOSITORY --project_url $REPO_URL -so true
           STATUS=${?}        
           if [ $STATUS -gt 0 ];
           then
