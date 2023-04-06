@@ -6,7 +6,7 @@ on:
         - 'featureX'
 
 jobs:
-    build:
+    Build:
         runs-on: ubuntu-latest
 
         steps:
@@ -32,7 +32,8 @@ jobs:
             - name: Branch name
               run: |
                 echo 'Branch Name: '${{ github.ref_name }}
-                  
+ 
     VeracodeContainerSecurity:
+        needs: Build
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
