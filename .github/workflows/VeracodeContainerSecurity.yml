@@ -2,6 +2,11 @@ name: VeracodeContainerSecurity
 
 on:
   workflow_call:
+    inputs:
+        project-folder:
+            description: Root folder with app and artifacts to be uploaded
+            type: string
+            default: .
 
 jobs:
     CS:
@@ -10,7 +15,8 @@ jobs:
 
             # Runs a single command using the runners shell
             - name: Run a one-line script
-              run: ls ../../
+              run: |
+                echo 'Project Folder: '${{ inputs.project-folder }}
 
             - name: Branch name
               run: |

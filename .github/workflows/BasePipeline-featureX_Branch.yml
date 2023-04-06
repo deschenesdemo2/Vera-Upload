@@ -39,4 +39,6 @@ jobs:
     VeracodeContainerSecurity:
         needs: Build
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
+        with: 
+            project-folder: ./app
         secrets: inherit
