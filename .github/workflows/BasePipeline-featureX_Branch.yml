@@ -6,6 +6,6 @@ on:
         - 'featureX'
 
 jobs:
-    call-workflow-1-in-local-repo:
+    VeracodeContainerSecurity:
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
