@@ -4,12 +4,11 @@ on:
   workflow_call:
 
 jobs:
-  triage:
-    runs-on: ubuntu-latest
-    steps:
+    CS:
+        runs-on: ubuntu-latest
+        steps:
 
-        # Runs a single command using the runners shell
-        - name: Run a one-line script
-          working-directory: ./app
-          run: ls
+            # Runs a single command using the runners shell
+            - name: Run a one-line script
+              run: ls
                         
