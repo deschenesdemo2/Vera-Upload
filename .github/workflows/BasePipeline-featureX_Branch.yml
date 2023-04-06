@@ -34,7 +34,7 @@ jobs:
                 echo 'Branch Name: '${{ github.ref_name }}
 
             - name: Print ls
-              run: ls
+              run: ls ./app
   
     VeracodeContainerSecurity:
         needs: Build
