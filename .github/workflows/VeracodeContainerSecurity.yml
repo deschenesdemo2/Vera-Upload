@@ -2,9 +2,9 @@ name: Veracode Container Security (Reusable Workflow)
 
 on:
   workflow_call:
-    secrets:
-      token:
-        required: true
+#    secrets:
+#      token:
+#        required: true
 
 jobs:
   triage:
