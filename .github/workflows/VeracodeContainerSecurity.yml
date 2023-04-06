@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-        - name: Branch name
-          run: |
-            echo 'Branch Name: '${{ github.ref_name }}
+        # Runs a single command using the runners shell
+        - name: Run a one-line script
+          run: ls ./target
+                        

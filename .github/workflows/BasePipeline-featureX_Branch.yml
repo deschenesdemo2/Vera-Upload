@@ -6,6 +6,33 @@ on:
         - 'featureX'
 
 jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+           
+            #Cleanning output directory
+            - name: Clean Output Directory
+              working-directory: ./app
+              run: mvn -B clean
+    
+            #Setting Java
+            - name: Set up JDK 8
+              uses: actions/setup-java@v2
+              with:
+                java-version: '8'
+                distribution: 'temurin'
+    
+            # Build the project by using Maven
+            - name: Build with Maven
+              working-directory: ./app 
+              run: mvn -B package --file pom.xml
+    
+            - name: Branch name
+              run: |
+                echo 'Branch Name: '${{ github.ref_name }}
+                  
     VeracodeContainerSecurity:
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
