@@ -19,7 +19,7 @@ jobs:
                 echo 'Project Folder: '${{ inputs.project-folder }}
 
             - name: Running ls
-              run: ls ${{ github.ref_name }}
+              run: ls ${{ inputs.project-folder }}
 
             - name: Branch name
               run: |
