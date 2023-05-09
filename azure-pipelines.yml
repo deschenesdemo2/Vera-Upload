@@ -30,7 +30,7 @@ stages:
         
     - task: Maven@3
       inputs:
-        mavenPomFile: 'pom.xml'
+        mavenPomFile: 'app/pom.xml'
         goals: 'package' # Optional
         options: # Optional
         publishJUnitResults: true
