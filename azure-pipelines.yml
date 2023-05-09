@@ -128,7 +128,7 @@ stages:
         apiKey: '$(VKEY)'
         veracodeAppProfile: 'verademo_azure'
         version: '$(build.buildNumber)'
-        filepath: 'target/verademo.war'
+        filepath: 'app/target/verademo.war'
         sandboxName: 'devSandbox_Azure'
         createSandBox: true
         failBuildOnPolicyFail: true
@@ -157,6 +157,6 @@ stages:
         apiKey: '$(VKEY)'
         veracodeAppProfile: 'verademo_azure'
         version: '$(build.buildNumber)'
-        filepath: 'target/verademo.war'
+        filepath: 'app/target/verademo.war'
         failBuildOnPolicyFail: true
         maximumWaitTime: '360'
