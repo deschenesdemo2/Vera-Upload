@@ -1,31 +1,162 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-# This is an example of using VeraDemo Java test application with the Veracode Static Pipeline scanner.  A Veracode subscription is required.
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+# DEMO Fundacion Grupo Social
+
 trigger:
-- main
+ branches:
+   include:
+   - refs/heads/master
+   - refs/heads/dev
+   - refs/heads/featureX
+
 pool:
   vmImage: 'ubuntu-latest'
-steps:
-- task: Maven@3
-  displayName: Build with Maven
-  inputs:
-    mavenPomFile: 'app/pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-- task: Bash@3
-  displayName: Veracode Pipeline
-  inputs:
-    targetType: 'inline'
-    script: |
-      curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
-      unzip -o pipeline-scan-LATEST.zip
-      java -jar pipeline-scan.jar -vid $(VERACODE_API_ID) -vkey $(VERACODE_API_KEY) -f /home/vsts/work/1/s/app/target/verademo.war || true
-- publish: $(System.DefaultWorkingDirectory)/results.json
-  artifact: VeracodeBaseline
+
+stages:
+# In Veracode Stage it will execute Pipeline Scan or Sandbox Scan or Policy Scan depending on the branch under execution, which could be
+# 'featureX' or 'dev' or 'master' respectively.
+- stage: Veracode
+
+  jobs:
+  - job: Build
+
+    steps:
+    
+    - bash:
+      env:
+        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+        
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'package' # Optional
+        options: # Optional
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml' # Required when publishJUnitResults == True
+        testRunTitle: # Optional
+        codeCoverageToolOption: 'None' # Optional. Options: none, cobertura, jaCoCo. Enabling code coverage inserts the `clean` goal into the Maven goals list when Maven runs.
+        codeCoverageClassFilter: # Optional. Comma-separated list of filters to include or exclude classes from collecting code coverage. For example: +:com.*,+:org.*,-:my.app*.*
+        codeCoverageClassFilesDirectories: # Optional
+        codeCoverageSourceDirectories: # Optional
+        codeCoverageFailIfEmpty: false # Optional
+        javaHomeOption: 'JDKVersion' # Options: jDKVersion, path
+        jdkVersionOption: 'default' # Optional. Options: default, 1.11, 1.10, 1.9, 1.8, 1.7, 1.6
+        jdkDirectory: # Required when javaHomeOption == Path
+        jdkArchitectureOption: 'x64' # Optional. Options: x86, x64
+        mavenVersionOption: 'Default' # Options: default, path
+        mavenDirectory: # Required when mavenVersionOption == Path
+        mavenSetM2Home: false # Required when mavenVersionOption == Path
+        mavenOptions: '-Xmx1024m' # Optional
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
+        sqMavenPluginVersionChoice: 'latest' # Required when sonarQubeRunAnalysis == True# Options: latest, pom
+        checkStyleRunAnalysis: false # Optional
+        pmdRunAnalysis: false # Optional
+        findBugsRunAnalysis: false # Optional
+
+#    - task: CmdLine@2
+#      displayName: SCA - OSS Scan - Developer
+#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+#      inputs:
+#        script: |
+#          export SRCCLR_SCM_NAME=verademo_azure
+#          export SRCCLR_SCM_URI=https://dev.azure.com/oscarrodriguezarias/verademo
+#          export SRCCLR_SCM_REF=featureX
+#          export SRCCLR_SCM_REF_TYPE=branch
+          #export SRCCLR_SCM_REV=123456
+#          export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
+#          export SRCCLR_WORKSPACE_SLUG=wddUOZd
+#          curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --skip-compile --update-advisor --allow-dirty
+#          STATUS_SCA=${?}
+#          if [ $STATUS_SCA -eq 0 ];
+#         then
+#            echo '[INFO] --- SCA has finished.'
+#            echo '[INFO] --- No violations were found considering set rules.'
+#          elif  [ $STATUS_SCA -gt 0 ];
+#          then
+#            echo '[INFO] --- SCA has finished.'
+#            echo '[INFO] --- ' $STATUS_SCA ' violations were found considering set rules.'
+            #exit 1
+#          fi
+
+#    - task: VeracodePipelineScan@0
+#      displayName: SAST - Pipeline Scan - Plugin Option
+#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+#      inputs:
+#        VeracodeAPIID: '$(VID)'
+#        VeracodeAPIsecret: '$(VKEY)'
+#        fileToScan: 'target/verademo.war'
+#        breakPipeline: true
+
+    - task: CmdLine@2
+      displayName: SAST - Pipeline Scan
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+      inputs:
+        script: |
+          echo '[INFO] --- Veracode SAST - Pipeline Scan'
+          echo '[INFO] --- Downloading Pipeline Scan (Latest Version)...'
+          curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+          unzip pipeline-scan-LATEST.zip
+          echo '[INFO] --- Starting Pipeline Scan execution...'
+          #java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --request_policy="VCDE_VH_SCA_PS"
+          #java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war -so true --policy_file="VCDE_VH_SCA_PS.json" -V true
+          java -jar pipeline-scan.jar -vid $(VID) -vkey $(VKEY) --file target/verademo.war -so true -V true
+          STATUS=${?}            
+          if [ $STATUS -gt 0 ];
+          then
+            echo '[INFO] --- Pipeline Scan has finished.'
+            echo '[INFO] --- ' $STATUS ' flaws were found.'
+            #echo '[INFO] --- Uploading flaws to Azure Work Items...'
+            #python Pipeline2AzureWorkItems.py -o oscarrodriguezarias -p verademo -t task -token $(System.AccessToken) -f results.json -bid $(Build.BuildId)
+            exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
+          elif [ $STATUS -lt 0 ];
+          then
+            echo '[INFO] --- Pipeline Scan could not be executed...There are some errors...'
+            echo '[INFO] --- ' $STATUS
+            exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
+          fi
+
+    - task: Veracode@3
+      displayName: SAST - Sandbox Scan
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
+      inputs:
+        ConnectionDetailsSelection: 'Credentials'
+        apiId: '$(VID)'
+        apiKey: '$(VKEY)'
+        veracodeAppProfile: 'verademo_azure'
+        version: '$(build.buildNumber)'
+        filepath: 'target/verademo.war'
+        sandboxName: 'devSandbox_Azure'
+        createSandBox: true
+        failBuildOnPolicyFail: true
+        maximumWaitTime: '360'
+
+#    - task: CmdLine@2
+#      displayName: SCA - OSS Scan
+#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+#      inputs:
+#        script: |
+#          export SRCCLR_SCM_NAME=verademo_azure
+#          export SRCCLR_SCM_URI=https://dev.azure.com/oscarrodriguezarias/verademo
+#          export SRCCLR_SCM_REF=master
+#          export SRCCLR_SCM_REF_TYPE=branch
+#          export SRCCLR_SCM_REV=123456
+#          export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
+#          export SRCCLR_WORKSPACE_SLUG=wddUOZd
+#          curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --skip-compile --update-advisor --allow-dirty
+
+    - task: Veracode@3
+      displayName: SAST - Policy Scan
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+      inputs:
+        ConnectionDetailsSelection: 'Credentials'
+        apiId: '$(VID)'
+        apiKey: '$(VKEY)'
+        veracodeAppProfile: 'verademo_azure'
+        version: '$(build.buildNumber)'
+        filepath: 'target/verademo.war'
+        failBuildOnPolicyFail: true
+        maximumWaitTime: '360'
