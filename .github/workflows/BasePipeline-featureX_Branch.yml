@@ -12,7 +12,7 @@ jobs:
             working-directory: ./app
         steps:
             - name: Directory Check
-              run: ls ./app
+              run: ls
 
             # Clean output directory
 #            - name: Clean Output Directory
