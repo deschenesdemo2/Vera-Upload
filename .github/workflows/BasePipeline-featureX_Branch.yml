@@ -18,8 +18,8 @@ jobs:
               run: ls ./app
 
             # Clean output directory
-#            - name: Clean Output Directory
-#              run: mvn -B clean
+            - name: Clean Output Directory
+              run: mvn -B clean
 
             #Setting Java
 #            - name: Set up JDK 8
