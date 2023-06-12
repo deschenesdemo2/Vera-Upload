@@ -40,10 +40,10 @@ jobs:
                 name: MyBuiltArtifact
                 path: ./app/target/verademo.war
 
-#    VeracodePipelineScan:
-#        needs: Build
-#        uses: ./.github/workflows/VeracodePipelineScan.yml
-#        secrets: inherit
+    VeracodePipelineScan:
+        needs: Build
+        uses: ./.github/workflows/VeracodeSandboxScan.yml
+        secrets: inherit
 
 #    VeracodeContainerSecurity:
 #        uses: ./.github/workflows/VeracodeContainerSecurity.yml
