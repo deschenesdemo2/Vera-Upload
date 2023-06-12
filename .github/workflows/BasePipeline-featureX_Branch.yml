@@ -10,7 +10,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-            - uses: actions/checkout@v2
+            - name: Checking Out Code Repo
+              uses: actions/checkout@v2
 
             # Clean output directory
             - name: Clean Output Directory
@@ -33,9 +34,9 @@ jobs:
             - name: Run a one-line script
               run: ls ./app/target
 
-#            - name: Branch name
-#              run: |
-#                echo 'Branch Name: '${{ github.ref_name }}
+            - name: Branch name
+              run: |
+                echo 'Branch Name: '${{ github.ref_name }}
 
 #    VeracodeContainerSecurity:
 #        uses: ./.github/workflows/VeracodeContainerSecurity.yml
