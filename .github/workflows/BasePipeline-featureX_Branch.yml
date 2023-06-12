@@ -34,9 +34,6 @@ jobs:
             - name: Run a one-line script
               run: ls ./app/target
 
-            - name: Branch name
-              run: |
-                echo 'Branch Name: '${{ github.ref_name }}
 
 #    VeracodeContainerSecurity:
 #        uses: ./.github/workflows/VeracodeContainerSecurity.yml
