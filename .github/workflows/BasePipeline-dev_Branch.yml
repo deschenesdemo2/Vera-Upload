@@ -1,0 +1,50 @@
+name: dev Branch - Base Pipeline
+
+on:
+    pull_request:
+        types:
+            - closed
+        branches:
+            - 'dev'
+
+jobs:
+    Build:
+        if: github.event.pull_request.merged == true
+        runs-on: ubuntu-latest
+        steps:
+            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+            - name: Checking Out Code Repo
+              uses: actions/checkout@v2
+
+            # Clean output directory
+            - name: Clean Output Directory
+              working-directory: ./app
+              run: mvn -B clean
+
+            #Setting Java
+            - name: Set up JDK 8
+              uses: actions/setup-java@v2
+              with:
+                java-version: '8'
+                distribution: 'temurin'
+
+            # Build the project by using Maven
+            - name: Build with Maven
+              working-directory: ./app
+              run: mvn -B package --file pom.xml
+
+            # Publishing artifacts
+            - name: Step 3 - Use the Upload Artifact GitHub Action
+              uses: actions/upload-artifact@v3
+              with: 
+                name: MyBuiltArtifact
+                path: ./app/target/verademo.war
+
+#    VeracodePipelineScan:
+#        needs: Build
+#        uses: ./.github/workflows/VeracodePipelineScan.yml
+#        secrets: inherit
+
+#    VeracodeContainerSecurity:
+#        uses: ./.github/workflows/VeracodeContainerSecurity.yml
+#        secrets: inherit
