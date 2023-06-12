@@ -34,6 +34,9 @@ jobs:
             - name: Run a one-line script
               run: ls ./app/target
 
+    VeracodePipelineScan:
+        uses: ./.github/workflows/VeracodePipelineScan.yml
+        secrets: inherit
 
 #    VeracodeContainerSecurity:
 #        uses: ./.github/workflows/VeracodeContainerSecurity.yml

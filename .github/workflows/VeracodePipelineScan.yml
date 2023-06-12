@@ -1,0 +1,13 @@
+name: Veracode Pipeline Scan
+
+on:
+  workflow_call:
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+
+        - name: Confirming Scan Type
+          run: |
+            echo 'Veracode Pipeline Scan'
