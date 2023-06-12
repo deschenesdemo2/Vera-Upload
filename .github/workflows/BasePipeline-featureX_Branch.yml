@@ -30,10 +30,6 @@ jobs:
               working-directory: ./app
               run: mvn -B package --file pom.xml
 
-            # Runs a single command using the runners shell
-            - name: Run a one-line script
-              run: ls ./app/target
-
     VeracodePipelineScan:
         needs: Build
         uses: ./.github/workflows/VeracodePipelineScan.yml

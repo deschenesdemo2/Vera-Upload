@@ -11,3 +11,8 @@ jobs:
         - name: Confirming Scan Type
           run: |
             echo 'Veracode Pipeline Scan'
+
+        # Runs a single command using the runners shell
+        - name: Run a one-line script
+          run: ls ./app/target
+
