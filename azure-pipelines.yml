@@ -170,3 +170,4 @@ stages:
         filepath: 'app/target/verademo.war'
         failBuildOnPolicyFail: true
         maximumWaitTime: '360'
+
