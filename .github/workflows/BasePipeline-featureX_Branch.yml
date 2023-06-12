@@ -12,30 +12,30 @@ jobs:
             working-directory: ./app
         steps:
             - name: Directory Check
-              run: ls
+              run: ls ./app
 
             # Clean output directory
-            - name: Clean Output Directory
-              run: mvn -B clean
+#            - name: Clean Output Directory
+#              run: mvn -B clean
 
             #Setting Java
-            - name: Set up JDK 8
-              uses: actions/setup-java@v2
-              with:
-                java-version: '8'
-                distribution: 'temurin'
+#            - name: Set up JDK 8
+#              uses: actions/setup-java@v2
+#              with:
+#                java-version: '8'
+#                distribution: 'temurin'
 
             # Build the project by using Maven
-            - name: Build with Maven
-              run: mvn -B package --file pom.xml
+#            - name: Build with Maven
+#              run: mvn -B package --file pom.xml
 
             # Runs a single command using the runners shell
-            - name: Run a one-line script
-              run: ls ./target
+#            - name: Run a one-line script
+#              run: ls ./target
 
-            - name: Branch name
-              run: |
-                echo 'Branch Name: '${{ github.ref_name }}
+#            - name: Branch name
+#              run: |
+#                echo 'Branch Name: '${{ github.ref_name }}
 
 #    VeracodeContainerSecurity:
 #        uses: ./.github/workflows/VeracodeContainerSecurity.yml
