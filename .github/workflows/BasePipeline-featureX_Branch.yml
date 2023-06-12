@@ -1,0 +1,11 @@
+name: featureX Branch - Base Pipeline
+
+on:
+    push:
+        branches:
+        - 'featureX'
+
+jobs:
+    VeracodeContainerSecurity:
+        uses: ./.github/workflows/VeracodeContainerSecurity.yml
+        secrets: inherit
