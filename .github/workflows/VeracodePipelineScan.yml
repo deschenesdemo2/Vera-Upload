@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  PS:
+  PipelineScan:
     runs-on: ubuntu-latest
     steps:
 
