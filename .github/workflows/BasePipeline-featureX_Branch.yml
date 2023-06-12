@@ -8,14 +8,14 @@ on:
 jobs:
     Build:
         runs-on: ubuntu-latest
-#        env:
-#            working-directory: ./app
+        env:
+            working-directory: ./app
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - uses: actions/checkout@v2
 
             - name: Directory Check
-              run: ls
+              run: ls ./
 
             # Clean output directory
 #            - name: Clean Output Directory
