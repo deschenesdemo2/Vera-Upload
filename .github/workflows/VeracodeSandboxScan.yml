@@ -17,20 +17,16 @@ jobs:
         # Runs Veracode Pipeline Scan
         - name: VERACODE SAST - SANDBOX SCAN
           if: ${{ success() }}
-          env:
-            VID: ${{ SECRETS.VID }}
-            VKEY: ${{ SECRETS.VKEY }}
-            REPO_URL: https://github.com/${{ GITHUB.REPOSITORY }}
-          uses: veracode/veracode-uploadandscan-action@0.2.6
-            with:
-                appname: 'VeraDemo'
-                createprofile: false
-                filepath: 'app/target/verademo.war'
-                vid: '${{ secrets.API_ID }}'
-                vkey: '${{ secrets.API_KEY }}'
-                createsandbox: 'false'
-                sandboxname: 'dev_branch_github'
-      #          scantimeout: 0
-      #          exclude: '*.js'
-      #          include: '*.war'
-      #          criticality: 'VeryHigh'
+          uses: veracode/veracode-uploadandscan@0.2.6 
+          with:
+            appname: 'verademo'
+            createprofile: false
+            filepath: 'app/target/verademo.war'
+            vid: '${{ SECRETS.VID }}'
+            vkey: '${{ SECRETS.VKEY }}'
+            createsandbox: 'false'
+            sandboxname: 'dev_branch_github'
+  #          scantimeout: 0
+  #          exclude: '*.js'
+  #          include: '*.war'
+  #          criticality: 'VeryHigh'
