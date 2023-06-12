@@ -11,6 +11,9 @@ jobs:
         env:
             working-directory: ./app
         steps:
+            - name: Directory Check
+              run: ls
+
             # Clean output directory
             - name: Clean Output Directory
               run: mvn -B clean
