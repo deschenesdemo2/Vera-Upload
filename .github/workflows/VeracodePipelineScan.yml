@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-        - name: Confirming Scan Type
-          run: |
-            echo 'Veracode Pipeline Scan'
+        #Gets the artifact
+        - name: Downloading artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: MyBuiltArtifact
 
-        # Runs a single command using the runners shell
-        - name: Run a one-line script
-          run: ls ./app/target
-
+        - name: Display structure of downloaded files
+          run: ls -R

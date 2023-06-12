@@ -30,6 +30,13 @@ jobs:
               working-directory: ./app
               run: mvn -B package --file pom.xml
 
+            # Publishing artifacts
+            - name: Step 3 - Use the Upload Artifact GitHub Action
+              uses: actions/upload-artifact@v3
+              with: 
+                name: MyBuiltArtifact
+                path: ./app/target/verademo.war
+
     VeracodePipelineScan:
         needs: Build
         uses: ./.github/workflows/VeracodePipelineScan.yml
