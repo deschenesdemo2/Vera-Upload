@@ -35,6 +35,7 @@ jobs:
               run: ls ./app/target
 
     VeracodePipelineScan:
+        needs: Build
         uses: ./.github/workflows/VeracodePipelineScan.yml
         secrets: inherit
 
