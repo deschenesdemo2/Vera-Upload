@@ -1,0 +1,36 @@
+name: Veracode Sandbox Scan
+
+on:
+  workflow_call:
+
+jobs:
+  PipelineScan:
+    runs-on: ubuntu-latest
+    steps:
+
+        #Gets the artifact
+        - name: Downloading artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: MyBuiltArtifact
+
+        # Runs Veracode Pipeline Scan
+        - name: VERACODE SAST - SANDBOX SCAN
+          if: ${{ success() }}
+          env:
+            VID: ${{ SECRETS.VID }}
+            VKEY: ${{ SECRETS.VKEY }}
+            REPO_URL: https://github.com/${{ GITHUB.REPOSITORY }}
+          uses: veracode/veracode-uploadandscan-action@0.2.6
+            with:
+                appname: 'VeraDemo'
+                createprofile: false
+                filepath: 'app/target/verademo.war'
+                vid: '${{ secrets.API_ID }}'
+                vkey: '${{ secrets.API_KEY }}'
+                createsandbox: 'false'
+                sandboxname: 'dev_branch_github'
+      #          scantimeout: 0
+      #          exclude: '*.js'
+      #          include: '*.war'
+      #          criticality: 'VeryHigh'
