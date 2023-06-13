@@ -1,4 +1,4 @@
-name: Veracode Sandbox Scan
+name: Veracode Policy Scan
 
 on:
   workflow_call:
@@ -14,8 +14,8 @@ jobs:
           with:
             name: MyBuiltArtifact
 
-        # Runs Veracode Sandbox Scan
-        - name: VERACODE SAST - SANDBOX SCAN
+        # Runs Veracode Policy Scan
+        - name: VERACODE SAST - POLICY SCAN
           if: ${{ success() }}
           uses: veracode/veracode-uploadandscan-action@0.2.6 
           with:
@@ -24,8 +24,6 @@ jobs:
             filepath: 'verademo.war'
             vid: '${{ SECRETS.VID }}'
             vkey: '${{ SECRETS.VKEY }}'
-            createsandbox: 'false'
-            sandboxname: 'dev_branch_github'
             version: '${{ github.run_id }}'
             deleteincompletescan: 2
   #          scantimeout: 0
