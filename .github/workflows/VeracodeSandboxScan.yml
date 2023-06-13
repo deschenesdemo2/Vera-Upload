@@ -27,7 +27,7 @@ jobs:
             createsandbox: 'false'
             sandboxname: 'dev_branch_github'
             version: '${{ github.run_id }}'
-            toplevel: true
+            deleteincompletescan: 2
   #          scantimeout: 0
   #          exclude: '*.js'
   #          include: '*.war'
