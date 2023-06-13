@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  PipelineScan:
+  SandboxScan:
     runs-on: ubuntu-latest
     steps:
 
@@ -17,7 +17,7 @@ jobs:
         # Runs Veracode Pipeline Scan
         - name: VERACODE SAST - SANDBOX SCAN
           if: ${{ success() }}
-          uses: veracode/veracode-uploadandscan@0.2.6 
+          uses: veracode/veracode-uploadandscan-action@0.2.6 
           with:
             appname: 'verademo'
             createprofile: false
