@@ -1,12 +1,15 @@
-name: featureX Branch - Base Pipeline
+name: master Branch - Base Pipeline
 
 on:
-    push:
+    pull_request:
+        types:
+            - closed
         branches:
-        - 'featureX'
+            - 'master'
 
 jobs:
     Build:
+        if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -37,9 +40,9 @@ jobs:
                 name: MyBuiltArtifact
                 path: ./app/target/verademo.war
 
-    VeracodePipelineScan:
+    VeracodePolicyScan:
         needs: Build
-        uses: ./.github/workflows/VeracodePipelineScan.yml
+        uses: ./.github/workflows/VeracodePolicyScan.yml
         secrets: inherit
 
 #    VeracodeContainerSecurity:

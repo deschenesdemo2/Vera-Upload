@@ -1,0 +1,42 @@
+name: Veracode Pipeline Scan
+
+on:
+  workflow_call:
+
+jobs:
+  PipelineScan:
+    runs-on: ubuntu-latest
+    steps:
+
+        #Gets the artifact
+        - name: Downloading artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: MyBuiltArtifact
+
+        # Runs Veracode Pipeline Scan
+        - name: VERACODE SAST - PIPELINE SCAN
+          if: ${{ success() }}
+          env:
+            VID: ${{ SECRETS.VID }}
+            VKEY: ${{ SECRETS.VKEY }}
+            REPO_URL: https://github.com/${{ GITHUB.REPOSITORY }}
+          run: |
+            echo '[INFO] --- Veracode SAST - Pipeline Scan'
+            echo '[INFO] --- Downloading Pipeline Scan (Latest Version)...'
+            curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+            unzip pipeline-scan-LATEST.zip
+            echo '[INFO] --- Starting Pipeline Scan execution...'
+            java -jar pipeline-scan.jar -vid $VID -vkey $VKEY --file verademo.war --project_name $GITHUB_REPOSITORY --project_url $REPO_URL -so true
+            STATUS=${?}        
+            if [ $STATUS -gt 0 ];
+            then
+              echo '[INFO] --- Pipeline Scan has finished.'
+              echo '[INFO] --- ' $STATUS ' flaws were found.'
+              exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
+            elif [ $STATUS -lt 0 ];
+            then
+              echo '[INFO] --- Pipeline Scan could not be executed...There are some errors...'
+              echo '[INFO] --- ' $STATUS
+              exit 1 #This exit code makes the pipeline breaks. Remove this line if you need the pipeline continues its execution
+            fi

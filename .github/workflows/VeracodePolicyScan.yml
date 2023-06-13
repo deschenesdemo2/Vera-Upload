@@ -1,0 +1,32 @@
+name: Veracode Policy Scan
+
+on:
+  workflow_call:
+
+jobs:
+  SandboxScan:
+    runs-on: ubuntu-latest
+    steps:
+
+        #Gets the artifact
+        - name: Downloading artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: MyBuiltArtifact
+
+        # Runs Veracode Policy Scan
+        - name: VERACODE SAST - POLICY SCAN
+          if: ${{ success() }}
+          uses: veracode/veracode-uploadandscan-action@0.2.6 
+          with:
+            appname: 'verademo'
+            createprofile: false
+            filepath: 'verademo.war'
+            vid: '${{ SECRETS.VID }}'
+            vkey: '${{ SECRETS.VKEY }}'
+            version: '${{ github.run_id }}'
+            deleteincompletescan: 2
+  #          scantimeout: 0
+  #          exclude: '*.js'
+  #          include: '*.war'
+  #          criticality: 'VeryHigh'
