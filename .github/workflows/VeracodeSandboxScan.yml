@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  PipelineScan:
+  SandboxScan:
     runs-on: ubuntu-latest
     steps:
 
@@ -17,15 +17,17 @@ jobs:
         # Runs Veracode Pipeline Scan
         - name: VERACODE SAST - SANDBOX SCAN
           if: ${{ success() }}
-          uses: veracode/veracode-uploadandscan@0.2.6 
+          uses: veracode/veracode-uploadandscan-action@0.2.6 
           with:
             appname: 'verademo'
             createprofile: false
-            filepath: 'app/target/verademo.war'
+            filepath: 'verademo.war'
             vid: '${{ SECRETS.VID }}'
             vkey: '${{ SECRETS.VKEY }}'
             createsandbox: 'false'
             sandboxname: 'dev_branch_github'
+            version: '${{ github.run_id }}'
+            toplevel: true
   #          scantimeout: 0
   #          exclude: '*.js'
   #          include: '*.war'
