@@ -21,11 +21,13 @@ jobs:
           with:
             appname: 'verademo'
             createprofile: false
-            filepath: 'app/target/verademo.war'
+            filepath: 'verademo.war'
             vid: '${{ SECRETS.VID }}'
             vkey: '${{ SECRETS.VKEY }}'
             createsandbox: 'false'
             sandboxname: 'dev_branch_github'
+            version: '${{ github.run_id }}'
+            toplevel: true
   #          scantimeout: 0
   #          exclude: '*.js'
   #          include: '*.war'
