@@ -1,11 +1,11 @@
-name: dev Branch - Base Pipeline
+name: master Branch - Base Pipeline
 
 on:
     pull_request:
         types:
             - closed
         branches:
-            - 'dev'
+            - 'master'
 
 jobs:
     Build:
@@ -40,9 +40,9 @@ jobs:
                 name: MyBuiltArtifact
                 path: ./app/target/verademo.war
 
-    VeracodeSandboxScan:
+    VeracodePolicyScan:
         needs: Build
-        uses: ./.github/workflows/VeracodeSandboxScan.yml
+        uses: ./.github/workflows/VeracodePolicyScan.yml
         secrets: inherit
 
 #    VeracodeContainerSecurity:
