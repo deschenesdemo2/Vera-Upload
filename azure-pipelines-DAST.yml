@@ -1,0 +1,144 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+# DEMO DAST Telefonica
+
+#This a pipeline for testing Veracode DAST using APIs
+
+trigger:
+ branches:
+   include:
+#   - refs/heads/master
+#   - refs/heads/dev
+   - refs/heads/featureX
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+# In Veracode Stage it will execute Pipeline Scan or Sandbox Scan or Policy Scan depending on the branch under execution, which could be
+# 'featureX' or 'dev' or 'master' respectively.
+- stage: Veracode_DAST
+
+  jobs:
+  - job: VeracodeDASTKickOff
+
+    variables:
+    - name: dastScanName
+      value: DVWA_DAST_Scan_$(Build.BuildNumber)
+
+    steps:
+
+    - task: CmdLine@2
+      displayName: HMAC Signing
+      inputs:
+        script: |
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO] --- RUNNING HMAC SIGNING...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          ./veracode-HMAC-Signing.sh $(VID) $(VKEY)
+
+    - task: CmdLine@2
+      displayName: DAST Scan KickOff
+      inputs:
+        script: |
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO] --- RUNNING DAST SCAN KICKOFF...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          ./veracode-DAST-Scan.sh $(dastScanName) http://lisbon.cloudloop.veracodelabs.com/dvwa
+
+    - task: CmdLine@2
+      displayName: DAST App Linking
+      inputs:
+        script: |
+          echo '[INFO] ------------------------------------------------------------------------'
+          echo '[INFO] --- LINKING DAST SCAN WITH AN APP PROFILE...'
+          echo '[INFO] ------------------------------------------------------------------------'
+          ./veracode-DAST-AppLinking.sh $(VID) $(VKEY) $(dastScanName) DVWA
+
+#    - task: CmdLine@2
+#      displayName: Create Credentials File
+#      inputs:
+#        script: |
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo '[INFO] --- CONFIGURING API CREDENTIALS FILE...'
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo '[default]' >> credentials.txt
+#          echo 'veracode_api_key_id='$(VID) >> credentials.txt
+#          echo 'veracode_api_key_secret='$(VKEY) >> credentials.txt
+#          mkdir /home/vsts/.veracode/
+#          cp -f credentials.txt /home/vsts/.veracode/credentials
+#          chmod 755 /home/vsts/.veracode/credentials
+
+#    - task: CmdLine@2
+#      displayName: Install Veracode Auth
+#      inputs:
+#        script: |
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo '[INFO ] --- INSTALLING VERACODE AUTHENTICATION LIBRARY...'
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          pip install veracode-api-signing
+
+#    - task: CmdLine@2
+#      displayName: Create JSON File
+#      inputs:
+#        script: |
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo '[INFO] --- CREATING JSON FILE...'
+#          echo '[INFO] ------------------------------------------------------------------------'
+#          echo  '{' >> da_scan.json
+#          echo  '  "name": "$(dastScanName)",' >> da_scan.json
+#          echo  '  "scans": [' >> da_scan.json
+#          echo  '    {' >> da_scan.json
+#          echo  '      "scan_config_request": {' >> da_scan.json
+#          echo  '        "target_url": {' >> da_scan.json
+#          echo  '          "url": "http://lisbon.cloudloop.veracodelabs.com/dvwa"' >> da_scan.json
+#          echo  '        }' >> da_scan.json
+#          echo  '      }' >> da_scan.json
+#          echo  '    }' >> da_scan.json
+#          echo  '  ],' >> da_scan.json
+#          echo  '  "schedule": {' >> da_scan.json
+#          echo  '    "duration": {' >> da_scan.json
+#          echo  '      "length": 1,' >> da_scan.json
+#          echo  '      "unit": "DAY"' >> da_scan.json
+#          echo  '    },' >> da_scan.json
+#          echo  '    "scheduled": true,' >> da_scan.json
+#          echo  '    "now": true' >> da_scan.json
+#          echo  '  }' >> da_scan.json
+#          echo  '}' >> da_scan.json
+
+#    - task: PythonScript@0
+#      displayName: Kick Off DAST Scan
+#      inputs:
+#        scriptSource: 'inline'
+#        script: |
+#          import sys
+#          import json
+#          import requests
+#          from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
+
+#          with open('/home/vsts/.veracode/credentials', 'r') as fin:
+#            print(fin.read())
+#      
+#          api_base = "https://api.veracode.com/was/configservice/v1"
+#          headers = {"User-Agent": "Start DA Scan Example", 'Content-type': 'application/json'}
+
+#          if __name__ == "__main__":
+#              try:
+#                  contents = open('da_scan.json', 'rb').read()
+#                  print(contents)
+#                  response = requests.post(api_base + "/analyses", auth=RequestsAuthPluginVeracodeHMAC(), data=contents, headers=headers)
+#              except requests.RequestException as e:
+#                  print("Failed...")
+#                  print(e)
+#                  sys.exit(1)
+
+#              if response.ok:
+#                  print('DAST Scan is running...')
+#                  print(response.status_code)
+#                  print(response.content)
+#              else:
+#                  print('DAST Scan with problems...')
+#                  print(response.status_code)
+#                  print(response.content)

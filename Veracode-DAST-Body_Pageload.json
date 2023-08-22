@@ -1,0 +1,216 @@
+{
+  "name": "string",
+  "org_info": {
+    "business_unit_id": "string",
+    "email": "string",
+    "owner": "string"
+  },
+  "scan_setting": {
+    "blacklist_configuration": {
+      "black_list": [
+        {
+          "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY",
+          "http_and_https": true,
+          "url": "string"
+        }
+      ]
+    },
+    "user_agent": {
+      "custom_header": "string",
+      "type": "DEFAULT"
+    },
+    "custom_hosts": [
+      {
+        "host_name": "my.custom.host",
+        "ip_address": "127.0.0.1"
+      }
+    ],
+    "max_browsers": 0,
+    "similarity_threshold": 0
+  },
+  "scanner_variables": [
+    {
+      "reference_key": "string",
+      "value": "string",
+      "description": "string"
+    }
+  ],
+  "scans": [
+    {
+      "action_type": "ADD",
+      "scan_id": "string",
+      "scan_contact_info": {
+        "email": "string",
+        "first_and_last_name": "string",
+        "telephone": "string"
+      },
+      "scan_config_request": {
+        "allowed_hosts": [
+          {
+            "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY",
+            "http_and_https": true,
+            "url": "string"
+          }
+        ],
+        "auth_configuration": {
+          "authentications": {
+            "AUTO": {
+              "authtype": "string",
+              "authentication_id": "string",
+              "username": "string",
+              "password": "string"
+            },
+            "FORM": {
+              "authtype": "string",
+              "authentication_id": "string",
+              "login_script_data": {
+                "script_body": "string",
+                "script_type": "SELENIUM"
+              },
+              "logout_script_data": {
+                "script_body": "string",
+                "script_type": "SELENIUM"
+              }
+            },
+            "BASIC": {
+              "authtype": "string",
+              "authentication_id": "string",
+              "username": "string",
+              "password": "string",
+              "domain": "string"
+            },
+            "CERT": {
+              "authtype": "string",
+              "authentication_id": "string",
+              "password": "string",
+              "base64_pkcs12": "string",
+              "cert_name": "string"
+            },
+            "HEADER": {
+              "authtype": "string",
+              "authentication_id": "string",
+              "headers": [
+                {
+                  "key": "string",
+                  "value": "string",
+                  "url": "string"
+                }
+              ]
+            },
+            "OAUTH2": {
+              "authtype": "string",
+              "use_openid_connect": true,
+              "authentication_id": "string",
+              "grant_type": "CLIENT_CREDENTIALS",
+              "access_token_url": "string",
+              "authorization_url": "string",
+              "client_id": "string",
+              "client_secret": "string",
+              "username": "string",
+              "password": "string",
+              "redirect_url": "string",
+              "scope": "string",
+              "openid_url": "string"
+            },
+            "JAVASCRIPT": {
+              "authtype": "string",
+              "authentication_id": "string",
+              "base64_js": "string",
+              "script_name": "string"
+            }
+          }
+        },
+        "api_scan_setting": {
+          "rate_limit_rps": 0,
+          "spec_id": "string"
+        },
+        "crawl_configuration": {
+          "disabled": false,
+          "scripts": [
+            {
+              "crawl_script_data": {
+                "script_body": "string",
+                "script_type": "SELENIUM"
+              },
+              "crawl_script_id": "string",
+              "number_scripts": 0
+            }
+          ]
+        },
+        "scan_setting": {
+          "blacklist_configuration": {
+            "black_list": [
+              {
+                "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY",
+                "http_and_https": true,
+                "url": "string"
+              }
+            ]
+          },
+          "user_agent": {
+            "custom_header": "string",
+            "type": "DEFAULT"
+          },
+          "custom_hosts": [
+            {
+              "host_name": "my.custom.host",
+              "ip_address": "127.0.0.1"
+            }
+          ],
+          "max_browsers": 0,
+          "similarity_threshold": 0
+        },
+        "target_url": {
+          "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY",
+          "http_and_https": true,
+          "url": "string"
+        },
+        "scanner_variables": [
+          {
+            "reference_key": "string",
+            "value": "string",
+            "description": "string"
+          }
+        ]
+      },
+      "linked_platform_app_uuid": "string",
+      "internal_scan_configuration": {
+        "enabled": true,
+        "endpoint_id": "string",
+        "gateway_id": "string"
+      }
+    }
+  ],
+  "schedule": {
+    "duration": {
+      "length": 0,
+      "unit": "DAY"
+    },
+    "effective_end_date": "string",
+    "effective_start_date": "string",
+    "end_date": "string",
+    "now": true,
+    "scan_blackout_schedule": {
+      "blackout_days": "string",
+      "blackout_end_time": "string",
+      "blackout_start_time": "string",
+      "blackout_type": "THESE_HOURS"
+    },
+    "scan_recurrence_schedule": {
+      "day_of_week": "MONDAY",
+      "recurrence_interval": 0,
+      "recurrence_type": "MONTHLY",
+      "schedule_end_after": 0,
+      "week_of_month": "FIRST"
+    },
+    "schedule_status": "ACTIVE",
+    "start_date": "string"
+  },
+  "special_instructions": "string",
+  "visibility": {
+    "setup_type": "SEC_LEADS_ONLY",
+    "team_identifiers": [
+      "string"
+    ]
+  }
+}
