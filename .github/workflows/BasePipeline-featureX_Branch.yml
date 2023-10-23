@@ -41,7 +41,3 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodePipelineScan.yml
         secrets: inherit
-
-#    VeracodeContainerSecurity:
-#        uses: ./.github/workflows/VeracodeContainerSecurity.yml
-#        secrets: inherit
