@@ -14,6 +14,6 @@ jobs:
           env:
             VID: ${{ SECRETS.VID }}
             VKEY: ${{ SECRETS.VKEY }}
-            REPO_URL: ${{ github.github_server_url }}/${{ GITHUB.REPOSITORY }}
+            REPO_URL: ${{ GITHUB.server_url }}/${{ GITHUB.REPOSITORY }}
           run: |
             echo $REPO_URL
