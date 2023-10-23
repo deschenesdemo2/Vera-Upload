@@ -32,4 +32,4 @@ COPY maven-settings.xml /usr/share/maven/conf/settings.xml
 RUN mvn clean package && rm -rf target
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["-c"]
+#CMD ["-c"]
