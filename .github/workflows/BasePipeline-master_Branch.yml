@@ -64,7 +64,7 @@ jobs:
               if: ${{ success() }}
               run: |
                 echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...'
-                PASS=$(jq -r '."Policy Passed"' results.json)
+                PASS=$(jq -r '."policy-passed"' results.json)
                 echo "Passed policy: $PASS"
                 if $PASS; then
                   exit 0
