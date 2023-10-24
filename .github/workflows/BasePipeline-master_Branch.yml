@@ -3,7 +3,7 @@ name: master Branch - Base Pipeline
 on:
     pull_request:
         types:
-            - closed
+            [opened, reopened]
         branches:
             - 'master'
 
@@ -44,7 +44,9 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodePolicyScan.yml
         secrets: inherit
-
+          
     VeracodeContainerSecurity:
+        needs: Build
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
+          
