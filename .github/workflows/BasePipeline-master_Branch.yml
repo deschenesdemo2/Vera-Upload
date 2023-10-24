@@ -63,7 +63,13 @@ jobs:
             - name: Validating Container Security Scan Results
               if: ${{ success() }}
               run: |
-                cat results.json
-
+                echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...'
+                PASS=$(jq -r '."policy Passed"' results.json)
+                echo "Passed policy: $PASS"
+                if $PASS; then
+                  exit 0
+                else
+                  exit 1
+                fi
 
           
