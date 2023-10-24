@@ -22,7 +22,7 @@ jobs:
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            ./veracode scan --type repo --source $REPO_URL --output results.json
+            ./veracode scan --type repo --source $REPO_URL --format table --output results.json
 
         # Publishing artifacts
         - name: Step 3 - Use the Upload Artifact GitHub Action
