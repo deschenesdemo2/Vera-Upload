@@ -22,11 +22,29 @@ jobs:
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            ./veracode scan --type repo --source $REPO_URL --output results.json
+            ./veracode scan --type repo --source $REPO_URL --output cs_results.json
 
         # Publishing artifacts
-        - name: Step 3 - Use the Upload Artifact GitHub Action
-          uses: actions/upload-artifact@v3
-          with: 
-            name: VeracodeContainerSecurityResults
-            path: ./results.json
+#        - name: Step 3 - Use the Upload Artifact GitHub Action
+#          uses: actions/upload-artifact@v3
+#          with: 
+#            name: VeracodeContainerSecurityResults
+#            path: ./cs_results.json
+
+                  # Getting Container Security Scan Results
+#                  - name: Getting Container Security Scan Results
+#                    uses: actions/download-artifact@v3
+#                    with:
+#                      name: VeracodeContainerSecurityResults
+      
+        - name: Validating Container Security Scan Results
+          if: ${{ success() }}
+          run: |
+            echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...'
+            PASS=$(jq -r '."policy-passed"' cs_results.json)
+            echo "Passed policy: $PASS"
+            if $PASS; then
+              exit 0
+            else
+              exit 1
+            fi
