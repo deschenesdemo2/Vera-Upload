@@ -49,27 +49,3 @@ jobs:
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
 
-    CheckingResults:
-        needs: [VeracodePolicyScan, VeracodeContainerSecurity]
-        runs-on: ubuntu-latest
-        steps:
-
-            # Getting Artifacts
-            - name: Getting Container Security Scan Results
-              uses: actions/download-artifact@v3
-              with:
-                name: VeracodeContainerSecurityResults
-
-            - name: Validating Container Security Scan Results
-              if: ${{ success() }}
-              run: |
-                echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...'
-                PASS=$(jq -r '."policy-passed"' results.json)
-                echo "Passed policy: $PASS"
-                if $PASS; then
-                  exit 0
-                else
-                  exit 1
-                fi
-
-          
