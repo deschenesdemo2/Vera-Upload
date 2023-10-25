@@ -39,6 +39,11 @@ jobs:
                 name: MyBuiltArtifact
                 path: ./app/target/verademo.war
 
+            - name: Prueba Directorios
+              run: |
+                echo ls -all
+                exit 0
+
     VeracodePolicyScan:
         needs: Build
         uses: ./.github/workflows/VeracodePolicyScan.yml
