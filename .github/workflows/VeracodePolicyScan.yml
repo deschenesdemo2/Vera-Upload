@@ -26,7 +26,3 @@ jobs:
             vkey: '${{ SECRETS.VKEY }}'
             version: '${{ github.run_id }}'
             deleteincompletescan: 2
-  #          scantimeout: 0
-  #          exclude: '*.js'
-  #          include: '*.war'
-  #          criticality: 'VeryHigh'
