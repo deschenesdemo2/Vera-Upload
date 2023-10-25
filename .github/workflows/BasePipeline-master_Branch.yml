@@ -41,7 +41,7 @@ jobs:
 
             - name: Prueba Directorios
               run: |
-                echo ls -all
+                ls -all
                 exit 0
 
     VeracodePolicyScan:
