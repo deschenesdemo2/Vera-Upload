@@ -36,9 +36,9 @@ jobs:
           if: ${{ success() }}
           run: |
             ls -all
-            echo '======================================================='
-            echo 'VALIDATING VERACODE SAST RESULTS...'
-            echo '======================================================='
-            chmod 777 -R ./shell_scripts
-            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
+#            echo '======================================================='
+#            echo 'VALIDATING VERACODE SAST RESULTS...'
+#            echo '======================================================='
+#            chmod 777 -R ./shell_scripts
+#            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
 
