@@ -44,6 +44,7 @@ jobs:
         secrets: inherit
 
     Test:
+        needs: Build
         runs-on: ubuntu-latest
         steps:
             - name: CMD Test
