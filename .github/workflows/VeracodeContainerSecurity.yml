@@ -22,7 +22,8 @@ jobs:
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            ./veracode scan --type repo --source $REPO_URL --output cs_results.json
+            ./veracode scan --type directory --source ./ --output cs_results.json
+#            ./veracode scan --type repo --source $REPO_URL --output cs_results.json
 
         - name: Validating Container Security Scan Results
           if: ${{ success() }}
