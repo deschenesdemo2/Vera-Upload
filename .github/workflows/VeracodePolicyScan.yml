@@ -27,7 +27,7 @@ jobs:
             version: '${{ github.run_id }}'
             deleteincompletescan: 2
 
-        # Verify SAST results to control workflow
+        # Verify SAST results to control workflow 
         - name: Validating SAST Scan Results
           if: ${{ success() }}
           run: |
