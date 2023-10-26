@@ -7,13 +7,6 @@ on:
 
 jobs:
 
-    Test:
-        runs-on: ubuntu-latest
-        steps:
-            - name: CMD Test
-              run: |
-                ls -all
-                
     Build:
         runs-on: ubuntu-latest
         steps:
@@ -49,3 +42,11 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodePipelineScan.yml
         secrets: inherit
+
+    Test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: CMD Test
+              run: |
+                ls -all
+  
