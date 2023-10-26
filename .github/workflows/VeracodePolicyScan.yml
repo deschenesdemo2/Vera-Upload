@@ -35,7 +35,7 @@ jobs:
         - name: Validating SAST Scan Results
           if: ${{ success() }}
           run: |
-            chmod 777 -R shell_scripts
+            chmod -R 777 shell_scripts
             echo '======================================================='
             echo 'VALIDATING VERACODE SAST RESULTS...'
             echo '======================================================='
