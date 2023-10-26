@@ -35,13 +35,9 @@ jobs:
         - name: Validating SAST Scan Results
           if: ${{ success() }}
           run: |
-            ls -all
-            chmod 777 -R ./shell_scripts
-            ls -all
-            java -jar VeracodeJavaAPI.jar -wrapperversion
-#            echo '======================================================='
-#            echo 'VALIDATING VERACODE SAST RESULTS...'
-#            echo '======================================================='
-#            chmod 777 -R ./shell_scripts
-#            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
+            chmod 777 -R shell_scripts
+            echo '======================================================='
+            echo 'VALIDATING VERACODE SAST RESULTS...'
+            echo '======================================================='
+            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
 
