@@ -38,6 +38,7 @@ jobs:
             ls -all
             chmod 777 -R ./shell_scripts
             ls -all
+            java -jar VeracodeJavaAPI.jar -wrapperversion
 #            echo '======================================================='
 #            echo 'VALIDATING VERACODE SAST RESULTS...'
 #            echo '======================================================='
