@@ -31,7 +31,7 @@ jobs:
               working-directory: ./app
               run: mvn -B package --file pom.xml
 
-            # Publishing artifacts
+            # Publishing artifacts - Binaries to be scanned
             - name: Step 3 - Use the Upload Artifact GitHub Action
               uses: actions/upload-artifact@v3
               with: 
@@ -42,12 +42,4 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodePipelineScan.yml
         secrets: inherit
-
-    Test:
-        needs: Build
-        runs-on: ubuntu-latest
-        steps:
-            - name: CMD Test
-              run: |
-                ls -all
   

@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        - name: Checking Out Code Repo
+          uses: actions/checkout@v2
+
         #Gets the artifact
         - name: Downloading artifact
           uses: actions/download-artifact@v3
@@ -31,9 +35,10 @@ jobs:
         - name: Validating SAST Scan Results
           if: ${{ success() }}
           run: |
+            ls -all
             echo '======================================================='
             echo 'VALIDATING VERACODE SAST RESULTS...'
             echo '======================================================='
-            chmod 755 shell_scripts/veracode-scan-results.sh
-            shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
+            chmod 755 ./shell_scripts/veracode-scan-results.sh
+            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
 
