@@ -36,6 +36,8 @@ jobs:
           if: ${{ success() }}
           run: |
             ls -all
+            chmod 777 -R ./shell_scripts
+            ls -all
 #            echo '======================================================='
 #            echo 'VALIDATING VERACODE SAST RESULTS...'
 #            echo '======================================================='
