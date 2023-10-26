@@ -6,6 +6,14 @@ on:
         - 'featureX'
 
 jobs:
+
+    Test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: CMD Test
+              run: |
+                ls -all
+                
     Build:
         runs-on: ubuntu-latest
         steps:
