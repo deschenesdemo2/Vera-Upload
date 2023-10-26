@@ -20,7 +20,9 @@
         OUTPUT_FILE_LOCATION="."
         OUTPUT_FILE_NAME='VeracodeDetailedReport-APP-'$3'.xml'
         OUTPUT_TEMP_FILE=$3'_tempfile.txt'
-        chmod -R 777 ./
+        
+        sudo apt-get remove curl
+        sudo apt install curl
         echo '[INFO] ------------------------------------------------------------------------'
         echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
         if `curl -sS -o VeracodeJavaAPI.jar https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/23.8.12.0/vosp-api-wrappers-java-23.8.12.0.jar`; then
