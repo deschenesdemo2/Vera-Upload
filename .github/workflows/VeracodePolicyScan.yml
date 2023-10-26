@@ -14,7 +14,7 @@ jobs:
           with:
             name: MyBuiltArtifact
 
-        # Runs Veracode Policy Scan
+        # Runs Veracode SAST Scan
         - name: VERACODE SAST - POLICY SCAN
           if: ${{ success() }}
           uses: veracode/veracode-uploadandscan-action@0.2.6 
@@ -26,3 +26,14 @@ jobs:
             vkey: '${{ SECRETS.VKEY }}'
             version: '${{ github.run_id }}'
             deleteincompletescan: 2
+
+        # Verify SAST results to control workflow
+        - name: Validating SAST Scan Results
+          if: ${{ success() }}
+          run: |
+            echo '======================================================='
+            echo 'VALIDATING VERACODE SAST RESULTS...'
+            echo '======================================================='
+            chmod 755 ./shell_scripts/veracode-scan-results.sh
+            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
+
