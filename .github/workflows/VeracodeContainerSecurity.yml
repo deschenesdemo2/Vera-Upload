@@ -7,6 +7,7 @@ jobs:
   ContainerScan:
     runs-on: ubuntu-latest
     steps:
+
         # Runs Veracode Container Security - Failing on failed Bult-In Policy
         - name: VERACODE CONTAINER SECURITY
           if: ${{ success() }}
@@ -16,7 +17,7 @@ jobs:
             REPO_URL: ${{ GITHUB.server_url }}/${{ GITHUB.REPOSITORY }}
           run: |
             echo '================================'
-            echo '== SCANNING REPO '$REPO_URL     '
+            echo '== SCANNING REPO '$REPO_URL
             echo '================================'
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
@@ -24,14 +25,14 @@ jobs:
             ./veracode scan --type directory --source ./ --output cs_results.json
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
-        #so the user can review that file to take remediation actions on it 
+        #so the user can review that file to take remediation actions on it
 
         # Verify Container Security results to control workflow
         - name: Validating Container Security Scan Results
           if: ${{ success() }}
           run: |
             echo '======================================================='
-            echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...      '
+            echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...'
             echo '======================================================='
             PASS=$(jq -r '."policy-passed"' cs_results.json)
             echo "Passed policy: $PASS"
