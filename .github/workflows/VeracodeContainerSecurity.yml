@@ -34,6 +34,8 @@ jobs:
             echo '======================================================='
             echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...'
             echo '======================================================='
+            cat cs_results.json
+            echo ''
             PASS=$(jq -r '."policy-passed"' cs_results.json)
             echo "Passed policy: $PASS"
             if $PASS; then
