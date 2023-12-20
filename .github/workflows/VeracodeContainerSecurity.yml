@@ -7,7 +7,6 @@ jobs:
   ContainerScan:
     runs-on: ubuntu-latest
     steps:
-
         # Runs Veracode Container Security - Failing on failed Bult-In Policy
         - name: VERACODE CONTAINER SECURITY
           if: ${{ success() }}
