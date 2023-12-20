@@ -29,7 +29,7 @@ jobs:
             cat cs_results.json
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
-        #so the user can review that file to take remediation actions on it
+        #so the user can review that file to take remediation actions on it 
 
         # Verify Container Security results to control workflow
         - name: Validating Container Security Scan Results
