@@ -45,6 +45,6 @@ jobs:
         uses: ./.github/workflows/VeracodeSandboxScan.yml
         secrets: inherit
 
-#    VeracodeContainerSecurity:
-#        uses: ./.github/workflows/VeracodeContainerSecurity.yml
-#        secrets: inherit
+    VeracodeContainerSecurity:
+        uses: ./.github/workflows/VeracodeContainerSecurity.yml
+        secrets: inherit
