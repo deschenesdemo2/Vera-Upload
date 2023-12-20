@@ -23,6 +23,11 @@ jobs:
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
             ./veracode scan --type directory --source ./ --output cs_results.json
+            echo ''
+            echo '================================'
+            echo '== CONTAINER SECURITY RESULTS
+            echo '================================'
+            cat cs_results.json
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
         #so the user can review that file to take remediation actions on it
