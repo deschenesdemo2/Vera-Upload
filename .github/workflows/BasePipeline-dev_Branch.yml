@@ -3,7 +3,7 @@ name: dev Branch - Base Pipeline
 on:
     pull_request:
         types:
-            - closed
+            [opened, reopened]
         branches:
             - 'dev'
 
