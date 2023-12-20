@@ -9,7 +9,6 @@ on:
 
 jobs:
     Build:
-        if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -46,5 +45,6 @@ jobs:
         secrets: inherit
 
     VeracodeContainerSecurity:
+        needs: Build
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
