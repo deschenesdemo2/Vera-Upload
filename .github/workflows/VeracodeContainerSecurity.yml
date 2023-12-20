@@ -17,15 +17,14 @@ jobs:
             REPO_URL: ${{ GITHUB.server_url }}/${{ GITHUB.REPOSITORY }}
           run: |
             echo '================================'
-            echo '== SCANNING REPO '$REPO_URL
+            echo '== SCANNING REPO '$REPO_URL     '
             echo '================================'
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
             ./veracode scan --type directory --source ./ --output cs_results.json
-            echo ''
             echo '================================'
-            echo '== CONTAINER SECURITY RESULTS
+            echo '== CONTAINER SECURITY RESULTS   '
             echo '================================'
             cat cs_results.json
 
@@ -37,7 +36,7 @@ jobs:
           if: ${{ success() }}
           run: |
             echo '======================================================='
-            echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...'
+            echo 'VALIDATING VERACODE CONTAINER SECURITY RESULTS...      '
             echo '======================================================='
             PASS=$(jq -r '."policy-passed"' cs_results.json)
             echo "Passed policy: $PASS"
