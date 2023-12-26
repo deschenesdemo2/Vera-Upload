@@ -6,7 +6,7 @@ on:
       repo_url:
         required: true
         type: string
-      head_ref:
+      ref:
         required: true
         type: string
 
@@ -27,5 +27,5 @@ jobs:
           run: |
             echo 'Prueba del Repo'
             echo ${{ inputs.repo_url }}
-            echo ${{ inputs.head_ref }}
+            echo ${{ inputs.ref }}
             ls -la

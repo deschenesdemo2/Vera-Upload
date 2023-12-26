@@ -48,5 +48,5 @@ jobs:
         uses: ./.github/workflows/VeracodeSCA.yml
         with:
           repo_url: ${{ github.repositoryUrl }}
-          head_ref: ${{ github.head_ref }}
+          ref: ${{ github.ref }}
         secrets: inherit
