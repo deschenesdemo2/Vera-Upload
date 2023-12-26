@@ -26,6 +26,6 @@ jobs:
           if: ${{ success() }}
           run: |
             echo 'Prueba del Repo'
-            echo ${{ repo_url }}
-            echo ${{ hed_ref }}
+            echo ${{ inputs.repo_url }}
+            echo ${{ inputs.head_ref }}
             ls -la
