@@ -1,0 +1,22 @@
+name: Veracode SCA
+
+on:
+  workflow_call:
+
+jobs:
+  SoftwareCompositionAnalysis:
+    runs-on: ubuntu-latest
+    steps:
+
+        #Gets the artifact
+        - name: Downloading artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: MyBuiltArtifact
+
+        # Runs Veracode Sandbox Scan
+        - name: VERACODE SCA - AGENT BASED SCAN
+          if: ${{ success() }}
+          run: |
+            echo 'Prueba del Repo'
+            ls -la
