@@ -2,6 +2,13 @@ name: Veracode SCA
 
 on:
   workflow_call:
+    inputs:
+      repo_url:
+        required: true
+        type: string
+      head_ref:
+        required: true
+        type: string
 
 jobs:
   SoftwareCompositionAnalysis:
@@ -19,4 +26,6 @@ jobs:
           if: ${{ success() }}
           run: |
             echo 'Prueba del Repo'
+            echo ${{ repo_url }}
+            echo ${{ hed_ref }}
             ls -la
