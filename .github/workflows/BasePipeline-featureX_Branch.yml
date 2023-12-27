@@ -46,7 +46,4 @@ jobs:
     VeracodeSCA:
         needs: Build
         uses: ./.github/workflows/VeracodeSCA.yml
-        with:
-          repo_url: ${{ github.server_url }}/${{ github.repository }}
-          ref: ${{ github.ref }}
         secrets: inherit
