@@ -16,6 +16,15 @@ jobs:
     name: Scan repository with Veracode SCA (ABS)
 
     steps:
+        # Repo Checkout
+        - uses: actions/checkout@v4.1.1
+          with:
+            repository: ${{ github.event.client_payload.repository.full_name }}
+            ref: ${{ github.event.client_payload.sha }}
+
+        - run: |
+            ls -la
+
         # Runs Veracode SCA (ABS)
         # This example is running a Org-Level Agent. Env variable SRCCLR_WORKSPACE_SLUG sets the workspace to upload results
         - name: VERACODE SCA - AGENT BASED SCAN
@@ -26,6 +35,5 @@ jobs:
           uses: veracode/veracode-sca@v2.1.9
           with:
             create-issues: false
-            url: ${{ inputs.repo_url }}
-            path: ./app
             debug: true
+            path: ./app
