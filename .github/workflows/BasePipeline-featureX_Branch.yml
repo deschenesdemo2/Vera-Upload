@@ -43,3 +43,7 @@ jobs:
         uses: ./.github/workflows/VeracodePipelineScan.yml
         secrets: inherit
   
+    VeracodeSCA:
+        needs: Build
+        uses: ./.github/workflows/VeracodeSCA.yml
+        secrets: inherit
