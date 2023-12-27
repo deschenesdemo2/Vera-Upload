@@ -20,7 +20,7 @@ jobs:
         # This example is running a Org-Level Agent. Env variable SRCCLR_WORKSPACE_SLUG sets the workspace to upload results
         - name: VERACODE SCA - AGENT BASED SCAN
           env:
-            SRCCLR_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_TOKEN }}
             SRCCLR_WORKSPACE_SLUG: 'YEEudonE'
           if: ${{ success() }}
           uses: veracode/veracode-sca@v2.1.9
