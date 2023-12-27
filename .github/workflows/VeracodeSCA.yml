@@ -29,3 +29,4 @@ jobs:
             url: ${{ inputs.repo_url }}
             path: ./app
             quick: true
+            debug: true
