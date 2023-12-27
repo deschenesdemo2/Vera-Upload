@@ -6,7 +6,7 @@ on:
 jobs:
   SoftwareCompositionAnalysis:
     runs-on: ubuntu-latest
-    name: Scan repository with Veracode SCA (ABS)
+    name: SoftwareCompositionAnalysis
 
     steps:
         # Repo Checkout
