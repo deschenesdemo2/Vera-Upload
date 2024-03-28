@@ -42,7 +42,5 @@ stages:
       displayName: 'SAST - Pipeline Scan'
 
       steps:
-
-      - task: CmdLine@2
-        displayName: 'Probando si llegué'
-        script: echo '[INFO] Ostias llegué al pipeline de featureX!!!'
+      
+      - script: echo '[INFO] Ostias llegué al pipeline de featureX!!!'
