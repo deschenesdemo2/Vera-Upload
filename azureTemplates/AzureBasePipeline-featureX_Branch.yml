@@ -5,13 +5,6 @@ jobs:
   steps:
     - script: '[INFO] Starting Pipeline Execution...'
     - script: '[INFO] Branch - featureX'
-    - task: DownloadBuildArtifacts@0
-      inputs:
-        buildType: 'current'
-        downloadType: 'all'
-        artifactName: 'verademo_package'
-        downloadPath: '$(Build.ArtifactStagingDirectory)'
-    - script: ls $(Build.ArtifactStagingDirectory)
 
 - job: 'SAST_PipelineScan'
   displayName: 'Veracode SAST - Pipeline Scan'
