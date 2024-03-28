@@ -7,6 +7,6 @@ steps:
       downloadType: 'all'
       artifactName: 'verademo_package'
       downloadPath: '$(Build.ArtifactStagingDirectory)'
-  - script: ls -all $(Build.ArtifactStagingDirectory)
+  - script: ls -R $(Build.ArtifactStagingDirectory)
 
 
