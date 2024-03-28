@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
  branches:
    include:
@@ -13,7 +8,17 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-jobs:
+stages:
 
-  - template: azureTemplates/AzureBasePipeline-featureX_Branch.yml
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+  - stage: Veracode
+    displayName: 'Veracode Security Scans'
+
+    jobs:
+
+    - job: BasePipelineFeatureXBranch
+      displayName: 'Veracode Security Scans - FeatureX Branch'
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+
+      steps:
+
+        - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
