@@ -6,4 +6,20 @@ jobs:
 
   steps:
 
-  - script: echo '[INFO] Ostias llegué al pipeline de featureX!!!'
+  - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
+
+- job: 'SCA_ABS'
+  displayName: 'SCA - Agent-Based Scan'
+  dependsOn: Build
+
+  steps:
+
+  - script: echo '[INFO] Starting Veracode SCA - Agent-Based Scan'
+
+- job: 'ContainerSecurity'
+  displayName: 'Container/IaC Scan'
+  dependsOn: Build
+
+  steps:
+
+  - script: echo '[INFO] Starting Veracode Container/IaC Scan'
