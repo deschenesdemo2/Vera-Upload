@@ -26,8 +26,5 @@ stages:
 
       steps:
 
-        - task:
-          inputs:
-            script: |
-              echo 'Aqui voy'
+        - script: echo Aqui voy
 #        - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
