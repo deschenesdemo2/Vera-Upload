@@ -1,12 +1,9 @@
 #VeracodePipelineScan.yml file
 steps:
   - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
-  - task: DownloadBuildArtifacts@0
+  - task: DownloadPipelineArtifact@2
     inputs:
-      buildType: 'current'
-      downloadType: 'all'
-      artifactName: 'verademo_package'
-      downloadPath: '$(Build.ArtifactStagingDirectory)'
-  - script: ls -R $(Build.ArtifactStagingDirectory)
+      artifact: verademo_package
+  - script: ls -all $(Pipeline.Workspace)
 
 

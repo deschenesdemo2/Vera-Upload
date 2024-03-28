@@ -54,7 +54,6 @@ stages:
         condition: succeeded()
         inputs:
           targetPath: 'app/target/verademo.war'
-          publishLocation: 'pipeline'
           artifact: verademo_package
 
     - job: 'SAST_PipelineScan'
