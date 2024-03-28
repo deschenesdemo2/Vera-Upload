@@ -39,8 +39,11 @@ stages:
           pmdRunAnalysis: false # Optional
           findBugsRunAnalysis: false # Optional
 
-    - publish: 'app/target/verademo.war'
-      artifact: verademo_package
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: 'app/target/verademo.war'
+          publishLocation: 'pipeline'
+          artifact: verademo_package
 
   - stage: SAST_PipelineScan
     displayName: 'SAST - Pipeline Scan'
