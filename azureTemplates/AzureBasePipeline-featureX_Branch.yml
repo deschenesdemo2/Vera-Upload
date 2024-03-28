@@ -1,18 +1,7 @@
-trigger: 'none'
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-stages:
-# Build stage is specific for compiling the demo application
-# This stage creates an artifact with package/binaries to be uploaded
-
-- stage: 'Build'
-  displayName: 'Build the application'
-
   jobs:
+
   - job: 'Build'
-    displayName: 'Build job'
+    displayName: 'Build'
 
     steps:
 
@@ -45,15 +34,6 @@ stages:
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
 
-    - publish: 'app/target/verademo.war'
-      artifact: verademo
-
-# In Veracode Stage it will execute Pipeline Scan or Sandbox Scan or Policy Scan depending on the branch under execution, which could be
-# 'featureX' or 'dev' or 'master' respectively.
-- stage: Veracode
-  dependsOn: Build
-
-  jobs:
   - job: 'SAST - Pipeline Scan'
     displayName: 'SAST Pipeline Scan'
 
