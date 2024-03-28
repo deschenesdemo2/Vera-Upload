@@ -2,6 +2,7 @@ jobs:
 
 - job: 'SAST_PipelineScan'
   displayName: 'SAST - Pipeline Scan'
+  dependsOn: Build
 
   steps:
 
