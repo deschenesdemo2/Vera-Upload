@@ -13,5 +13,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-- template: azureTemplates/AzureBasePipeline-featureX_Branch.yml
-  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+jobs:
+
+  - template: azureTemplates/AzureBasePipeline-featureX_Branch.yml
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
