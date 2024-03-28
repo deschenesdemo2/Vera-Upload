@@ -45,6 +45,4 @@ stages:
 
       - task: CmdLine@2
         displayName: 'Probando si llegué'
-        inputs:
-          script: |
-            echo '[INFO] Ostias llegué al pipeline de featureX!!!'
+        script: echo '[INFO] Ostias llegué al pipeline de featureX!!!'
