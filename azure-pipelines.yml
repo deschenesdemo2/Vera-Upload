@@ -26,5 +26,4 @@ stages:
 
       steps:
 
-        - script: echo Aqui voy
-#        - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
+        - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
