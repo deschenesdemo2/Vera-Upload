@@ -4,7 +4,7 @@ jobs:
   displayName: 'FeatureX Branch - Base Pipeline'
   steps:
     - script: '[INFO] Starting Pipeline Execution...'
-    - script: '[INFO] Branch: featureX'
+    - script: '[INFO] Branch - featureX'
     - task: DownloadBuildArtifacts@0
       inputs:
         buildType: 'current'
