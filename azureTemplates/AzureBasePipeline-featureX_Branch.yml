@@ -34,8 +34,8 @@
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
 
-  - job: 'SAST-PipelineScan'
-    displayName: 'SAST Pipeline Scan'
+  - job: 'SAST_PipelineScan'
+    displayName: 'SAST - Pipeline Scan'
 
     steps:
 
