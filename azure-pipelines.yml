@@ -20,3 +20,4 @@ stages:
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
 
     - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
+      dependsOn: BasePipelineFeatureXBranch
