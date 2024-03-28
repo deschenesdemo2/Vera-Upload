@@ -60,8 +60,11 @@ stages:
       displayName: 'Veracode SAST - Pipeline Scan'
       dependsOn: Build
       steps:
-      - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
       - template: "azureTemplates/VeracodePipelineScan.yml"
+        parameters:
+            VID: $(VID)
+            VKEY: $(VKEY)
+            SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
 
 
 

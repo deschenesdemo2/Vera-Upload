@@ -1,9 +1,30 @@
 #VeracodePipelineScan.yml file
+
+parameters:
+- name: 'VID'
+  type: string
+  default: ''
+- name: 'VKEY'
+  type: string
+  default: ''
+- name: 'SRCCLR_API_TOKEN'
+  type: string
+  default: ''
+
 steps:
   - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
+
   - task: DownloadPipelineArtifact@2
     inputs:
       artifact: verademo_package
-  - script: ls -all $(Pipeline.Workspace)
 
+  - task: VeracodePipelineScan@0
+    displayName: SAST - Pipeline Scan
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+    inputs:
+      VeracodeAPIID: ${{ parameters.VID }}
+      VeracodeAPIsecret: ${{ parameters.VKEY }}
+      fileToScan: '$(Pipeline.Workspace)/verademo.war'
+      breakPipeline: true
+      baselineFileOptions: 'standard'
 
