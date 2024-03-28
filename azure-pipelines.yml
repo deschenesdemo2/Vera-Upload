@@ -57,12 +57,13 @@ stages:
           publishLocation: 'pipeline'
           artifact: verademo_package
 
-    - job: 'FeatureXBranch_BasePipeline'
-      dependsOn: Build
-      displayName: 'FeatureX Branch - Base Pipeline'
+    - job: 'SAST_PipelineScan'
+      displayName: 'Veracode SAST - Pipeline Scan'
       steps:
-        - script: '[INFO] Starting Pipeline Execution...'
-        
-    - template: "azureTemplates/VeracodePipelineScan.yml"
+      - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
+      - template: "azureTemplates/VeracodePipelineScan.yml"
+
+
+
 #    - template: "azureTemplates/VeracodeSCA.yml"
 #    - template: "azureTemplates/VeracodeContainerSecurity.yml"
