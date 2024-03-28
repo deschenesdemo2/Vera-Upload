@@ -51,6 +51,7 @@ stages:
           findBugsRunAnalysis: false # Optional
 
       - task: PublishPipelineArtifact@1
+        condition: and(succeeded())
         inputs:
           targetPath: 'app/target/verademo.war'
           publishLocation: 'pipeline'

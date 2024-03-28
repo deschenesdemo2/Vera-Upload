@@ -5,21 +5,28 @@ jobs:
   steps:
     - script: '[INFO] Starting Pipeline Execution...'
     - script: '[INFO] Branch: featureX'
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          buildType: 'current'
+          downloadType: 'all'
+          artifactName: 'verademo_package'
+          downloadPath: '$(Build.ArtifactStagingDirectory)'
+    - script: ls $(Build.ArtifactStagingDirectory)
 
 - job: 'SAST_PipelineScan'
   displayName: 'Veracode SAST - Pipeline Scan'
-  dependsOn: Build
+  dependsOn: FeatureXBranch_BasePipeline
   steps:
   - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
 
 - job: 'SCA_ABS'
   displayName: 'Veracode SCA - Agent-Based Scan'
-  dependsOn: Build
+  dependsOn: FeatureXBranch_BasePipeline
   steps:
   - script: echo '[INFO] Starting Veracode SCA - Agent-Based Scan'
 
 - job: 'ContainerSecurity'
   displayName: 'Veracode Container/IaC Scan'
-  dependsOn: Build
+  dependsOn: FeatureXBranch_BasePipeline
   steps:
   - script: echo '[INFO] Starting Veracode Container/IaC Scan'
