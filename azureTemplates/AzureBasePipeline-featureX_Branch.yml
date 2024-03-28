@@ -1,7 +1,7 @@
 jobs:
 
 - job: 'SAST_PipelineScan'
-  displayName: 'SAST - Pipeline Scan'
+  displayName: 'Veracode SAST - Pipeline Scan'
   dependsOn: Build
 
   steps:
@@ -9,7 +9,7 @@ jobs:
   - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
 
 - job: 'SCA_ABS'
-  displayName: 'SCA - Agent-Based Scan'
+  displayName: 'Veracode SCA - Agent-Based Scan'
   dependsOn: Build
 
   steps:
@@ -17,7 +17,7 @@ jobs:
   - script: echo '[INFO] Starting Veracode SCA - Agent-Based Scan'
 
 - job: 'ContainerSecurity'
-  displayName: 'Container/IaC Scan'
+  displayName: 'Veracode Container/IaC Scan'
   dependsOn: Build
 
   steps:
