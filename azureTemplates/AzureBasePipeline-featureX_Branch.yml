@@ -1,11 +1,15 @@
-  jobs:
+stages:
 
-  - job: 'Build'
-    displayName: 'Build'
+  - stage: featureXBranch_BasePipeline
 
-    steps:
+    jobs:
 
-    - task: Maven@3
+    - job: 'Build'
+      displayName: 'Build'
+
+      steps:
+
+      - task: Maven@3
       inputs:
         mavenPomFile: 'app/pom.xml'
         goals: 'package' # Optional
@@ -34,13 +38,13 @@
         pmdRunAnalysis: false # Optional
         findBugsRunAnalysis: false # Optional
 
-  - job: 'SAST_PipelineScan'
-    displayName: 'SAST - Pipeline Scan'
+    - job: 'SAST_PipelineScan'
+      displayName: 'SAST - Pipeline Scan'
 
-    steps:
+      steps:
 
-    - task: CmdLine@2
-      displayName: 'Probando si llegué'
-      inputs:
-        script: |
-          echo '[INFO] Ostias llegué al pipeline de featureX!!!'
+      - task: CmdLine@2
+        displayName: 'Probando si llegué'
+        inputs:
+          script: |
+            echo '[INFO] Ostias llegué al pipeline de featureX!!!'

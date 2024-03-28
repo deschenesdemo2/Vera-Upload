@@ -10,14 +10,20 @@ pool:
 
 stages:
 
-  - stage: Veracode
-    displayName: 'Veracode Security Scans'
+  - stage: BasePipelineFeatureXBranch
+    displayName: 'Veracode Security Scans - FeatureX Branch'
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
 
-    jobs:
+  - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
 
-    - job: BasePipelineFeatureXBranch
-      displayName: 'Veracode Security Scans - FeatureX Branch'
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+#  - stage: Veracode
+#    displayName: 'Veracode Security Scans'
 
-    - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
-      dependsOn: BasePipelineFeatureXBranch
+#    jobs:
+
+#    - job: BasePipelineFeatureXBranch
+#      displayName: 'Veracode Security Scans - FeatureX Branch'
+#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+
+#    - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
+#      dependsOn: BasePipelineFeatureXBranch
