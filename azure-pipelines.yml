@@ -1,3 +1,8 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
 trigger:
  branches:
    include:
@@ -21,4 +26,8 @@ stages:
 
       steps:
 
-        - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
+        - task:
+          inputs:
+            script: |
+              echo 'Aqui voy'
+#        - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
