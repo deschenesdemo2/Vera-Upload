@@ -1,0 +1,6 @@
+# VeracodeSCA.yml file
+jobs:
+- job: 'SCA_ABS'
+  displayName: 'Veracode SCA - Agent-Based Scan'
+  steps:
+  - script: echo '[INFO] Starting Veracode SCA - Agent-Based Scan'

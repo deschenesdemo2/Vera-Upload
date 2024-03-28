@@ -1,0 +1,6 @@
+# VeracodeContainerSecurity.yml file
+jobs:
+- job: 'ContainerSecurity'
+  displayName: 'Veracode Container/IaC Scan'
+  steps:
+  - script: echo '[INFO] Starting Veracode Container/IaC Scan'

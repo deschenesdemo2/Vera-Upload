@@ -1,0 +1,7 @@
+#VeracodePipelineScan.yml file
+jobs:
+  - job: 'SAST_PipelineScan'
+    displayName: 'Veracode SAST - Pipeline Scan'
+    steps:
+    - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
+

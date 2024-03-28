@@ -57,16 +57,13 @@ stages:
           publishLocation: 'pipeline'
           artifact: verademo_package
 
-    - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
-
-#  - stage: Veracode
-#    displayName: 'Veracode Security Scans'
-
-#    jobs:
-
-#    - job: BasePipelineFeatureXBranch
-#      displayName: 'Veracode Security Scans - FeatureX Branch'
-#      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
-
-#    - template: "azureTemplates/AzureBasePipeline-featureX_Branch.yml"
-#      dependsOn: BasePipelineFeatureXBranch
+    - job: 'FeatureXBranch_BasePipeline'
+      dependsOn: Build
+      displayName: 'FeatureX Branch - Base Pipeline'
+      steps:
+        - script: '[INFO] Starting Pipeline Execution...'
+        - script: '[INFO] Branch - featureX'
+        
+    - template: "azureTemplates/VeracodePipelineScan.yml"
+    - template: "azureTemplates/VeracodeSCA.yml"
+    - template: "azureTemplates/VeracodeContainerSecurity.yml"
