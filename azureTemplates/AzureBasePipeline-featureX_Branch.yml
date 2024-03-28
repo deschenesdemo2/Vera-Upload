@@ -1,6 +1,7 @@
 stages:
 
-  - stage: featureXBranch_BasePipeline
+  - stage: Build
+    displayName: 'Build'
 
     jobs:
 
@@ -37,6 +38,15 @@ stages:
           checkStyleRunAnalysis: false # Optional
           pmdRunAnalysis: false # Optional
           findBugsRunAnalysis: false # Optional
+
+    - publish: 'app/target/verademo.war'
+      artifact: verademo_package
+
+  - stage: SAST_PipelineScan
+    displayName: 'SAST - Pipeline Scan'
+    dependsOn: Build
+
+    jobs:
 
     - job: 'SAST_PipelineScan'
       displayName: 'SAST - Pipeline Scan'
