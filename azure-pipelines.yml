@@ -59,6 +59,7 @@ stages:
 
     - job: 'SAST_PipelineScan'
       displayName: 'Veracode SAST - Pipeline Scan'
+      dependsOn: Build
       steps:
       - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
       - template: "azureTemplates/VeracodePipelineScan.yml"
