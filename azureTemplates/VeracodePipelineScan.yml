@@ -7,9 +7,6 @@ parameters:
 - name: 'VKEY'
   type: string
   default: ''
-- name: 'SRCCLR_API_TOKEN'
-  type: string
-  default: ''
 
 steps:
   - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'

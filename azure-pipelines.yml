@@ -64,7 +64,6 @@ stages:
         parameters:
             VID: $(VID)
             VKEY: $(VKEY)
-            SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
 
 
 

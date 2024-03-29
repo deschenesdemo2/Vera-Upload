@@ -1,6 +1,16 @@
 # VeracodeSCA.yml file
-jobs:
-- job: 'SCA_ABS'
-  displayName: 'Veracode SCA - Agent-Based Scan'
-  steps:
+
+parameters:
+# SRCCLR token to run Agent-based scan
+- name: 'SRCCLR_API_TOKEN'
+  type: string
+  default: ''
+
+steps:
   - script: echo '[INFO] Starting Veracode SCA - Agent-Based Scan'
+
+  - task: CmdLine@2
+    displayName: 'SCA - Agent-Based Scan'
+    inputs:
+      script: |
+        echo 'Probando el directorio del pipeline.'
