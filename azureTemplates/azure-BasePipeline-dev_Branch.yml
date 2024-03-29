@@ -3,8 +3,8 @@
 
 pr:
   branches:
-   include:
-   - refs/heads/dev
+    include:
+    - refs/heads/dev
 
 pool:
   vmImage: 'ubuntu-latest'
