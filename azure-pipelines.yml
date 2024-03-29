@@ -10,12 +10,13 @@ pool:
 
 stages:
 
-  - stage: BasePipelineFeatureXBranch
+  - stage: SecurityScans_FeatureXBranch
     displayName: 'Veracode Security Scans - FeatureX Branch'
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
 
     jobs:
 
+    # Builds and generates de artifacts (binaries/package) to be uploaded for Veracode scans
     - job: 'Build'
       displayName: 'Build'
 
@@ -56,6 +57,7 @@ stages:
           targetPath: 'app/target/verademo.war'
           artifact: verademo_package
 
+    # Runs Veracode SAST
     - job: 'SAST_PipelineScan'
       displayName: 'Veracode SAST - Pipeline Scan'
       dependsOn: Build
@@ -65,6 +67,7 @@ stages:
             VID: $(VID)
             VKEY: $(VKEY)
 
+    # Runs Veracode SCA
     - job: 'SCA_ABS'
       displayName: 'Veracode SCA - Agent-Based Scan'
       dependsOn: Build
@@ -78,6 +81,7 @@ stages:
           SRCCLR_WORKSPACE_SLUG: 'wddUOZd'
           SRCCLR_SCAN_DIR: './app'
       
+    # Runs Veracode Container/IaC
     - job: 'Container_IaC'
       displayName: 'Veracode Container/IaC Scan'
       dependsOn: Build
