@@ -13,7 +13,7 @@ stages:
 
   - stage: Build
     displayName: 'Build'
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
+#    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
 
     jobs:
 
