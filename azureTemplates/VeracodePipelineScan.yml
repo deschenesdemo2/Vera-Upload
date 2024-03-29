@@ -1,0 +1,30 @@
+# VeracodePipelineScan.yml file
+# This is a yml template to run Veracode Static Analysis with Pipeline Scan
+
+parameters:
+- name: 'VID'
+  type: string
+  default: ''
+- name: 'VKEY'
+  type: string
+  default: ''
+
+steps:
+
+# Downloads the artifact created in Build job with binaries/package to be scanned
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download Artifact to be Scanned'
+    inputs:
+      artifact: verademo_package
+
+# Runs Veracode Pipeline Scan
+  - task: VeracodePipelineScan@0
+    displayName: 'SAST - Pipeline Scan'
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+    inputs:
+      VeracodeAPIID: ${{ parameters.VID }}
+      VeracodeAPIsecret: ${{ parameters.VKEY }}
+      fileToScan: '$(Pipeline.Workspace)/verademo.war'
+      breakPipeline: true
+      baselineFileOptions: 'standard'
+
