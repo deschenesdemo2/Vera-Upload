@@ -25,7 +25,7 @@ steps:
         curl -fsS https://tools.veracode.com/veracode-cli/install | sh
         export VERACODE_API_KEY_ID=${{ parameters.VID }}
         export VERACODE_API_KEY_SECRET=${{ parameters.VKEY }}
-        ./veracode scan --type repo --source ${{ parameters.GITHUB_REPO_URI }} --output cs_results.json
+        ./veracode scan --type repo --source ${{ parameters.GITHUB_REPO_URI }} --format table --output cs_results.json
 
   #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
   #so the user can review that file to take remediation actions on it
@@ -37,7 +37,8 @@ steps:
       script: |
         cat cs_results.json
         echo ''
-        PASS=$(jq -r '."policy-passed"' cs_results.json)
+        PASS=$(cat cs_results.json | grep "Policy Passed = " | awk '{print $4}')
+#        PASS=$(jq -r '."policy-passed"' cs_results.json)
         echo "Passed policy: $PASS"
         if $PASS; then
           exit 0

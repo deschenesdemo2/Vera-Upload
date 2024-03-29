@@ -79,7 +79,7 @@ stages:
           SRCCLR_SCAN_DIR: './app'
       
     - job: 'Container_IaC'
-      displayName: 'Veracode COntainer/IaC Scan'
+      displayName: 'Veracode Container/IaC Scan'
       dependsOn: Build
       steps:
       - template: "azureTemplates/VeracodeContainerSecurity.yml"
