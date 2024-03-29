@@ -22,7 +22,7 @@ jobs:
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            ./veracode scan --type directory --source ./ --output cs_results.json
+            ./veracode scan --type directory --source ./ --format table --output cs_results.json
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
         #so the user can review that file to take remediation actions on it
@@ -36,8 +36,7 @@ jobs:
             echo '======================================================='
             cat cs_results.json
             echo ''
-            PASS=$(jq -r '."policy-passed"' cs_results.json)
-            echo "Passed policy: $PASS"
+            PASS=$(cat cs_results.json | grep "Policy Passed = " | awk '{print $4}')
             if $PASS; then
               exit 0
             else

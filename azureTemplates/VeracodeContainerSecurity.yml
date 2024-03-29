@@ -38,7 +38,6 @@ steps:
         cat cs_results.json
         echo ''
         PASS=$(cat cs_results.json | grep "Policy Passed = " | awk '{print $4}')
-        echo "Passed policy: $PASS"
         if $PASS; then
           exit 0
         else
