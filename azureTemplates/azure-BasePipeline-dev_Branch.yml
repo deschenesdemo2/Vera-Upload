@@ -1,5 +1,5 @@
 # azure-BasePipeline-dev_Branch.yml file
-# Pipeline to run Veracode security scans, triggered by 'dev' branch in GitHub repo 'oseduardo/verademo' t
+# Pipeline to run Veracode security scans, triggered by 'dev' branch in GitHub repo 'oseduardo/verademo'
 
 pr:
   branches:
