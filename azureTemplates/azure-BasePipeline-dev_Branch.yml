@@ -5,9 +5,6 @@ pr:
   branches:
     include:
     - refs/heads/dev
-    exclude:
-    - refs/heads/featureX
-    - refs/heads/master
 
 pool:
   vmImage: 'ubuntu-latest'
