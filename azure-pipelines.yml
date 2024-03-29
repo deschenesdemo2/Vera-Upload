@@ -65,7 +65,14 @@ stages:
             VID: $(VID)
             VKEY: $(VKEY)
 
-
+    - job: 'SCA_ABS'
+      displayName: 'Veracode SCA - Agent-Based Scan'
+      dependsOn: Build
+      steps:
+      - template: "azureTemplates/VeracodeSCA.yml"
+        parameters:
+            SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
+      
 
 #    - template: "azureTemplates/VeracodeSCA.yml"
 #    - template: "azureTemplates/VeracodeContainerSecurity.yml"
