@@ -1,17 +1,35 @@
 # VeracodeSCA.yml file
 
 parameters:
+# Service Connection created in ADO to connect to GitHub repo
+- name: 'GITHUB_SERVICE_CONNECTION'
+  type: string
+  default: ''
+# Repo URI
+- name: 'GITHUB_REPO_URI'
+  type: string
+  default: ''
+# Ref Branch of code repo  
+- name: 'GITHUB_REPO_REF'
+  type: string
+  default: ''
+# GitHub repo name 
+- name: 'GITHUB_REPO_NAME'
+  type: string
+  default: ''
 # SRCCLR token to run Agent-based scan
 - name: 'SRCCLR_API_TOKEN'
   type: string
   default: ''
 
+resources:
+  repositories:
+  - repository: verademo
+    type: github
+    endpoint: ${{ parameters.GITHUB_SERVICE_CONNECTION }}
+    name: ${{ parameters.GITHUB_REPO_NAME }}
+
 steps:
   - script: echo '[INFO] Starting Veracode SCA - Agent-Based Scan'
 
-  - task: CmdLine@2
-    displayName: 'SCA - Agent-Based Scan'
-    inputs:
-      script: |
-        echo $(Build.Repository.Uri)
-        echo $(Build.SourceBranch)
+  - checkout: verademo

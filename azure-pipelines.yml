@@ -69,11 +69,13 @@ stages:
       displayName: 'Veracode SCA - Agent-Based Scan'
       dependsOn: Build
       steps:
-      - script: echo $(Build.Repository.Uri)
-      - script: echo $(Build.SourceBranch)
-#      - template: "azureTemplates/VeracodeSCA.yml"
-#        parameters:
-#            SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
+      - template: "azureTemplates/VeracodeSCA.yml"
+        parameters:
+          GITHUB_SERVICE_CONNECTION: 'oseduardo'
+          GITHUB_REPO_URI: $(Build.Repository.Uri)
+          GITHUB_REPO_REF: $(Build.SourceBranch)
+          GITHUB_REPO_NAME: 'oseduardo/verademo'
+          SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
       
 
 #    - template: "azureTemplates/VeracodeSCA.yml"
