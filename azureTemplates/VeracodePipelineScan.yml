@@ -9,14 +9,13 @@ parameters:
   default: ''
 
 steps:
-  - script: echo '[INFO] Starting Veracode SAST - Pipeline Scan'
-
   - task: DownloadPipelineArtifact@2
+    displayName: 'Download Artifact to be Scanned'
     inputs:
       artifact: verademo_package
 
   - task: VeracodePipelineScan@0
-    displayName: SAST - Pipeline Scan
+    displayName: 'SAST - Pipeline Scan'
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
     inputs:
       VeracodeAPIID: ${{ parameters.VID }}
