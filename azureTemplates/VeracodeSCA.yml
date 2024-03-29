@@ -39,10 +39,9 @@ parameters:
 #    name: ${{ parameters.GITHUB_REPO_NAME }}
 
 steps:
-  - script: echo '[INFO] Starting Veracode SCA - Agent-Based Scan'
 
   - task: CmdLine@2
-    displayName: 'Running SCA Agent-based scan...'
+    displayName: 'Running Veracode SCA - Agent-Based Scan'
     inputs:
       script: |
         export SRCCLR_SCM_NAME='${{ parameters.GITHUB_REPO_NAME }}'
@@ -52,7 +51,7 @@ steps:
         export SRCCLR_API_TOKEN='${{ parameters.SRCCLR_API_TOKEN }}'
         export SRCCLR_WORKSPACE_SLUG='${{ parameters.SRCCLR_WORKSPACE_SLUG }}'
         export SCAN_DIR='${{ parameters.SRCCLR_SCAN_DIR }}'
-        curl -sSL https://download.sourceclear.com/ci.sh | DEBUG=1 sh -s -- scan --skip-compile --update-advisor --allow-dirty
+        curl -sSL https://download.sourceclear.com/ci.sh | SRCCLR_CI_JSON=1 sh -s -- scan --skip-compile --update-advisor --allow-dirty
         STATUS_SCA=${?}
         if [ $STATUS_SCA -eq 0 ];
         then
@@ -64,3 +63,5 @@ steps:
           echo '[INFO] --- ' $STATUS_SCA ' violations were found considering set rules.'
           exit 1
         fi
+
+  - script: ls -all
