@@ -1,3 +1,6 @@
+# azure-pipelines-featureX-BasePipeline.yml file
+# Pipeline to run Veracode security scans, triggered by 'featureX' branch in GitHub repo 'oseduardo/verademo'
+
 trigger:
  branches:
    include:
@@ -8,8 +11,8 @@ pool:
 
 stages:
 
-  - stage: SecurityScans_FeatureXBranch
-    displayName: 'Veracode Security Scans - FeatureX Branch'
+  - stage: Build
+    displayName: 'Build'
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
 
     jobs:
@@ -55,10 +58,14 @@ stages:
           targetPath: 'app/target/verademo.war'
           artifact: verademo_package
 
+  - stage: VeracodeSecurityScans
+    displayName: 'Veracode Security Scans - FeatureX Branch'
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+    dependsOn: Build
+
     # Runs Veracode SAST
     - job: 'SAST_PipelineScan'
       displayName: 'Veracode SAST - Pipeline Scan'
-      dependsOn: Build
       steps:
       - template: "azureTemplates/VeracodePipelineScan.yml"
         parameters:
@@ -68,7 +75,6 @@ stages:
     # Runs Veracode SCA
     - job: 'SCA_ABS'
       displayName: 'Veracode SCA - Agent-Based Scan'
-      dependsOn: Build
       steps:
       - template: "azureTemplates/VeracodeSCA.yml"
         parameters:
@@ -82,7 +88,6 @@ stages:
     # Runs Veracode Container/IaC
     - job: 'Container_IaC'
       displayName: 'Veracode Container/IaC Scan'
-      dependsOn: Build
       steps:
       - template: "azureTemplates/VeracodeContainerSecurity.yml"
         parameters:
