@@ -21,8 +21,25 @@ parameters:
 
 steps:
 
-# Downloads the artifact created in Build job with binaries/package to be scanned
+  # Downloads the artifact created in Build job with binaries/package to be scanned
   - task: DownloadPipelineArtifact@2
     displayName: 'Download Artifact to be Scanned'
     inputs:
       artifact: verademo_package
+
+  # Runs UploadAndScan task to run Sandbox scan. It wait for X mins for results (parameter 'maximumWaitTime')
+  - task: Veracode@3
+    inputs:
+      ConnectionDetailsSelection: 'Credentials'
+      apiId: '${{ parameters.VID }}'
+      apiKey: '${{ parameters.VKEY }}'
+      veracodeAppProfile: '${{ parameters.VERACODE_APP_PROFILE_NAME }}'
+      version: '$(build.buildNumber)'
+      filepath: '$(Pipeline.Workspace)/verademo.war'
+      sandboxName: '${{ parameters.VERACODE_SANDBOX_NAME }}'
+      createSandBox: true
+      createProfile: true
+      failBuildIfUploadAndScanBuildStepFails: true
+      failBuildOnPolicyFail: true
+      maximumWaitTime: '15'
+
