@@ -13,7 +13,6 @@ stages:
 
   - stage: Build
     displayName: 'Build'
-#    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
 
     jobs:
 
@@ -60,7 +59,6 @@ stages:
 
   - stage: VeracodeSecurityScans
     displayName: 'Veracode Security Scans - Dev Branch'
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
     dependsOn: Build
 
     jobs:
