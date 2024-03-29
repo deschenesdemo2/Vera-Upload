@@ -1,10 +1,7 @@
 # VeracodeSCA.yml file
+# This is a yml template to run Veracode Software Compisition Analysis with Agent-Based Scan
 
 parameters:
-# Service Connection created in ADO to connect to GitHub repo
-- name: 'GITHUB_SERVICE_CONNECTION'
-  type: string
-  default: ''
 # Repo URI
 - name: 'GITHUB_REPO_URI'
   type: string
@@ -30,16 +27,9 @@ parameters:
   type: string
   default: ''
 
-
-#resources:
-#  repositories:
-#  - repository: verademo
-#    type: github
-#    endpoint: ${{ parameters.GITHUB_SERVICE_CONNECTION }}
-#    name: ${{ parameters.GITHUB_REPO_NAME }}
-
 steps:
 
+# Runs SCA Agent-based scan. Depending on SCA policy rules, if "Build Action" is set up to 'Error', the pipeline will break with ExitCode=5 
   - task: CmdLine@2
     displayName: 'SCA - Agent-Based Scan'
     inputs:

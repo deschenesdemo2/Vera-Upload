@@ -71,7 +71,6 @@ stages:
       steps:
       - template: "azureTemplates/VeracodeSCA.yml"
         parameters:
-          GITHUB_SERVICE_CONNECTION: 'oseduardo'
           GITHUB_REPO_URI: $(Build.Repository.Uri)
           GITHUB_REPO_REF: $(Build.SourceBranch)
           GITHUB_REPO_NAME: 'oseduardo/verademo'
@@ -79,6 +78,12 @@ stages:
           SRCCLR_WORKSPACE_SLUG: 'wddUOZd'
           SRCCLR_SCAN_DIR: './app'
       
-
-#    - template: "azureTemplates/VeracodeSCA.yml"
-#    - template: "azureTemplates/VeracodeContainerSecurity.yml"
+    - job: 'Container-IaC'
+      displayName: 'Veracode COntainer/IaC Scan'
+      dependsOn: Build
+      steps:
+      - template: "azureTemplates/VeracodeContainerSecurity.yml"
+        parameters:
+          VID: $(VID)
+          VKEY: $(VKEY)
+          GITHUB_REPO_URI: $(Build.Repository.Uri)
