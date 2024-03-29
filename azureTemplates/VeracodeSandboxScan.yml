@@ -37,7 +37,7 @@ steps:
       version: '$(build.buildNumber)'
       filepath: '$(Pipeline.Workspace)/verademo.war'
       sandboxName: '${{ parameters.VERACODE_SANDBOX_NAME }}'
-      createSandBox: true
+      createSandBox: false
       createProfile: true
       failBuildIfUploadAndScanBuildStepFails: true
       failBuildOnPolicyFail: true
