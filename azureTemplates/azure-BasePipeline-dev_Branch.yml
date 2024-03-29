@@ -1,18 +1,19 @@
-trigger:
- branches:
+# azure-BasePipeline-dev_Branch.yml file
+# Pipeline to run Veracode security scans, triggered by 'dev' branch in GitHub repo 'oseduardo/verademo'
+
+pr:
+  branches:
    include:
-   - refs/heads/master
    - refs/heads/dev
-   - refs/heads/featureX
 
 pool:
   vmImage: 'ubuntu-latest'
 
 stages:
 
-  - stage: SecurityScans_FeatureXBranch
-    displayName: 'Veracode Security Scans - FeatureX Branch'
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
+  - stage: Build
+    displayName: 'Build'
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
 
     jobs:
 
@@ -57,22 +58,29 @@ stages:
           targetPath: 'app/target/verademo.war'
           artifact: verademo_package
 
+  - stage: VeracodeSecurityScans
+    displayName: 'Veracode Security Scans - Dev Branch'
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
+    dependsOn: Build
+
+    jobs:
+
     # Runs Veracode SAST
-    - job: 'SAST_PipelineScan'
-      displayName: 'Veracode SAST - Pipeline Scan'
-      dependsOn: Build
+    - job: 'SAST_SandboxScan'
+      displayName: 'Veracode SAST - Sandbox Scan'
       steps:
-      - template: "azureTemplates/VeracodePipelineScan.yml"
+      - template: "./VeracodeSandboxScan.yml"
         parameters:
-            VID: $(VID)
-            VKEY: $(VKEY)
+          VID: $(VID)
+          VKEY: $(VKEY)
+          VERACODE_APP_PROFILE_NAME: 'verademo_azure'
+          VERACODE_SANDBOX_NAME: 'devSandbox_azure'
 
     # Runs Veracode SCA
     - job: 'SCA_ABS'
       displayName: 'Veracode SCA - Agent-Based Scan'
-      dependsOn: Build
       steps:
-      - template: "azureTemplates/VeracodeSCA.yml"
+      - template: "./VeracodeSCA.yml"
         parameters:
           GITHUB_REPO_URI: $(Build.Repository.Uri)
           GITHUB_REPO_REF: $(Build.SourceBranch)
@@ -84,9 +92,8 @@ stages:
     # Runs Veracode Container/IaC
     - job: 'Container_IaC'
       displayName: 'Veracode Container/IaC Scan'
-      dependsOn: Build
       steps:
-      - template: "azureTemplates/VeracodeContainerSecurity.yml"
+      - template: "./VeracodeContainerSecurity.yml"
         parameters:
           VID: $(VID)
           VKEY: $(VKEY)
