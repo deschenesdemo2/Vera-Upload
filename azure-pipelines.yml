@@ -78,7 +78,7 @@ stages:
           SRCCLR_WORKSPACE_SLUG: 'wddUOZd'
           SRCCLR_SCAN_DIR: './app'
       
-    - job: 'Container-IaC'
+    - job: 'Container_IaC'
       displayName: 'Veracode COntainer/IaC Scan'
       dependsOn: Build
       steps:
