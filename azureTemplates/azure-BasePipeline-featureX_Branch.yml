@@ -2,9 +2,10 @@
 # Pipeline to run Veracode security scans, triggered by 'featureX' branch in GitHub repo 'oseduardo/verademo'
 
 trigger:
- branches:
-   include:
-   - refs/heads/featureX
+  branches:
+    include:
+    - refs/heads/featureX
+  
 
 pool:
   vmImage: 'ubuntu-latest'
