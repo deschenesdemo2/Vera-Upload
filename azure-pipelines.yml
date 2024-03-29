@@ -76,6 +76,7 @@ stages:
           GITHUB_REPO_REF: $(Build.SourceBranch)
           GITHUB_REPO_NAME: 'oseduardo/verademo'
           SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
+          SRCCLR_WORKSPACE_SLUG: 'wddUOZd'
       
 
 #    - template: "azureTemplates/VeracodeSCA.yml"

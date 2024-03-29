@@ -21,15 +21,42 @@ parameters:
 - name: 'SRCCLR_API_TOKEN'
   type: string
   default: ''
+# SRCCLR workspace slug
+- name: 'SRCCLR_WORKSPACE_SLUG'
+  type: string
+  default: ''
 
-resources:
-  repositories:
-  - repository: verademo
-    type: github
-    endpoint: ${{ parameters.GITHUB_SERVICE_CONNECTION }}
-    name: ${{ parameters.GITHUB_REPO_NAME }}
+
+#resources:
+#  repositories:
+#  - repository: verademo
+#    type: github
+#    endpoint: ${{ parameters.GITHUB_SERVICE_CONNECTION }}
+#    name: ${{ parameters.GITHUB_REPO_NAME }}
 
 steps:
   - script: echo '[INFO] Starting Veracode SCA - Agent-Based Scan'
 
-  - checkout: verademo
+  - task: CmdLine@2
+    displayName: 'Running SCA Agent-based scan...'
+    inputs:
+      script: |
+        export SRCCLR_SCM_NAME='${{ parameters.GITHUB_REPO_NAME }}'
+        export SRCCLR_SCM_URI='${{ parameters.GITHUB_REPO_URI }}'
+        export SRCCLR_SCM_REF='${{ parameters.GITHUB_REPO_REF }}'
+        export SRCCLR_SCM_REF_TYPE=branch
+#        export SRCCLR_SCM_REV=123456
+        export SRCCLR_API_TOKEN='${{ parameters.SRCCLR_API_TOKEN }}'
+        export SRCCLR_WORKSPACE_SLUG='${{ parameters.SRCCLR_WORKSPACE_SLUG }}'
+        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --skip-compile --update-advisor --allow-dirty
+        STATUS_SCA=${?}
+        if [ $STATUS_SCA -eq 0 ];
+        then
+          echo '[INFO] --- SCA has finished.'
+          echo '[INFO] --- No violations were found considering set rules.'
+        elif  [ $STATUS_SCA -gt 0 ];
+        then
+          echo '[INFO] --- SCA has finished.'
+          echo '[INFO] --- ' $STATUS_SCA ' violations were found considering set rules.'
+          exit 1
+        fi
