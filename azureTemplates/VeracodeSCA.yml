@@ -51,7 +51,7 @@ steps:
         export SRCCLR_API_TOKEN='${{ parameters.SRCCLR_API_TOKEN }}'
         export SRCCLR_WORKSPACE_SLUG='${{ parameters.SRCCLR_WORKSPACE_SLUG }}'
         export SCAN_DIR='${{ parameters.SRCCLR_SCAN_DIR }}'
-        curl -sSL https://download.sourceclear.com/ci.sh | DEBUG=1 sh -s -- scan --skip-compile --update-advisor --allow-dirty
+        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --skip-compile --update-advisor --allow-dirty
 #        STATUS_SCA=${?}
 #        if [ $STATUS_SCA -eq 0 ];
 #        then
