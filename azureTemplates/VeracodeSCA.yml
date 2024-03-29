@@ -13,5 +13,5 @@ steps:
     displayName: 'SCA - Agent-Based Scan'
     inputs:
       script: |
-        echo 'Probando el directorio del pipeline.'
-        ls -all
+        echo $(Build.Repository.Uri)
+        echo $(Build.SourceBranch)
