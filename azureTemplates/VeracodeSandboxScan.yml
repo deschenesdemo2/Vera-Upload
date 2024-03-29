@@ -41,5 +41,5 @@ steps:
       createProfile: true
       failBuildIfUploadAndScanBuildStepFails: true
       failBuildOnPolicyFail: true
-      maximumWaitTime: '15'
+      maximumWaitTime: '30'
 
