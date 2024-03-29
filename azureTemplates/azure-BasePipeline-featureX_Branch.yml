@@ -69,7 +69,7 @@ stages:
     - job: 'SAST_PipelineScan'
       displayName: 'Veracode SAST - Pipeline Scan'
       steps:
-      - template: "azureTemplates/VeracodePipelineScan.yml"
+      - template: "./VeracodePipelineScan.yml"
         parameters:
           VID: $(VID)
           VKEY: $(VKEY)
@@ -78,7 +78,7 @@ stages:
     - job: 'SCA_ABS'
       displayName: 'Veracode SCA - Agent-Based Scan'
       steps:
-      - template: "azureTemplates/VeracodeSCA.yml"
+      - template: "./VeracodeSCA.yml"
         parameters:
           GITHUB_REPO_URI: $(Build.Repository.Uri)
           GITHUB_REPO_REF: $(Build.SourceBranch)
@@ -91,7 +91,7 @@ stages:
     - job: 'Container_IaC'
       displayName: 'Veracode Container/IaC Scan'
       steps:
-      - template: "azureTemplates/VeracodeContainerSecurity.yml"
+      - template: "./VeracodeContainerSecurity.yml"
         parameters:
           VID: $(VID)
           VKEY: $(VKEY)
