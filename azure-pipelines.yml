@@ -69,9 +69,11 @@ stages:
       displayName: 'Veracode SCA - Agent-Based Scan'
       dependsOn: Build
       steps:
-      - template: "azureTemplates/VeracodeSCA.yml"
-        parameters:
-            SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
+      - script: echo $(Build.Repository.Uri)
+      - script: echo $(Build.SourceBranch)
+#      - template: "azureTemplates/VeracodeSCA.yml"
+#        parameters:
+#            SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
       
 
 #    - template: "azureTemplates/VeracodeSCA.yml"
