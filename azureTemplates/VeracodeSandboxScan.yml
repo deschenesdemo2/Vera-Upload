@@ -1,0 +1,28 @@
+# VeracodeSandboxScan.yml file
+# This is a yml template to run Veracode Static Analysis with Sandbox Scan
+
+parameters:
+# User ID - Veracode API Credentials
+- name: 'VID'
+  type: string
+  default: ''
+# User KEY - Veracode API Credentials
+- name: 'VKEY'
+  type: string
+  default: ''
+# Veracode App Profile Name
+- name: 'VERACODE_APP_PROFILE_NAME'
+  type: string
+  default: ''
+# Veracode Sandbox Name
+- name: 'VERACODE_SANDBOX_NAME'
+  type: string
+  default: ''
+
+steps:
+
+# Downloads the artifact created in Build job with binaries/package to be scanned
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download Artifact to be Scanned'
+    inputs:
+      artifact: verademo_package
