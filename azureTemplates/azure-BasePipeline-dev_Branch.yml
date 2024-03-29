@@ -1,5 +1,5 @@
 # azure-BasePipeline-dev_Branch.yml file
-# Pipeline to run Veracode security scans, triggered by 'dev' branch in GitHub repo 'oseduardo/verademo' t
+# Pipeline to run Veracode security scans, triggered by 'dev' branch in GitHub repo 'oseduardo/verademo'
 
 pr:
   branches:
@@ -13,7 +13,7 @@ stages:
 
   - stage: Build
     displayName: 'Build'
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
+#    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
 
     jobs:
 
