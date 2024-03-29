@@ -41,7 +41,7 @@ parameters:
 steps:
 
   - task: CmdLine@2
-    displayName: 'SCA - Agent-Based Scan'
+    displayName: 'SCA - Agent-Based Scan '
     inputs:
       script: |
         export SRCCLR_SCM_NAME='${{ parameters.GITHUB_REPO_NAME }}'
