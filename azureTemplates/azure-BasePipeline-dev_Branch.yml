@@ -72,7 +72,7 @@ stages:
           VID: $(VID)
           VKEY: $(VKEY)
           VERACODE_APP_PROFILE_NAME: 'verademo_azure'
-          VERACODE_SANDBOX_NAME: 'devSandbox_azure'
+          VERACODE_SANDBOX_NAME: 'devSandbox_Azure'
 
     # Runs Veracode SCA
     - job: 'SCA_ABS'
