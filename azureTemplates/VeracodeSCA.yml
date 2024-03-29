@@ -45,7 +45,6 @@ steps:
         export SRCCLR_SCM_URI='${{ parameters.GITHUB_REPO_URI }}'
         export SRCCLR_SCM_REF='${{ parameters.GITHUB_REPO_REF }}'
         export SRCCLR_SCM_REF_TYPE=branch
-#        export SRCCLR_SCM_REV=123456
         export SRCCLR_API_TOKEN='${{ parameters.SRCCLR_API_TOKEN }}'
         export SRCCLR_WORKSPACE_SLUG='${{ parameters.SRCCLR_WORKSPACE_SLUG }}'
         curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --skip-compile --update-advisor --allow-dirty
