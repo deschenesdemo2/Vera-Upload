@@ -63,14 +63,16 @@ stages:
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/featureX'))
     dependsOn: Build
 
+    jobs:
+
     # Runs Veracode SAST
     - job: 'SAST_PipelineScan'
       displayName: 'Veracode SAST - Pipeline Scan'
       steps:
       - template: "azureTemplates/VeracodePipelineScan.yml"
         parameters:
-            VID: $(VID)
-            VKEY: $(VKEY)
+          VID: $(VID)
+          VKEY: $(VKEY)
 
     # Runs Veracode SCA
     - job: 'SCA_ABS'
