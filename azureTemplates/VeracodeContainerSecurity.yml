@@ -1,0 +1,45 @@
+# VeracodeContainerSecurity.yml file
+# This is a yml template to run Veracode Container Security. It runs container and IaC analysis.
+
+parameters:
+# User ID - Veracode API Credentials
+- name: 'VID'
+  type: string
+  default: ''
+# User KEY - Veracode API Credentials
+- name: 'VKEY'
+  type: string
+  default: ''
+# Repo URI
+- name: 'GITHUB_REPO_URI'
+  type: string
+  default: ''
+
+steps:
+
+  # Runs Veracode Container Security - Failing on failed Bult-In Policy
+  - task: CmdLine@2
+    displayName: 'Container/IaC Scan'
+    inputs:
+      script: |
+        curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+        export VERACODE_API_KEY_ID=${{ parameters.VID }}
+        export VERACODE_API_KEY_SECRET=${{ parameters.VKEY }}
+        ./veracode scan --type repo --source ${{ parameters.GITHUB_REPO_URI }} --format table --output cs_results.json
+
+  #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
+  #so the user can review that file to take remediation actions on it
+
+  # Verify Container Security results to control workflow
+  - task: CmdLine@2
+    displayName: 'Validating Container Security Scan Results'
+    inputs:
+      script: |
+        cat cs_results.json
+        echo ''
+        PASS=$(cat cs_results.json | grep "Policy Passed = " | awk '{print $4}')
+        if $PASS; then
+          exit 0
+        else
+          exit 1
+        fi
