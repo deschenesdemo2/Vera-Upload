@@ -27,7 +27,7 @@ jobs:
                 java-version: '8'
                 distribution: 'temurin'
 
-            # Build the project by using Maven
+            # Build the project by using Maven.
             - name: Build with Maven
               working-directory: ./app
               run: mvn -B package --file pom.xml
