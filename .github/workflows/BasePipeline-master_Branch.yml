@@ -37,7 +37,9 @@ jobs:
               uses: actions/upload-artifact@v3
               with: 
                 name: MyBuiltArtifact
-                path: ./app/target/verademo.war
+                path: |
+                  ./app/target/verademo.war
+                  ./shell_scripts/veracode-scan-results.sh
 
     VeracodePolicyScan:
         needs: Build
