@@ -47,7 +47,7 @@
         # Check if it's a Sandbox Scan
         if [[ "$4" != "" ]]; then
           echo '[INFO] Validating Sandbox ID'
-          sandbox_ID=$(java -verbose -jar $JAVA_WRAPPER_LOCATION/VeracodeJavaAPI.jar -vid $1 -vkey $2 -action GetSandboxList -appid $app_ID | grep -w "$6" | sed -n 's/.* sandbox_id=\"\([0-9]*\)\" .*/\1/p')
+          sandbox_ID=$(java -verbose -jar $JAVA_WRAPPER_LOCATION/VeracodeJavaAPI.jar -vid $1 -vkey $2 -action GetSandboxList -appid $app_ID | grep -w "$4" | sed -n 's/.* sandbox_id=\"\([0-9]*\)\" .*/\1/p')
         else
           echo '[INFO] There is no a Sandbox specified. This is a Policy Scan'
         fi
@@ -186,11 +186,52 @@
                else
                   #A sandbox scan is not considered an official scan, so PassFail it's only available for Policy Scan
                   #Getting Summary Report
+                  echo "[INFO] This is a Sandbox Scan - A sandbox scan is not considered an official scan, so results should be considered as preliminary"
+
                   java -jar $JAVA_WRAPPER_LOCATION/VeracodeJavaAPI.jar -vid $1 -vkey $2 -action summaryreport -buildid $build_id -outputfilepath $OUTPUT_TEMP_FILE"_SummaryReport.xml"
-                  echo "[INFO] This is a Sandbox Scan - A sandbox scan is not considered an official scan, so PassFail it's only available for Policy Scan"
-                  echo "[INFO] For this Sandbox Scan, please see Summary Report in " $OUTPUT_TEMP_FILE"_SummaryReport.xml file. For detailed report, please go to Veracode platform or download Detailed Report by using APIs"
-                  echo ""
-                  cat $OUTPUT_TEMP_FILE"_SummaryReport.xml"
-                  rm -rf $OUTPUT_TEMP_FILE
-                  exit 0
+                  scan_result=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "policy_compliance_status=" | awk -F "\"" '{print $44}')
+
+                  if [[ $scan_result = *"Did Not Pass"* ]];
+                  then
+                       echo 'Application: ' $3 '(App-ID '$app_ID'/Sandbox-ID '$sandbox_ID') - Scanname: ' $5 '(Build-ID '$build_id') - Did NOT Pass'
+
+                       #Get Number of Flaws with Very High Severity
+                       echo ""
+                       numScanScore=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "numflawssev5=" | awk -F "\"" '{print $24}')
+                       numflawssev5=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "numflawssev5=" | awk -F "\"" '{print $20}')
+                       numflawssev4=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "numflawssev5=" | awk -F "\"" '{print $18}')
+                       numflawssev3=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "numflawssev5=" | awk -F "\"" '{print $16}')
+                       numflawssev2=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "numflawssev5=" | awk -F "\"" '{print $14}')
+                       numflawssev1=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "numflawssev5=" | awk -F "\"" '{print $12}')
+                       echo '[INFO] Final Score: '$numScanScore
+                       echo '[INFO] Number of flaws - Very High Severity: '$numflawssev5
+                       echo '[INFO] Number of flaws - High Severity: '$numflawssev4
+                       echo '[INFO] Number of flaws - Medium Severity: '$numflawssev3
+                       echo '[INFO] Number of flaws - Low Severity: '$numflawssev2
+                       echo '[INFO] Number of flaws - Very Low Severity: '$numflawssev1
+
+                       echo ""
+                       echo "SCA Scan Summary..."
+                       echo ""
+
+                       numTotalThirdPartyComponents=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "software_composition_analysis blacklisted_components=" | awk -F "\"" '{print $6}')
+                       boolViolatePolicy=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "software_composition_analysis blacklisted_components=" | awk -F "\"" '{print $8}')
+                       numComponentsViolatingPolicy=$(cat $OUTPUT_TEMP_FILE"_SummaryReport.xml" | grep "software_composition_analysis blacklisted_components=" | awk -F "\"" '{print $4}')
+                       echo "[INFO] Total Number of Third Party Components: "$numTotalThirdPartyComponents
+                       echo "[INFO] Do Third Party Copmponents Violate Policy?: "$boolViolatePolicy
+                       echo "[INFO] Number of Third Party Components Violating Policy: "$numComponentsViolatingPolicy
+                       echo ""
+
+                       echo ""
+                       echo "[INFO] See Summary Report in " $OUTPUT_TEMP_FILE"_SummaryReport.xml file. For detailed report, please go to Veracode platform or download Detailed Report by using APIs"
+                       echo ""
+                       exit 1
+                  else
+                       echo 'Application: ' $3 '(App-ID '$app_ID') - Scanname: ' $5 '(Build-ID '$build_id') - Did Pass'
+                       rm -rf $OUTPUT_TEMP_FILE
+
+                       echo "[INFO] See Summary Report in " $OUTPUT_TEMP_FILE"_SummaryReport.xml file. For detailed report, please go to Veracode platform or download Detailed Report by using APIs"
+                       echo ""
+                       exit 0
+                  fi
         fi
