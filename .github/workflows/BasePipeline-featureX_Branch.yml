@@ -43,6 +43,13 @@ jobs:
         uses: ./.github/workflows/VeracodePipelineScan.yml
         secrets: inherit
   
+    VeracodeContainerSecurity:
+        needs: Build
+        uses: ./.github/workflows/VeracodeContainerSecurity.yml
+        secrets: inherit
+        with:
+          REPO_URI: ${{ GITHUB.server_url }}/${{ GITHUB.REPOSITORY }}
+          
     VeracodeSCA:
         needs: Build
         uses: ./.github/workflows/VeracodeSCA.yml
