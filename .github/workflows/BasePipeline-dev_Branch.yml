@@ -43,6 +43,9 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodeSandboxScan.yml
         secrets: inherit
+        with:
+          VERACODE_APP_PROFILE_NAME: 'verademo'
+          VERACODE_SANDBOX_NAME: 'dev_branch_github'
 
     VeracodeContainerSecurity:
         needs: Build

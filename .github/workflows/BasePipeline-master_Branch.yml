@@ -43,6 +43,8 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodePolicyScan.yml
         secrets: inherit
+        with:
+          VERACODE_APP_PROFILE_NAME: 'verademo'
           
     VeracodeContainerSecurity:
         needs: Build
