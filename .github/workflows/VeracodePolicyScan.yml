@@ -2,6 +2,10 @@ name: Veracode Policy Scan
 
 on:
   workflow_call:
+    inputs:
+      VERACODE_APP_PROFILE_NAME:
+        required: true
+        type: string
 
 jobs:
   PolicyScan:
@@ -23,7 +27,7 @@ jobs:
           if: ${{ success() }}
           uses: veracode/veracode-uploadandscan-action@0.2.6 
           with:
-            appname: 'verademo'
+            appname: ${{ inputs.VERACODE_APP_PROFILE_NAME }}
             createprofile: false
             filepath: 'verademo.war'
             vid: '${{ SECRETS.VID }}'
@@ -39,5 +43,5 @@ jobs:
             echo '======================================================='
             echo 'VALIDATING VERACODE SAST RESULTS...'
             echo '======================================================='
-            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
+            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} ${{ inputs.VERACODE_APP_PROFILE_NAME }}
 
