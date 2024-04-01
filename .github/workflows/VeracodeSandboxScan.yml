@@ -44,5 +44,5 @@ jobs:
             echo '======================================================='
             echo 'VALIDATING VERACODE SAST RESULTS...'
             echo '======================================================='
-            ../shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} ${{ inputs.VERACODE_APP_PROFILE_NAME }} ${{ inputs.VERACODE_SANDBOX_NAME }}
+            ../../shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} ${{ inputs.VERACODE_APP_PROFILE_NAME }} ${{ inputs.VERACODE_SANDBOX_NAME }}
 
