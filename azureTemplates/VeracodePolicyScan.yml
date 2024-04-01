@@ -1,5 +1,5 @@
 # VeracodePolicyScan.yml file
-# This is a yml template to run Veracode Static Analysis with Policy Scan
+# This is a yml template to run Veracode Static Analysis with Policy Scan.
 
 parameters:
 # User ID - Veracode API Credentials
