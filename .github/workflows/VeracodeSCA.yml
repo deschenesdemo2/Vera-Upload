@@ -2,6 +2,13 @@ name: Veracode SCA
 
 on:
   workflow_call:
+    inputs:
+      SRCCLR_WORKSPACE_SLUG:
+        required: true
+        type: string
+      SRCCLR_SCAN_DIR:
+        required: true
+        type: string
 
 jobs:
   SoftwareCompositionAnalysis:
@@ -23,10 +30,10 @@ jobs:
         - name: VERACODE SCA - AGENT BASED SCAN
           env:
             SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_TOKEN }}
-            SRCCLR_WORKSPACE_SLUG: 'YEEudonE'
+            SRCCLR_WORKSPACE_SLUG: ${{ inputs.SRCCLR_WORKSPACE_SLUG }}
           if: ${{ success() }}
           uses: veracode/veracode-sca@v2.1.9
           with:
             create-issues: false
             debug: true
-            path: ./app
+            path: ${{ inputs.SRCCLR_SCAN_DIR }}

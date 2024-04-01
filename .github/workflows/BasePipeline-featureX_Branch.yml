@@ -47,3 +47,6 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodeSCA.yml
         secrets: inherit
+        with:
+          SRCCLR_WORKSPACE_SLUG: 'YEEudonE'
+          SRCCLR_SCAN_DIR: './app'
