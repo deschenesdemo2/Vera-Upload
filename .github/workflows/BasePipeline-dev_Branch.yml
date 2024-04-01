@@ -48,8 +48,13 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
-
+        with:
+          REPO_URI: ${{ GITHUB.server_url }}/${{ GITHUB.REPOSITORY }}
+            
     VeracodeSCA:
         needs: Build
         uses: ./.github/workflows/VeracodeSCA.yml
-        secrets: inherit        
+        secrets: inherit
+        with:
+          SRCCLR_WORKSPACE_SLUG: 'YEEudonE'
+          SRCCLR_SCAN_DIR: './app'

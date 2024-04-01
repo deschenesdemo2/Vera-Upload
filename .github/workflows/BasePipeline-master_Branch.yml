@@ -48,4 +48,6 @@ jobs:
         needs: Build
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
-
+        with:
+          REPO_URI: ${{ GITHUB.server_url }}/${{ GITHUB.REPOSITORY }}
+  
