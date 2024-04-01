@@ -39,7 +39,7 @@ jobs:
                 name: MyBuiltArtifact
                 path: |
                   ./app/target/verademo.war
-                  ../../shell_scripts/veracode-scan-results.sh
+                  ./shell_scripts/veracode-scan-results.sh
 
     VeracodeSandboxScan:
         needs: Build
