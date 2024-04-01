@@ -13,7 +13,6 @@ stages:
 
   - stage: Build
     displayName: 'Build'
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
 
     jobs:
 
@@ -60,7 +59,6 @@ stages:
 
   - stage: VeracodeSecurityScans
     displayName: 'Veracode Security Scans - Dev Branch'
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
     dependsOn: Build
 
     jobs:
@@ -74,7 +72,7 @@ stages:
           VID: $(VID)
           VKEY: $(VKEY)
           VERACODE_APP_PROFILE_NAME: 'verademo_azure'
-          VERACODE_SANDBOX_NAME: 'devSandbox_azure'
+          VERACODE_SANDBOX_NAME: 'devSandbox_Azure'
 
     # Runs Veracode SCA
     - job: 'SCA_ABS'
