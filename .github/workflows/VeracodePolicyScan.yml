@@ -2,13 +2,17 @@ name: Veracode Policy Scan
 
 on:
   workflow_call:
+    inputs:
+      VERACODE_APP_PROFILE_NAME:
+        required: true
+        type: string
 
 jobs:
   PolicyScan:
     runs-on: ubuntu-latest
     steps:
 
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
         - name: Checking Out Code Repo
           uses: actions/checkout@v2
 
@@ -23,9 +27,9 @@ jobs:
           if: ${{ success() }}
           uses: veracode/veracode-uploadandscan-action@0.2.6 
           with:
-            appname: 'verademo'
+            appname: ${{ inputs.VERACODE_APP_PROFILE_NAME }}
             createprofile: false
-            filepath: 'verademo.war'
+            filepath: './app/target/verademo.war'
             vid: '${{ SECRETS.VID }}'
             vkey: '${{ SECRETS.VKEY }}'
             version: '${{ github.run_id }}'
@@ -35,9 +39,10 @@ jobs:
         - name: Validating SAST Scan Results
           if: ${{ success() }}
           run: |
-            chmod -R 777 shell_scripts
+            ls -all
+            chmod -R 777 ./shell_scripts
             echo '======================================================='
             echo 'VALIDATING VERACODE SAST RESULTS...'
             echo '======================================================='
-            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} verademo
+            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} ${{ inputs.VERACODE_APP_PROFILE_NAME }}
 

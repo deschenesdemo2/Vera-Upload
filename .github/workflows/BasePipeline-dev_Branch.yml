@@ -27,29 +27,39 @@ jobs:
                 java-version: '8'
                 distribution: 'temurin'
 
-            # Build the project by using Maven
+            # Build the project by using Maven.
             - name: Build with Maven
               working-directory: ./app
               run: mvn -B package --file pom.xml
 
-            # Publishing artifacts
+            # Publishing artifacts.
             - name: Step 3 - Use the Upload Artifact GitHub Action
               uses: actions/upload-artifact@v3
               with: 
                 name: MyBuiltArtifact
-                path: ./app/target/verademo.war
+                path: |
+                  ./app/target/verademo.war
+                  ./shell_scripts/veracode-scan-results.sh
 
     VeracodeSandboxScan:
         needs: Build
         uses: ./.github/workflows/VeracodeSandboxScan.yml
         secrets: inherit
+        with:
+          VERACODE_APP_PROFILE_NAME: 'verademo'
+          VERACODE_SANDBOX_NAME: 'dev_branch_github'
 
     VeracodeContainerSecurity:
         needs: Build
         uses: ./.github/workflows/VeracodeContainerSecurity.yml
         secrets: inherit
-
+        with:
+          REPO_URI: ${{ GITHUB.server_url }}/${{ GITHUB.REPOSITORY }}
+            
     VeracodeSCA:
         needs: Build
         uses: ./.github/workflows/VeracodeSCA.yml
-        secrets: inherit        
+        secrets: inherit
+        with:
+          SRCCLR_WORKSPACE_SLUG: 'YEEudonE'
+          SRCCLR_SCAN_DIR: './app'

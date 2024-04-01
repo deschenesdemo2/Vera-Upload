@@ -2,6 +2,10 @@ name: VeracodeContainerSecurity
 
 on:
   workflow_call:
+    inputs:
+      REPO_URI:
+        required: true
+        type: string
 
 jobs:
   ContainerScan:
@@ -14,15 +18,14 @@ jobs:
           env:
             VID: ${{ SECRETS.VID }}
             VKEY: ${{ SECRETS.VKEY }}
-            REPO_URL: ${{ GITHUB.server_url }}/${{ GITHUB.REPOSITORY }}
           run: |
             echo '================================'
-            echo '== SCANNING REPO '$REPO_URL
+            echo '== SCANNING REPO ${{ inputs.REPO_URI }}'
             echo '================================'
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            ./veracode scan --type directory --source ./ --format table --output cs_results.json
+            ./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
         #so the user can review that file to take remediation actions on it
