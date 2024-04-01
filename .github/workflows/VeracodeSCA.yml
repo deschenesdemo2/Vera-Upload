@@ -35,5 +35,5 @@ jobs:
           uses: veracode/veracode-sca@v2.1.9
           with:
             create-issues: false
-            debug: true
+            debug: false
             path: ${{ inputs.SRCCLR_SCAN_DIR }}

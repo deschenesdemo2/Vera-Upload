@@ -20,7 +20,7 @@ jobs:
             VKEY: ${{ SECRETS.VKEY }}
           run: |
             echo '================================'
-            echo '== SCANNING REPO '${{ inputs.REPO_URI }}'
+            echo '== SCANNING REPO ${{ inputs.REPO_URI }}'
             echo '================================'
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
