@@ -29,7 +29,7 @@ jobs:
           with:
             appname: ${{ inputs.VERACODE_APP_PROFILE_NAME }}
             createprofile: false
-            filepath: 'verademo.war'
+            filepath: './app/target/verademo.war'
             vid: '${{ SECRETS.VID }}'
             vkey: '${{ SECRETS.VKEY }}'
             version: '${{ github.run_id }}'
@@ -40,9 +40,9 @@ jobs:
           if: ${{ success() }}
           run: |
             ls -all
-            chmod -R 777 ../../shell_scripts
+            chmod -R 777 ./shell_scripts
             echo '======================================================='
             echo 'VALIDATING VERACODE SAST RESULTS...'
             echo '======================================================='
-            ../../shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} ${{ inputs.VERACODE_APP_PROFILE_NAME }}
+            ./shell_scripts/veracode-scan-results.sh ${{ SECRETS.VID }} ${{ SECRETS.VKEY }} ${{ inputs.VERACODE_APP_PROFILE_NAME }}
 
