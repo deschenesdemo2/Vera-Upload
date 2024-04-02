@@ -193,7 +193,7 @@
 
                   if [[ $scan_result = *"Did Not Pass"* ]];
                   then
-                       echo 'Application: ' $3 '(App-ID '$app_ID'/Sandbox-ID '$sandbox_ID') - Scanname: ' $5 '(Build-ID '$build_id') - Did NOT Pass'
+                       echo 'Application: ' $3 '(App-ID '$app_ID') - Sandbox: ' $4 ' (Sandbox-ID '$sandbox_ID') - Scanname: ' $5 '(Build-ID '$build_id') - Did NOT Pass'
 
                        #Get Number of Flaws with Very High Severity
                        echo ""
