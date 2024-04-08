@@ -35,8 +35,11 @@ steps:
     inputs:
       script: |
         export SRCCLR_SCM_NAME='${{ parameters.GITHUB_REPO_NAME }}'
+        echo 'SRCCLR_SCM_NAME: '$SRCCLR_SCM_NAME
         export SRCCLR_SCM_URI='${{ parameters.GITHUB_REPO_URI }}'
+        echo 'SRCCLR_SCM_URI: '$SRCCLR_SCM_URI
         export SRCCLR_SCM_REF='${{ parameters.GITHUB_REPO_REF }}'
+        echo 'SRCCLR_SCM_REF: '$SRCCLR_SCM_REF
         export SRCCLR_SCM_REF_TYPE=branch
         export SRCCLR_API_TOKEN='${{ parameters.SRCCLR_API_TOKEN }}'
         export SRCCLR_WORKSPACE_SLUG='${{ parameters.SRCCLR_WORKSPACE_SLUG }}'
