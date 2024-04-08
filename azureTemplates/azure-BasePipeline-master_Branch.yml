@@ -73,6 +73,19 @@ stages:
           VKEY: $(VKEY)
           VERACODE_APP_PROFILE_NAME: 'verademo_azure'
 
+    # Runs Veracode SCA
+    - job: 'SCA_ABS'
+      displayName: 'Veracode SCA - Agent-Based Scan'
+      steps:
+      - template: "./VeracodeSCA.yml"
+        parameters:
+          GITHUB_REPO_URI: $(Build.Repository.Uri)
+          GITHUB_REPO_REF: $(Build.SourceBranch)
+          GITHUB_REPO_NAME: 'oseduardo/verademo'
+          SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
+          SRCCLR_WORKSPACE_SLUG: 'wddUOZd'
+          SRCCLR_SCAN_DIR: './app'
+
     # Runs Veracode Container/IaC
     - job: 'Container_IaC'
       displayName: 'Veracode Container/IaC Scan'
