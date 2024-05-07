@@ -1,5 +1,5 @@
 # VeraDemo - Blab-a-Gag
-# DEMO Banco de Cordoba
+# DEMO Transbank
 
 ### Notice
 
