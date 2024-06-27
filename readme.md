@@ -1,5 +1,5 @@
 # VeraDemo - Blab-a-Gag
-# DEMO Demo FAC 2
+# DEMO Demo BCI Chile
 
 ### Notice
 
