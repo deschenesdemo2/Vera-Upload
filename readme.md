@@ -1,5 +1,5 @@
 # VeraDemo - Blab-a-Gag
-# DEMO PRUEBA
+# DEMO TELCEL
 
 ### Notice
 
