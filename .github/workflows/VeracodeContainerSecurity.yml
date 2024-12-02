@@ -25,8 +25,7 @@ jobs:
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            ./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json
-            EXIT_CODE=${?}
+            EXIT_CODE=$(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json)
             if [[ $EXIT_CODE = 0 ]];
             then
               echo ""
