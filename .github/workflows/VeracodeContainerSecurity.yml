@@ -25,7 +25,9 @@ jobs:
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            ./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json
+            EXIT_CODE='-1'
+            EXIT_CODE=$(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json)
+            echo '$EXIT_CODE'
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
         #so the user can review that file to take remediation actions on it
