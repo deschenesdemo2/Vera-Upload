@@ -27,7 +27,20 @@ jobs:
             export VERACODE_API_KEY_SECRET=$VKEY
             ./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json
             EXIT_CODE=${?}
-            echo $EXIT_CODE
+            if [[ $EXIT_CODE = 0 ]];
+            then
+              echo ""
+              echo '[INFO] Scan was succesfull and there are no issues!'
+              exit 0
+            elif [[ $EXIT_CODE = 3 ]];
+            then
+              echo ""
+              echo '[INFO] Scan was succesfull but there are some issues!'
+              exit 0
+            else
+              echo '[INFO] There was a problem while executing Container Security'
+              exit $EXIT_CODE
+            fi
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
         #so the user can review that file to take remediation actions on it
