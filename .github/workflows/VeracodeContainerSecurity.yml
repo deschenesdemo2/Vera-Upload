@@ -26,7 +26,7 @@ jobs:
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
             EXIT_CODE=-1
-            echo $EXIT_CODE
+            EXIT_CODE=$(./veracode scan --help)
             #EXIT_CODE=$(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json)
             echo $EXIT_CODE
 
