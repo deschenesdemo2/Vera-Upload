@@ -30,16 +30,14 @@ jobs:
               EXIT_CODE=${?}
               echo 'Salida ' $EXIT_CODE
               echo ""
-              echo '[INFO] Scan was succesfull and there are no issues!'
-              exit 0
-            elif [[ $EXIT_CODE = 3 ]];
-            then
-              echo ""
               echo '[INFO] Scan was succesfull but there are some issues!'
-              exit 0
-            else
+              echo ""
               echo '[INFO] There was a problem while executing Container Security'
               exit $EXIT_CODE
+            else
+              echo ""
+              echo '[INFO] Scan was succesfull and there are no issues!'
+              exit 0
             fi
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
