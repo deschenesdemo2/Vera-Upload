@@ -25,9 +25,8 @@ jobs:
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            if [[ $(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json) ]];
+            if [[ EXIT_CODE=$(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json) ]];
             then
-              EXIT_CODE=${?}
               echo 'Salida ' $EXIT_CODE
               echo ""
               echo '[INFO] Scan was succesfull but there are some issues!'
@@ -35,7 +34,6 @@ jobs:
               echo '[INFO] There was a problem while executing Container Security'
               exit $EXIT_CODE
             else
-              EXIT_CODE=${PIPESTATUS[1]}
               echo 'Salida 2 ' $EXIT_CODE
               echo ""
               echo '[INFO] Scan was succesfull and there are no issues!'
