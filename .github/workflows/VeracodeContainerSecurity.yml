@@ -27,6 +27,8 @@ jobs:
             export VERACODE_API_KEY_SECRET=$VKEY
             if [[ $(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json) ]];
             then
+              EXIT_CODE=${?}
+              echo 'Salida ' $EXIT_CODE
               echo ""
               echo '[INFO] Scan was succesfull and there are no issues!'
               exit 0
