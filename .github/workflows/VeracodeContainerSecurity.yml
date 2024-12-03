@@ -25,8 +25,9 @@ jobs:
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            if [[ EXIT_CODE=$(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json) ]];
+            if [[ $(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json > exit_code.txt) ]];
             then
+              EXIT_CODE=$(cat exit_code.txt)
               echo 'Salida ' $EXIT_CODE
               echo ""
               echo '[INFO] Scan was succesfull but there are some issues!'
