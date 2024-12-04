@@ -32,7 +32,6 @@ jobs:
                 echo ''
                 exit 0
               else
-              then
                 '[INFO] There was a problem while executing Container Security!'
                 echo ''
                 exit $?
