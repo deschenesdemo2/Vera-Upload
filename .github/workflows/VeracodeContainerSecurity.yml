@@ -21,12 +21,15 @@ jobs:
           run: |
             handle_cs_code() {
               echo ''
-              if [ $? = 0];
+              EXIT_CODE=$?
+              echo '[INFO] Veracode Container Security - Scan Result: ' $EXIT_CODE
+              echo ''
+              if [ $EXIT_CODE = 0];
               then
                 echo '[INFO] Scan was succesfull and there are no issues.'
                 echo ''
                 exit 0
-              elif [ $? = 3];
+              elif [ $EXIT_CODE = 3];
               then
                 echo '[INFO] Scan was succesfull but there are some issues!'
                 echo ''
@@ -34,7 +37,7 @@ jobs:
               else
                 '[INFO] There was a problem while executing Container Security!'
                 echo ''
-                exit $?
+                exit $EXIT_CODE
               fi
               }
             echo '================================'
