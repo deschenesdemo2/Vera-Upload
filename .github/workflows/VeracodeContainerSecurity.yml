@@ -19,27 +19,32 @@ jobs:
             VID: ${{ SECRETS.VID }}
             VKEY: ${{ SECRETS.VKEY }}
           run: |
+            handle_cs_code() { |
+              echo ''
+              if [ $? = 0];
+              then
+                echo '[INFO] Scan was succesfull and there are no issues.'
+                echo ''
+                exit 0
+              elsif [ $? = 3];
+              then
+                echo '[INFO] Scan was succesfull but there are some issues!''
+                echo ''
+                exit 0
+              else
+                '[INFO] There was a problem while executing Container Security!'
+                echo ''
+                exit $?
+              fi
+              }
             echo '================================'
             echo '== SCANNING REPO ${{ inputs.REPO_URI }}'
             echo '================================'
             curl -fsS https://tools.veracode.com/veracode-cli/install | sh
             export VERACODE_API_KEY_ID=$VID
             export VERACODE_API_KEY_SECRET=$VKEY
-            if [[ $(./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json > exit_code.txt) ]];
-            then
-              EXIT_CODE=$(cat exit_code.txt)
-              echo 'Salida A - ' $EXIT_CODE
-              echo ""
-              echo '[INFO] Scan was succesfull but there are some issues!'
-              echo ""
-              echo '[INFO] There was a problem while executing Container Security'
-              exit $EXIT_CODE
-            else
-              echo 'Salida B - ' $EXIT_CODE
-              echo ""
-              echo '[INFO] Scan was succesfull and there are no issues!'
-              exit 0
-            fi
+            trap 'handle_cs_code $1' ERR
+            ./veracode scan --type repo --source ${{ inputs.REPO_URI }} --format table --output cs_results.json
 
         #It's recommended to create here an artifact (cs_results.json file) in order to store the Container Security scan results,
         #so the user can review that file to take remediation actions on it
