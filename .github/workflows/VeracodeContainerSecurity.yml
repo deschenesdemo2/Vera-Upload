@@ -28,7 +28,7 @@ jobs:
                 exit 0
               elif [ $? = 3];
               then
-                echo '[INFO] Scan was succesfull but there are some issues!''
+                echo '[INFO] Scan was succesfull but there are some issues!'
                 echo ''
                 exit 0
               else
