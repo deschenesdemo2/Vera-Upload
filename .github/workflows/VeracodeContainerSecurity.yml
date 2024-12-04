@@ -19,7 +19,7 @@ jobs:
             VID: ${{ SECRETS.VID }}
             VKEY: ${{ SECRETS.VKEY }}
           run: |
-            handle_cs_code() { |
+            handle_cs_code() {
               echo ''
               if [ $? = 0];
               then
