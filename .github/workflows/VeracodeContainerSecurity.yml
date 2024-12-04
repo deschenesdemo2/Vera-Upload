@@ -24,12 +24,12 @@ jobs:
               EXIT_CODE=$?
               echo '[INFO] Veracode Container Security - Scan Result: ' $EXIT_CODE
               echo ''
-              if [[ $EXIT_CODE = 0]];
+              if [[ $EXIT_CODE = 0]]
               then
                 echo '[INFO] Scan was succesfull and there are no issues.'
                 echo ''
                 exit 0
-              elif [[ $EXIT_CODE = 3]];
+              elif [[ $EXIT_CODE = 3]]
               then
                 echo '[INFO] Scan was succesfull but there are some issues!'
                 echo ''
