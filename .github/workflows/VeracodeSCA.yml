@@ -32,7 +32,7 @@ jobs:
             SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_TOKEN }}
             SRCCLR_WORKSPACE_SLUG: ${{ inputs.SRCCLR_WORKSPACE_SLUG }}
           if: ${{ success() }}
-          uses: veracode/veracode-sca@v2.1.9
+          uses: veracode/veracode-sca@v2.1.12
           with:
             create-issues: false
             debug: false
