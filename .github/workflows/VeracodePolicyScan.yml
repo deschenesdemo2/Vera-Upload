@@ -28,7 +28,7 @@ jobs:
           uses: veracode/veracode-uploadandscan-action@0.2.6 
           with:
             appname: ${{ inputs.VERACODE_APP_PROFILE_NAME }}
-            createprofile: false
+            createprofile: true
             filepath: './app/target/verademo.war'
             vid: '${{ SECRETS.VID }}'
             vkey: '${{ SECRETS.VKEY }}'
