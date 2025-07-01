@@ -1,5 +1,5 @@
 name: Veracode Policy Scan
-
+ 
 on:
   workflow_call:
     inputs:
